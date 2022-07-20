@@ -1,11 +1,14 @@
 #ifndef __SYLAR_LOG_H_
 #define __SYLAR_LOG_H_
 
+#include <iostream>
 #include <string>
 #include <stdint.h>
 #include <memory>
-#include <stringstream>
-#include <filestream>
+#include <list>
+#include <sstream>
+#include <fstream>
+#include <vector>
 
 // 新版的可以用 #once
 // namespace是区分其他代码的命名
@@ -19,11 +22,10 @@ public:
 	// 通过计数的方式判断目前使用该资源的指针数，如果为0则销毁指针
 	typedef std::shared_ptr<LogEvent> ptr;
 	LogEvent();
-
 	const char* getFile() const {return m_file;}
 	int32_t getLine() const {return m_line;}
 	uint32_t getElapse() const {return m_elapse;}
-	uint32_t m_threadId() const {return m_threadId;}
+	uint32_t getThreadId() const {return m_threadId;}
 	uint32_t getFiberId() const {return m_fiberId;}
 	uint64_t getTime() const {return m_time;}
 	const std::string& getContent() const {return m_content;}
@@ -47,41 +49,40 @@ private:
 class LogLevel {
 public:
 	enum Level{
-		UNKNOW = 0;
-		DEBUG = 1;
-		INFO = 2;
-		WARN = 3;
-		ERROR = 4;
-		FATAL = 5;
+		UNKNOW = 0,
+		DEBUG = 1,
+		INFO = 2,
+		WARN = 3,
+		ERROR = 4,
+		FATAL = 5
 	};
 	static const char* ToString(LogLevel::Level level);
 };
 
 // 日志输出格式
-class LogFormmater{
+class LogFormatter{
 public:
-	typedef std::shared_ptr<LogFormater> ptr;
-	LogFormatter(const std::string pattern);
+	typedef std::shared_ptr<LogFormatter> ptr;
+	LogFormatter(const std::string& pattern);
 
 	std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event);
 public:
 	// 子类的基类
-	class FormatItem{
+	class FormatItem {
 	public:
 		typedef std::shared_ptr<FormatItem> ptr;
-		FormateItem(const std::string& fmt = "");
 		// 将基类的析构函数定义为虚函数，才会调用子类的析构函数
 		// 子类析构函数不需要设置为虚函数，就可以调用孙类的析构函数
 		virtual ~FormatItem() {}
 		// 纯虚函数
-		virtual void format(std::ostream& os, LogLevel::Level level,  LogEvenet::ptr event) = 0;
+		virtual void format(std::ostream& os,std::shared_ptr<Logger> logger, LogLevel::Level level,  LogEvent::ptr event) = 0;
 	};
 
 	void init();
 private:
 	// formatter 的结构
 	std::string m_pattern;
-	std::vector<FormateItem::ptr> m_items;
+	std::vector<FormatItem::ptr> m_items;
 };
 
 // 日志输出地
@@ -91,15 +92,19 @@ public:
 	// 输出地可以为多个
 	virtual ~LogAppender() {}	
 	virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
-	void setFormatter(LogFormatter::ptr val){m_formatter = val;}
-	LogFormatter::ptr getFormatter() const {return m_formatter;}
+
+	void setFormatter(LogFormatter::ptr val) { m_formatter = val;}
+    LogFormatter::ptr getFormatter() const { return m_formatter;}
+
+    LogLevel::Level getLevel() const { return m_level;}
+    void setLevel(LogLevel::Level val) { m_level = val;}
 private:
-	LogLevel::level m_level;
-	LogFormatter::m_formatter;
+	LogLevel::Level m_level = LogLevel::DEBUG;
+	LogFormatter::ptr m_formatter;
 };
 
 // 日志器
-class Logger{
+class Logger : public std::enable_shared_from_this<Logger>{
 public:
 	typedef std::shared_ptr<Logger> ptr;
 	Logger(const std::string& name = "root");
@@ -113,7 +118,7 @@ public:
 	void addAppender(LogAppender::ptr appender);
 	void delAppender(LogAppender::ptr appender);
 
-	LogLevel::level getLevel() const {return m_level;}
+	LogLevel::Level getLevel() const {return m_level;}
 	std::string getName() const {return m_name;}
 	
 	void setLevel(LogLevel::Level val){m_level = val;}
@@ -121,28 +126,30 @@ private:
 	// 日志名称
 	std::string m_name;
 	// 日志级别
-	logLevel::Level m_level;
+	LogLevel::Level m_level;
 	// 输出目的地的集合
 	std::list<LogAppender::ptr> m_appenders;
+	LogFormatter::ptr m_formatter;
 };
 // 输出到控制台的Appender
 class StdoutLogAppender : public LogAppender{
 public:
 	typedef std::shared_ptr<StdoutLogAppender> ptr;
-	void log(LogLevel::Level level, LogEvent::ptr event) override;
+	void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
 };
 // 输出到文件的Appender
-class FileLogAppender : LogAppender{
+class FileLogAppender : public LogAppender{
 public:
 	typedef std::shared_ptr<FileLogAppender> ptr;
 	// 输出到文件需要提供文件名
 	FileLogAppender(const std::string& filename);
-	void log(LogLevel::Level level, LogEvent::ptr event) override;
-	// 打开文件
+	void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
+	// 打开文件，成功返回true
 	bool reopen();
 private:
-	std::string m_name;
+	std::string m_filename;
 	// 用流的方式写入文件
 	std::ofstream m_filestream;
 };
+}
 #endif
