@@ -1,5 +1,7 @@
 #include <iostream>
 #include "sylar/log.h"
+#include "sylar/util.h"
+
 int main(int argc, char const *argv[])
 {
     sylar::Logger::ptr logger(new sylar::Logger);
@@ -12,9 +14,13 @@ int main(int argc, char const *argv[])
 
     logger->addAppender(file_appender);
 
-    sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__, __LINE__, 0, 1, 2, time(0)));
+    // sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__, __LINE__, 0, sylar::GetThreadId(), sylar::GetFiberId(), 2, time(0)));
 
-    logger->log(sylar::LogLevel::DEBUG, event);
-    std::cout << "hello, world" << std::endl;
+    // logger->log(sylar::LogLevel::DEBUG, event);
+    SYLAR_LOG_INFO(logger) << "test macro";
+    SYLAR_LOG_FMT_ERROR(logger, "test macro fmt error %s", "aa");
+
+    auto l = sylar::LoggerMgr::GetInstance()->getLogger("xx");
+    SYLAR_LOG_INFO(l) << "xxx";
     return 0;
 }
