@@ -13,10 +13,9 @@ int main(int argc, char const *argv[])
     file_appender->setLevel(sylar::LogLevel::ERROR);
 
     logger->addAppender(file_appender);
-
     // sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__, __LINE__, 0, sylar::GetThreadId(), sylar::GetFiberId(), 2, time(0)));
-
     // logger->log(sylar::LogLevel::DEBUG, event);
+
     SYLAR_LOG_INFO(logger) << "test macro";
     SYLAR_LOG_FMT_ERROR(logger, "test macro fmt error %s", "aa");
 

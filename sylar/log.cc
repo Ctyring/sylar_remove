@@ -18,12 +18,11 @@ namespace sylar
 	case LogLevel::name: \
 		return #name;    \
 		break;
-
-			XX(DEBUG);
-			XX(INFO);
-			XX(WARN);
-			XX(ERROR);
-			XX(FATAL);
+			XX(DEBUG)
+			XX(INFO)
+			XX(WARN)
+			XX(ERROR)
+			XX(FATAL)
 #undef XX
 		default:
 			return "UNKNOW";
@@ -349,6 +348,7 @@ namespace sylar
 				if (m_pattern[i + 1] == '%')
 				{
 					nstr.append(1, '%');
+					++i;
 					continue;
 				}
 			}
