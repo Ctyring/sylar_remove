@@ -16,6 +16,9 @@ include_directories(.)
 include_directories(/yaml-cpp/include)
 link_directories(/yaml-cpp/lib)
 
+find_library(YAMLCPP yaml-cpp)
+message("***", ${YAMLCPP})
+
 set(LIB_SRC 
 	sylar/log.cc
 	sylar/util.cc
@@ -26,11 +29,11 @@ add_library(sylar SHARED ${LIB_SRC})
 
 add_executable(test tests/test.cc)
 add_dependencies(test sylar)
-target_link_libraries(test sylar)
+target_link_libraries(test sylar ${YAMLCPP})
 
 add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config sylar)
-target_link_libraries(test_config sylar yaml-cpp)
+target_link_libraries(test_config sylar ${YAMLCPP})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

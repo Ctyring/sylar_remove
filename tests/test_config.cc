@@ -2,7 +2,8 @@
 #include "sylar/log.h"
 #include <yaml-cpp/yaml.h>
 
-sylar::ConfigVar<int>::ptr g_int_value_config = sylar::Config::Lookup("system.prot", (int)8080, "system port");
+sylar::ConfigVar<int>::ptr g_int_value_config =
+    sylar::Config::Lookup("system.port", (int)8080, "system port");
 
 sylar::ConfigVar<float>::ptr g_float_value_config =
     sylar::Config::Lookup("system.value", (float)10.2f, "system value");
@@ -44,13 +45,25 @@ void test_yaml()
 {
     YAML::Node root = YAML::LoadFile("/root/cty/sylar/bin/conf/log.yml");
     print_yaml(root, 0);
+
     SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root.Scalar();
 }
 
-int main(int argc, char const *arfv[])
+void test_config()
 {
-    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << g_int_value_config->getValue();
-    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << g_float_value_config->toString();
-    test_yaml();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_int_value_config->getValue();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_float_value_config->toString();
+
+    YAML::Node root = YAML::LoadFile("/root/cty/sylar/bin/conf/log.yml");
+    sylar::Config::LoadFromYaml(root);
+
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_int_value_config->getValue();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_float_value_config->toString();
+}
+
+int main(int argc, char **argv)
+{
+    // test_yaml();
+    test_config();
     return 0;
 }

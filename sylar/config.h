@@ -2,6 +2,7 @@
 #define __SYLAR_CONFIG_H__
 
 #include <memory>
+#include <string>
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 #include <yaml-cpp/yaml.h>
@@ -15,7 +16,10 @@ namespace sylar
     public:
         typedef std::shared_ptr<ConfigVarBase> ptr;
         ConfigVarBase(const std::string &name, const std::string &description = "")
-            : m_name(name), m_description(description) {}
+            : m_name(name), m_description(description)
+        {
+            std::transform(m_name.begin(), m_name.end(), m_name.begin(), ::tolower);
+        }
         virtual ~ConfigVarBase() {}
 
         const std::string &getName() const { return m_name; }
