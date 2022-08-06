@@ -6,6 +6,33 @@ namespace sylar
     static thread_local std::string t_thread_name = "UNKNOW";
 
     static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
+
+    Semaphore::Semaphore(uint32_t count)
+    {
+        if (sem_init(&m_semaphore, 0, count))
+        {
+            throw std::logic_error("sem_init error");
+        }
+    }
+    Semaphore::~Semaphore()
+    {
+        sem_destroy(&m_semaphore);
+    }
+    void Semaphore::wait()
+    {
+        if (sem_wait(&m_semaphore))
+        {
+            throw std::logic_error("sem_wait error");
+        }
+    }
+    void Semaphore::notify()
+    {
+        if (sem_post(&m_semaphore))
+        {
+            throw std::logic_error("sem_post error");
+        }
+    }
+
     // 获取自己当前的线程
     Thread *Thread::GetThis()
     {
@@ -37,6 +64,7 @@ namespace sylar
                                       << " name=" << name;
             throw std::logic_error("pthread_create error");
         }
+        m_semaphore.wait();
     }
     Thread::~Thread()
     {
@@ -74,6 +102,8 @@ namespace sylar
         std::function<void()> cb;
         // 清掉m_cb，防止线程内有智能指针等导致内存不释放问题。
         cb.swap(thread->m_cb);
+
+        thread->m_semaphore.notify();
 
         cb();
         return 0;
