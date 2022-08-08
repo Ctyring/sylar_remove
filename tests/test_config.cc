@@ -2,13 +2,17 @@
 #include "sylar/log.h"
 #include <yaml-cpp/yaml.h>
 #include <iostream>
-#if 0
+
+#if 1
 sylar::ConfigVar<int>::ptr g_int_value_config =
     sylar::Config::Lookup("system.port", (int)8080, "system port");
+
 sylar::ConfigVar<float>::ptr g_int_valuex_config =
     sylar::Config::Lookup("system.port", (float)8080, "system port");
+
 sylar::ConfigVar<float>::ptr g_float_value_config =
     sylar::Config::Lookup("system.value", (float)10.2f, "system value");
+
 sylar::ConfigVar<std::vector<int>>::ptr g_int_vec_value_config =
     sylar::Config::Lookup("system.int_vec", std::vector<int>{1, 2}, "system int vec");
 
@@ -62,10 +66,13 @@ void print_yaml(const YAML::Node &node, int level)
 
 void test_yaml()
 {
-    YAML::Node root = YAML::LoadFile("/root/cty/sylar/bin/conf/test.yml");
-    print_yaml(root, 0);
+    YAML::Node root = YAML::LoadFile("/home/sylar/workspace/sylar/bin/conf/log.yml");
+    // print_yaml(root, 0);
+    // SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root.Scalar();
 
-    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root.Scalar();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root["test"].IsDefined();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root["logs"].IsDefined();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << root;
 }
 
 void test_config()
@@ -101,7 +108,7 @@ void test_config()
     XX_M(g_str_int_map_value_config, str_int_map, before);
     XX_M(g_str_int_umap_value_config, str_int_umap, before);
 
-    YAML::Node root = YAML::LoadFile("/root/cty/sylar/bin/conf/test.yml");
+    YAML::Node root = YAML::LoadFile("/home/sylar/workspace/sylar/bin/conf/test.yml");
     sylar::Config::LoadFromYaml(root);
 
     SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_int_value_config->getValue();
@@ -114,6 +121,8 @@ void test_config()
     XX_M(g_str_int_map_value_config, str_int_map, after);
     XX_M(g_str_int_umap_value_config, str_int_umap, after);
 }
+
+#endif
 
 class Person
 {
@@ -172,6 +181,7 @@ namespace sylar
             return ss.str();
         }
     };
+
 }
 
 sylar::ConfigVar<Person>::ptr g_person =
@@ -185,7 +195,7 @@ sylar::ConfigVar<std::map<std::string, std::vector<Person>>>::ptr g_person_vec_m
 
 void test_class()
 {
-    // SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_person->getValue().toString() << " - " << g_person->toString();
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_person->getValue().toString() << " - " << g_person->toString();
 
 #define XX_PM(g_var, prefix)                                                                               \
     {                                                                                                      \
@@ -197,22 +207,20 @@ void test_class()
         SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << prefix << ": size=" << m.size();                               \
     }
 
-    g_person->addListener(10, [](const Person &old_value, const Person &new_value)
+    g_person->addListener([](const Person &old_value, const Person &new_value)
                           { SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "old_value=" << old_value.toString()
                                                              << " new_value=" << new_value.toString(); });
 
-    // XX_PM(g_person_map, "class.map before");
-    // SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_person_vec_map->toString();
+    XX_PM(g_person_map, "class.map before");
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "before: " << g_person_vec_map->toString();
 
     YAML::Node root = YAML::LoadFile("/root/cty/sylar/bin/conf/test.yml");
     sylar::Config::LoadFromYaml(root);
 
-    // SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_person->getValue().toString() << " - " << g_person->toString();
-    // XX_PM(g_person_map, "class.map after");
-    // SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_person_vec_map->toString();
-#undef XX_PM
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_person->getValue().toString() << " - " << g_person->toString();
+    XX_PM(g_person_map, "class.map after");
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "after: " << g_person_vec_map->toString();
 }
-#endif
 
 void test_log()
 {
@@ -237,5 +245,12 @@ int main(int argc, char **argv)
     // test_config();
     // test_class();
     test_log();
+
+    sylar::Config::Visit([](sylar::ConfigVarBase::ptr var)
+                         { SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "name= " << var->getName()
+                                                            << " description= " << var->getDescription()
+                                                            << " typename= " << var->getTypeName()
+                                                            << " value= " << var->toString(); });
+
     return 0;
 }
