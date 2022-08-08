@@ -6,3 +6,5 @@ log.txt
 root.txt
 system.txt
 lib/
+bin/*
+!/bin/conf/
