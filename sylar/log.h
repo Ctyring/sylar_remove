@@ -1,7 +1,6 @@
-#ifndef __SYLAR_LOG_H_
-#define __SYLAR_LOG_H_
+#ifndef __SYLAR_LOG_H__
+#define __SYLAR_LOG_H__
 
-#include <iostream>
 #include <string>
 #include <stdint.h>
 #include <memory>
@@ -11,8 +10,9 @@
 #include <vector>
 #include <stdarg.h>
 #include <map>
-#include "sylar/singleton.h"
-#include "sylar/util.h"
+#include "util.h"
+#include "singleton.h"
+#include "thread.h"
 
 #define SYLAR_LOG_LEVEL(logger, level)                                                                        \
 	if (logger->getLevel() <= level)                                                                          \
@@ -44,14 +44,13 @@
 #define SYLAR_LOG_ROOT() sylar::LoggerMgr::GetInstance()->getRoot()
 #define SYLAR_LOG_NAME(name) sylar::LoggerMgr::GetInstance()->getLogger(name)
 
-// 新版的可以用 #once
-// namespace是区分其他代码的命名
 namespace sylar
 {
+
 	class Logger;
 	class LoggerManager;
 
-	// 日志级别
+	//日志级别
 	class LogLevel
 	{
 	public:
@@ -64,19 +63,18 @@ namespace sylar
 			ERROR = 4,
 			FATAL = 5
 		};
+
 		static const char *ToString(LogLevel::Level level);
 		static LogLevel::Level FromString(const std::string &str);
 	};
 
-	// 日志事件
-	// 定义日志的属性
+	//日志事件
 	class LogEvent
 	{
 	public:
-		// c++智能指针
-		// 通过计数的方式判断目前使用该资源的指针数，如果为0则销毁指针
 		typedef std::shared_ptr<LogEvent> ptr;
 		LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char *file, int32_t m_line, uint32_t elapse, uint32_t thread_id, uint32_t fiber_id, uint64_t time);
+
 		const char *getFile() const { return m_file; }
 		int32_t getLine() const { return m_line; }
 		uint32_t getElapse() const { return m_elapse; }
@@ -84,32 +82,21 @@ namespace sylar
 		uint32_t getFiberId() const { return m_fiberId; }
 		uint64_t getTime() const { return m_time; }
 		std::string getContent() const { return m_ss.str(); }
-		const std::string &getThreadName() const { return m_threadName; }
 		std::shared_ptr<Logger> getLogger() const { return m_logger; }
 		LogLevel::Level getLevel() const { return m_level; }
 
 		std::stringstream &getSS() { return m_ss; }
-
 		void format(const char *fmt, ...);
 		void format(const char *fmt, va_list al);
 
 	private:
-		// 文件名 (c++11 新特性：类内初始化)
-		const char *m_file = nullptr;
-		// 行号
-		int32_t m_line = 0;
-		// 程序启动到现在的毫秒数
-		uint32_t m_elapse = 0;
-		// 线程号
-		uint32_t m_threadId = 0;
-		// 协程号
-		uint32_t m_fiberId = 0;
-		// 时间
-		uint64_t m_time;
-		// 消息内容
+		const char *m_file = nullptr; //文件名
+		int32_t m_line = 0;			  //行号
+		uint32_t m_elapse = 0;		  //程序启动开始到现在的毫秒数
+		uint32_t m_threadId = 0;	  //线程id
+		uint32_t m_fiberId = 0;		  //协程id
+		uint64_t m_time = 0;		  //时间戳
 		std::stringstream m_ss;
-		/// 线程名称
-		std::string m_threadName;
 
 		std::shared_ptr<Logger> m_logger;
 		LogLevel::Level m_level;
@@ -127,72 +114,74 @@ namespace sylar
 		LogEvent::ptr m_event;
 	};
 
-	// 日志输出格式
+	//日志格式器
 	class LogFormatter
 	{
 	public:
 		typedef std::shared_ptr<LogFormatter> ptr;
 		LogFormatter(const std::string &pattern);
 
+		//%t    %thread_id %m%n
 		std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event);
 
 	public:
-		// 子类的基类
 		class FormatItem
 		{
 		public:
 			typedef std::shared_ptr<FormatItem> ptr;
-			// 将基类的析构函数定义为虚函数，才会调用子类的析构函数
-			// 子类析构函数不需要设置为虚函数，就可以调用孙类的析构函数
 			virtual ~FormatItem() {}
-			// 纯虚函数
 			virtual void format(std::ostream &os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 		};
 
 		void init();
+
 		bool isError() const { return m_error; }
 		const std::string getPattern() const { return m_pattern; }
 
 	private:
-		// formatter 的结构
 		std::string m_pattern;
 		std::vector<FormatItem::ptr> m_items;
-		// 是否有错误
 		bool m_error = false;
 	};
 
-	// 日志输出地
+	//日志输出地
 	class LogAppender
 	{
+		friend class Logger;
+
 	public:
 		typedef std::shared_ptr<LogAppender> ptr;
-		LogFormatter::ptr m_formatter;
-		// 输出地可以为多个
+		typedef Spinlock MutexType;
 		virtual ~LogAppender() {}
+
 		virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 		virtual std::string toYamlString() = 0;
 
 		void setFormatter(LogFormatter::ptr val);
-		LogFormatter::ptr getFormatter() const { return m_formatter; }
+		LogFormatter::ptr getFormatter();
 
-		void setLevel(LogLevel::Level val) { m_level = val; }
 		LogLevel::Level getLevel() const { return m_level; }
-
-		bool m_hasFormatter = false;
+		void setLevel(LogLevel::Level val) { m_level = val; }
 
 	protected:
 		LogLevel::Level m_level = LogLevel::DEBUG;
+		bool m_hasFormatter = false;
+		MutexType m_mutex;
+		LogFormatter::ptr m_formatter;
 	};
 
-	// 日志器
+	//日志器
 	class Logger : public std::enable_shared_from_this<Logger>
 	{
 		friend class LoggerManager;
 
 	public:
 		typedef std::shared_ptr<Logger> ptr;
+		typedef Spinlock MutexType;
+
 		Logger(const std::string &name = "root");
-		void log(LogLevel::Level level, const LogEvent::ptr event);
+		void log(LogLevel::Level level, LogEvent::ptr event);
+
 		void debug(LogEvent::ptr event);
 		void info(LogEvent::ptr event);
 		void warn(LogEvent::ptr event);
@@ -202,29 +191,27 @@ namespace sylar
 		void addAppender(LogAppender::ptr appender);
 		void delAppender(LogAppender::ptr appender);
 		void clearAppenders();
-
 		LogLevel::Level getLevel() const { return m_level; }
-		std::string getName() const { return m_name; }
-		LogFormatter::ptr getFormatter();
+		void setLevel(LogLevel::Level val) { m_level = val; }
+
+		const std::string &getName() const { return m_name; }
 
 		void setFormatter(LogFormatter::ptr val);
 		void setFormatter(const std::string &val);
-
-		void setLevel(LogLevel::Level val) { m_level = val; }
+		LogFormatter::ptr getFormatter();
 
 		std::string toYamlString();
 
 	private:
-		// 日志名称
-		std::string m_name;
-		// 日志级别
-		LogLevel::Level m_level;
-		// 输出目的地的集合
-		std::list<LogAppender::ptr> m_appenders;
+		std::string m_name;		 //日志名称
+		LogLevel::Level m_level; //日志级别
+		MutexType m_mutex;
+		std::list<LogAppender::ptr> m_appenders; // Appender集合
 		LogFormatter::ptr m_formatter;
 		Logger::ptr m_root;
 	};
-	// 输出到控制台的Appender
+
+	//输出到控制台的Appender
 	class StdoutLogAppender : public LogAppender
 	{
 	public:
@@ -232,35 +219,39 @@ namespace sylar
 		void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
 		std::string toYamlString() override;
 	};
-	// 输出到文件的Appender
+
+	//定义输出到文件的Appender
 	class FileLogAppender : public LogAppender
 	{
 	public:
 		typedef std::shared_ptr<FileLogAppender> ptr;
-		// 输出到文件需要提供文件名
 		FileLogAppender(const std::string &filename);
 		void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
 		std::string toYamlString() override;
 
-		// 打开文件，成功返回true
+		//重新打开文件，文件打开成功返回true
 		bool reopen();
 
 	private:
 		std::string m_filename;
-		// 用流的方式写入文件
 		std::ofstream m_filestream;
+		uint64_t m_lastTime = 0;
 	};
 
 	class LoggerManager
 	{
 	public:
+		typedef Spinlock MutexType;
 		LoggerManager();
 		Logger::ptr getLogger(const std::string &name);
+
 		void init();
 		Logger::ptr getRoot() const { return m_root; }
+
 		std::string toYamlString();
 
 	private:
+		MutexType m_mutex;
 		std::map<std::string, Logger::ptr> m_loggers;
 		Logger::ptr m_root;
 	};
@@ -268,4 +259,5 @@ namespace sylar
 	typedef sylar::Singleton<LoggerManager> LoggerMgr;
 
 }
+
 #endif

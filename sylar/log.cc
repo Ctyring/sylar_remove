@@ -1,7 +1,3 @@
-/*	#	 FileName	: log.cpp
-	#	 Created	: Sat 16 Jul 2022 11:07:48 PM CST
- *****************************/
-
 #include "log.h"
 #include <map>
 #include <iostream>
@@ -9,8 +5,10 @@
 #include <time.h>
 #include <string.h>
 #include "config.h"
+
 namespace sylar
 {
+
 	const char *LogLevel::ToString(LogLevel::Level level)
 	{
 		switch (level)
@@ -19,11 +17,12 @@ namespace sylar
 	case LogLevel::name: \
 		return #name;    \
 		break;
-			XX(DEBUG)
-			XX(INFO)
-			XX(WARN)
-			XX(ERROR)
-			XX(FATAL)
+
+			XX(DEBUG);
+			XX(INFO);
+			XX(WARN);
+			XX(ERROR);
+			XX(FATAL);
 #undef XX
 		default:
 			return "UNKNOW";
@@ -89,6 +88,7 @@ namespace sylar
 
 	void LogAppender::setFormatter(LogFormatter::ptr val)
 	{
+		MutexType::Lock lock(m_mutex);
 		m_formatter = val;
 		if (m_formatter)
 		{
@@ -98,6 +98,12 @@ namespace sylar
 		{
 			m_hasFormatter = false;
 		}
+	}
+
+	LogFormatter::ptr LogAppender::getFormatter()
+	{
+		MutexType::Lock lock(m_mutex);
+		return m_formatter;
 	}
 
 	class MessageFormatItem : public LogFormatter::FormatItem
@@ -147,16 +153,6 @@ namespace sylar
 		void format(std::ostream &os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override
 		{
 			os << event->getThreadId();
-		}
-	};
-
-	class ThreadNameFormatItem : public LogFormatter::FormatItem
-	{
-	public:
-		ThreadNameFormatItem(const std::string &str = "") {}
-		void format(std::ostream &os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override
-		{
-			os << event->getThreadName();
 		}
 	};
 
@@ -229,7 +225,8 @@ namespace sylar
 	class StringFormatItem : public LogFormatter::FormatItem
 	{
 	public:
-		StringFormatItem(const std::string &str) : m_string(str) {}
+		StringFormatItem(const std::string &str)
+			: m_string(str) {}
 		void format(std::ostream &os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override
 		{
 			os << m_string;
@@ -257,18 +254,20 @@ namespace sylar
 	{
 	}
 
-	// Logger
-	Logger::Logger(const std::string &name) : m_name(name), m_level(LogLevel::DEBUG)
+	Logger::Logger(const std::string &name)
+		: m_name(name), m_level(LogLevel::DEBUG)
 	{
 		m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
 	}
 
 	void Logger::setFormatter(LogFormatter::ptr val)
 	{
+		MutexType::Lock lock(m_mutex);
 		m_formatter = val;
 
 		for (auto &i : m_appenders)
 		{
+			MutexType::Lock ll(i->m_mutex);
 			if (!i->m_hasFormatter)
 			{
 				i->m_formatter = m_formatter;
@@ -286,11 +285,13 @@ namespace sylar
 					  << std::endl;
 			return;
 		}
+		// m_formatter = new_val;
 		setFormatter(new_val);
 	}
 
 	std::string Logger::toYamlString()
 	{
+		MutexType::Lock lock(m_mutex);
 		YAML::Node node;
 		node["name"] = m_name;
 		if (m_level != LogLevel::UNKNOW)
@@ -301,6 +302,7 @@ namespace sylar
 		{
 			node["formatter"] = m_formatter->getPattern();
 		}
+
 		for (auto &i : m_appenders)
 		{
 			node["appenders"].push_back(YAML::Load(i->toYamlString()));
@@ -310,19 +312,28 @@ namespace sylar
 		return ss.str();
 	}
 
+	LogFormatter::ptr Logger::getFormatter()
+	{
+		MutexType::Lock lock(m_mutex);
+		return m_formatter;
+	}
+
 	void Logger::addAppender(LogAppender::ptr appender)
 	{
-		// 判断appender是否有自己的formatter
+		MutexType::Lock lock(m_mutex);
 		if (!appender->getFormatter())
 		{
-			// 如果没有就把自己的formatter给它
+			MutexType::Lock ll(appender->m_mutex);
 			appender->m_formatter = m_formatter;
 		}
 		m_appenders.push_back(appender);
 	}
+
 	void Logger::delAppender(LogAppender::ptr appender)
 	{
-		for (auto it = m_appenders.begin(); it != m_appenders.end(); it++)
+		MutexType::Lock lock(m_mutex);
+		for (auto it = m_appenders.begin();
+			 it != m_appenders.end(); ++it)
 		{
 			if (*it == appender)
 			{
@@ -334,6 +345,7 @@ namespace sylar
 
 	void Logger::clearAppenders()
 	{
+		MutexType::Lock lock(m_mutex);
 		m_appenders.clear();
 	}
 
@@ -342,6 +354,7 @@ namespace sylar
 		if (level >= m_level)
 		{
 			auto self = shared_from_this();
+			MutexType::Lock lock(m_mutex);
 			if (!m_appenders.empty())
 			{
 				for (auto &i : m_appenders)
@@ -355,42 +368,59 @@ namespace sylar
 			}
 		}
 	}
+
 	void Logger::debug(LogEvent::ptr event)
 	{
 		log(LogLevel::DEBUG, event);
 	}
+
 	void Logger::info(LogEvent::ptr event)
 	{
 		log(LogLevel::INFO, event);
 	}
+
 	void Logger::warn(LogEvent::ptr event)
 	{
 		log(LogLevel::WARN, event);
 	}
+
 	void Logger::error(LogEvent::ptr event)
 	{
 		log(LogLevel::ERROR, event);
 	}
+
 	void Logger::fatal(LogEvent::ptr event)
 	{
 		log(LogLevel::FATAL, event);
 	}
 
-	// Appender
-	FileLogAppender::FileLogAppender(const std::string &filename) : m_filename(filename)
+	FileLogAppender::FileLogAppender(const std::string &filename)
+		: m_filename(filename)
 	{
 		reopen();
 	}
+
 	void FileLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event)
 	{
-		if (level >= getLevel())
+		if (level >= m_level)
 		{
-			m_filestream << getFormatter()->format(logger, level, event);
+			uint64_t now = time(0);
+			if (now != m_lastTime)
+			{
+				reopen();
+				m_lastTime = now;
+			}
+			MutexType::Lock lock(m_mutex);
+			if (!(m_filestream << m_formatter->format(logger, level, event)))
+			{
+				std::cout << "error" << std::endl;
+			}
 		}
 	}
 
 	std::string FileLogAppender::toYamlString()
 	{
+		MutexType::Lock lock(m_mutex);
 		YAML::Node node;
 		node["type"] = "FileLogAppender";
 		node["file"] = m_filename;
@@ -406,26 +436,30 @@ namespace sylar
 		ss << node;
 		return ss.str();
 	}
+
 	bool FileLogAppender::reopen()
 	{
-		// 如果文件已经打开，先close
+		MutexType::Lock lock(m_mutex);
 		if (m_filestream)
 		{
 			m_filestream.close();
 		}
-		m_filestream.open(m_filename);
+		m_filestream.open(m_filename, std::ios::app);
 		return !!m_filestream;
 	}
+
 	void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event)
 	{
-		if (level >= getLevel())
+		if (level >= m_level)
 		{
-			std::cout << getFormatter()->format(logger, level, event);
+			MutexType::Lock lock(m_mutex);
+			std::cout << m_formatter->format(logger, level, event);
 		}
 	}
 
 	std::string StdoutLogAppender::toYamlString()
 	{
+		MutexType::Lock lock(m_mutex);
 		YAML::Node node;
 		node["type"] = "StdoutLogAppender";
 		if (m_level != LogLevel::UNKNOW)
@@ -441,8 +475,8 @@ namespace sylar
 		return ss.str();
 	}
 
-	// Formatter
-	LogFormatter::LogFormatter(const std::string &pattern) : m_pattern(pattern)
+	LogFormatter::LogFormatter(const std::string &pattern)
+		: m_pattern(pattern)
 	{
 		init();
 	}
@@ -457,12 +491,10 @@ namespace sylar
 		return ss.str();
 	}
 
+	//%xxx %xxx{xxx} %%
 	void LogFormatter::init()
 	{
 		// str, format, type
-		// str 字符串
-		// format 解析格式
-		// type 0 普通字符串 1 是特殊字符
 		std::vector<std::tuple<std::string, std::string, int>> vec;
 		std::string nstr;
 		for (size_t i = 0; i < m_pattern.size(); ++i)
@@ -478,7 +510,6 @@ namespace sylar
 				if (m_pattern[i + 1] == '%')
 				{
 					nstr.append(1, '%');
-					++i;
 					continue;
 				}
 			}
@@ -556,18 +587,18 @@ namespace sylar
 	{                                                                            \
 #str, [](const std::string &fmt) { return FormatItem::ptr(new C(fmt)); } \
 	}
-			XX(m, MessageFormatItem),	 // m:消息
-			XX(p, LevelFormatItem),		 // p:日志级别
-			XX(r, ElapseFormatItem),	 // r:累计毫秒数
-			XX(c, NameFormatItem),		 // c:日志名称
-			XX(t, ThreadIdFormatItem),	 // t:线程id
-			XX(n, NewLineFormatItem),	 // n:换行
-			XX(d, DateTimeFormatItem),	 // d:时间
-			XX(f, FilenameFormatItem),	 // f:文件名
-			XX(l, LineFormatItem),		 // l:行号
-			XX(T, TabFormatItem),		 // T:Tab
-			XX(F, FiberIdFormatItem),	 // F:协程id
-			XX(N, ThreadNameFormatItem), // N:线程名称
+
+			XX(m, MessageFormatItem),
+			XX(p, LevelFormatItem),
+			XX(r, ElapseFormatItem),
+			XX(c, NameFormatItem),
+			XX(t, ThreadIdFormatItem),
+			XX(n, NewLineFormatItem),
+			XX(d, DateTimeFormatItem),
+			XX(f, FilenameFormatItem),
+			XX(l, LineFormatItem),
+			XX(T, TabFormatItem),
+			XX(F, FiberIdFormatItem),
 #undef XX
 		};
 
@@ -601,16 +632,20 @@ namespace sylar
 		m_root.reset(new Logger);
 		m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
 
+		m_loggers[m_root->m_name] = m_root;
+
 		init();
 	}
 
 	Logger::ptr LoggerManager::getLogger(const std::string &name)
 	{
+		MutexType::Lock lock(m_mutex);
 		auto it = m_loggers.find(name);
 		if (it != m_loggers.end())
 		{
 			return it->second;
 		}
+
 		Logger::ptr logger(new Logger(name));
 		logger->m_root = m_root;
 		m_loggers[name] = logger;
@@ -719,7 +754,7 @@ namespace sylar
 					}
 				}
 				// std::cout << "---" << ld.name << " - "
-				//   << ld.appenders.size() << std::endl;
+				//           << ld.appenders.size() << std::endl;
 				vec.insert(ld);
 			}
 			return vec;
@@ -778,7 +813,8 @@ namespace sylar
 		}
 	};
 
-	sylar::ConfigVar<std::set<LogDefine>>::ptr g_log_defines = sylar::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
+	sylar::ConfigVar<std::set<LogDefine>>::ptr g_log_defines =
+		sylar::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
 
 	struct LogIniter
 	{
@@ -799,7 +835,7 @@ namespace sylar
                         //修改的logger
                         logger = SYLAR_LOG_NAME(i.name);
                     }
-                } 
+                }
                 logger->setLevel(i.level);
                 if(!i.formatter.empty()) {
                     logger->setFormatter(i.formatter);
@@ -814,8 +850,7 @@ namespace sylar
                         ap.reset(new StdoutLogAppender);
                     }
                     ap->setLevel(a.level);
-					if(!a.formatter.empty()) 
-					{
+                    if(!a.formatter.empty()) {
                         LogFormatter::ptr fmt(new LogFormatter(a.formatter));
                         if(!fmt->isError()) {
                             ap->setFormatter(fmt);
@@ -833,7 +868,7 @@ namespace sylar
                 if(it == new_value.end()) {
                     //删除logger
                     auto logger = SYLAR_LOG_NAME(i.name);
-                    logger->setLevel((LogLevel::Level)100);
+                    logger->setLevel((LogLevel::Level)0);
                     logger->clearAppenders();
                 }
             } });
@@ -844,6 +879,7 @@ namespace sylar
 
 	std::string LoggerManager::toYamlString()
 	{
+		MutexType::Lock lock(m_mutex);
 		YAML::Node node;
 		for (auto &i : m_loggers)
 		{
@@ -857,4 +893,5 @@ namespace sylar
 	void LoggerManager::init()
 	{
 	}
+
 }
