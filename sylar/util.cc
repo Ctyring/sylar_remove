@@ -1,6 +1,7 @@
 #include "util.h"
 #include <execinfo.h>
 #include "log.h"
+#include "fiber.h"
 namespace sylar
 {
     sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("syatem");
@@ -11,7 +12,7 @@ namespace sylar
 
     uint32_t GetFiberId()
     {
-        return 0;
+        return sylar::Fiber::GetFiberId();
     }
 
     void Backtrace(std::vector<std::string> &bt, int size, int skip)
