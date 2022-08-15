@@ -9,7 +9,6 @@
 
 namespace sylar
 {
-
     class Scheduler
     {
     public:
@@ -42,6 +41,7 @@ namespace sylar
             }
         }
 
+        //
         template <class InputIterator>
         void schedule(InputIterator begin, InputIterator end)
         {
@@ -53,6 +53,7 @@ namespace sylar
                     need_tickle = scheduleNoLock(&*begin) || need_tickle;
                 }
             }
+            // 唤醒线程
             if (need_tickle)
             {
                 tickle();
@@ -77,6 +78,7 @@ namespace sylar
             {
                 m_fibers.push_back(ft);
             }
+            // 如果一开始协程为空的话需要先唤醒
             return need_tickle;
         }
 

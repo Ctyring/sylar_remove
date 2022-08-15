@@ -23,7 +23,7 @@ namespace sylar
             SYLAR_ASSERT(GetThis() == nullptr);
             t_scheduler = this;
 
-            m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run, this)));
+            m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run, this), 0, true));
             sylar::Thread::SetName(m_name);
 
             t_fiber = m_rootFiber.get();
@@ -169,6 +169,7 @@ namespace sylar
 
                     ft = *it;
                     m_fibers.erase(it);
+                    break;
                 }
             }
 
@@ -177,7 +178,7 @@ namespace sylar
                 tickle();
             }
 
-            if (ft.fiber && (ft.fiber->getState() != Fiber::TERM || ft.fiber->getState() != Fiber::EXCEPT))
+            if (ft.fiber && (ft.fiber->getState() != Fiber::TERM && ft.fiber->getState() != Fiber::EXCEPT))
             {
                 ++m_activeThreadCount;
                 ft.fiber->swapIn();
@@ -233,7 +234,7 @@ namespace sylar
                 ++m_idleThreadCount;
                 idle_fiber->swapIn();
                 --m_idleThreadCount;
-                if (idle_fiber->getState() != Fiber::TERM || idle_fiber->getState() != Fiber::EXCEPT)
+                if (idle_fiber->getState() != Fiber::TERM && idle_fiber->getState() != Fiber::EXCEPT)
                 {
                     idle_fiber->m_state = Fiber::HOLD;
                 }
