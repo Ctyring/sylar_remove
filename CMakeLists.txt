@@ -19,13 +19,14 @@ link_directories(/yaml-cpp/lib)
 message("***", ${YAMLCPP})
 
 set(LIB_SRC 
-	sylar/log.cc
-	sylar/util.cc
 	sylar/config.cc
-	sylar/thread.cc
-	sylar/scheduler.cc
 	sylar/fiber.cc
 	sylar/iomanager.cc
+	sylar/log.cc
+	sylar/scheduler.cc
+	sylar/timer.cc
+	sylar/thread.cc
+	sylar/util.cc
 	)
 
 add_library(sylar SHARED ${LIB_SRC})

@@ -1,5 +1,7 @@
 #include "util.h"
 #include <execinfo.h>
+#include <sys/time.h>
+
 #include "log.h"
 #include "fiber.h"
 namespace sylar
@@ -43,5 +45,19 @@ namespace sylar
             ss << prefix << bt[i] << std::endl;
         }
         return ss.str();
+    }
+
+    uint64_t GetCurrentMS()
+    {
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        return tv.tv_sec * 1000ul + tv.tv_usec / 1000;
+    }
+
+    uint64_t GetCurrentUS()
+    {
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        return tv.tv_sec * 1000 * 1000ul + tv.tv_usec;
     }
 }

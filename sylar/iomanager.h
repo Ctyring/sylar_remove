@@ -2,11 +2,12 @@
 #define __SYLAR_IOMANAGER_H__
 
 #include "scheduler.h"
+#include "timer.h"
 
 namespace sylar
 {
 
-    class IOManager : public Scheduler
+    class IOManager : public Scheduler, public TimerManager
     {
     public:
         typedef std::shared_ptr<IOManager> ptr;
@@ -58,8 +59,10 @@ namespace sylar
         void tickle() override;
         bool stopping() override;
         void idle() override;
+        void onTimerInsertedAtFront() override;
 
         void contextResize(size_t size);
+        bool stopping(uint64_t &timeout);
 
     private:
         int m_epfd = 0;
