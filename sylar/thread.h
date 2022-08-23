@@ -7,23 +7,19 @@
 #include <semaphore.h>
 #include <stdint.h>
 #include <atomic>
+#include "noncopyable.h"
 
 // pthread_xxx
 // std::thread, pthread
 namespace sylar
 {
-    class Semaphore
+    class Semaphore : Noncopyable
     {
     public:
         Semaphore(uint32_t count = 0);
         ~Semaphore();
         void wait();
         void notify();
-
-    private:
-        Semaphore(const Semaphore &) = delete;
-        Semaphore(const Semaphore &&) = delete;
-        Semaphore &operator=(const Semaphore &) = delete;
 
     private:
         sem_t m_semaphore;
