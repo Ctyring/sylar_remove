@@ -21,6 +21,8 @@ message("***", ${YAMLCPP})
 set(LIB_SRC 
 	sylar/config.cc
 	sylar/fiber.cc
+	sylar/hook.cc
+	sylar/fd_manager.cc
 	sylar/iomanager.cc
 	sylar/log.cc
 	sylar/scheduler.cc
@@ -37,8 +39,10 @@ find_library(PTHREAD pthread)
 
 set(LIBS
         sylar
+		dl
         pthread
-        yaml-cpp)
+        yaml-cpp
+		)
 
 message("***", ${LIBS})
 
@@ -76,6 +80,11 @@ add_executable(test_iomanager tests/test_iomanager.cc)
 add_dependencies(test_iomanager sylar)
 force_redefine_file_macro_for_sources(test_iomanager) #__FILE__
 target_link_libraries(test_iomanager ${LIBS})
+
+add_executable(test_hook tests/test_hook.cc)
+add_dependencies(test_hook sylar)
+force_redefine_file_macro_for_sources(test_hook) #__FILE__
+target_link_libraries(test_hook ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
