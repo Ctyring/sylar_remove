@@ -249,6 +249,19 @@ test_address/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/build
 .PHONY : test_address/fast
 
+#=============================================================================
+# Target rules for targets named test_socket
+
+# Build rule for target.
+test_socket: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_socket
+.PHONY : test_socket
+
+# fast build rule for target.
+test_socket/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/build
+.PHONY : test_socket/fast
+
 sylar/address.o: sylar/address.cc.o
 .PHONY : sylar/address.o
 
@@ -440,6 +453,30 @@ sylar/scheduler.s: sylar/scheduler.cc.s
 sylar/scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/scheduler.cc.s
 .PHONY : sylar/scheduler.cc.s
+
+sylar/socket.o: sylar/socket.cc.o
+.PHONY : sylar/socket.o
+
+# target to build an object file
+sylar/socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket.cc.o
+.PHONY : sylar/socket.cc.o
+
+sylar/socket.i: sylar/socket.cc.i
+.PHONY : sylar/socket.i
+
+# target to preprocess a source file
+sylar/socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket.cc.i
+.PHONY : sylar/socket.cc.i
+
+sylar/socket.s: sylar/socket.cc.s
+.PHONY : sylar/socket.s
+
+# target to generate assembly for a file
+sylar/socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket.cc.s
+.PHONY : sylar/socket.cc.s
 
 sylar/thread.o: sylar/thread.cc.o
 .PHONY : sylar/thread.o
@@ -681,6 +718,30 @@ tests/test_scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.s
 .PHONY : tests/test_scheduler.cc.s
 
+tests/test_socket.o: tests/test_socket.cc.o
+.PHONY : tests/test_socket.o
+
+# target to build an object file
+tests/test_socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.o
+.PHONY : tests/test_socket.cc.o
+
+tests/test_socket.i: tests/test_socket.cc.i
+.PHONY : tests/test_socket.i
+
+# target to preprocess a source file
+tests/test_socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.i
+.PHONY : tests/test_socket.cc.i
+
+tests/test_socket.s: tests/test_socket.cc.s
+.PHONY : tests/test_socket.s
+
+# target to generate assembly for a file
+tests/test_socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.s
+.PHONY : tests/test_socket.cc.s
+
 tests/test_thread.o: tests/test_thread.cc.o
 .PHONY : tests/test_thread.o
 
@@ -745,6 +806,7 @@ help:
 	@echo "... test_hook"
 	@echo "... test_iomanager"
 	@echo "... test_scheduler"
+	@echo "... test_socket"
 	@echo "... test_thread"
 	@echo "... test_util"
 	@echo "... sylar/address.o"
@@ -771,6 +833,9 @@ help:
 	@echo "... sylar/scheduler.o"
 	@echo "... sylar/scheduler.i"
 	@echo "... sylar/scheduler.s"
+	@echo "... sylar/socket.o"
+	@echo "... sylar/socket.i"
+	@echo "... sylar/socket.s"
 	@echo "... sylar/thread.o"
 	@echo "... sylar/thread.i"
 	@echo "... sylar/thread.s"
@@ -801,6 +866,9 @@ help:
 	@echo "... tests/test_scheduler.o"
 	@echo "... tests/test_scheduler.i"
 	@echo "... tests/test_scheduler.s"
+	@echo "... tests/test_socket.o"
+	@echo "... tests/test_socket.i"
+	@echo "... tests/test_socket.s"
 	@echo "... tests/test_thread.o"
 	@echo "... tests/test_thread.i"
 	@echo "... tests/test_thread.s"

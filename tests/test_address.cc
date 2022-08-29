@@ -8,7 +8,7 @@ void test()
     std::vector<sylar::Address::ptr> addrs;
 
     SYLAR_LOG_INFO(g_logger) << "begin";
-    bool v = sylar::Address::Lookup(addrs, "www.sylar.top");
+    bool v = sylar::Address::Lookup(addrs, "www.baidu.com");
     SYLAR_LOG_INFO(g_logger) << "end";
     if (!v)
     {

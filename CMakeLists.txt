@@ -10,7 +10,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # -Wall 开启大部分警告提示
 # -Wno-unused-funtion 不要警告未使用函数
 # -Wno-deprecated 不要警告过时特性
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
 
 include_directories(.)
 include_directories(/yaml-cpp/include)
@@ -30,6 +30,7 @@ set(LIB_SRC
 	sylar/thread.cc
 	sylar/util.cc
 	sylar/address.cc
+	sylar/socket.cc
 	)
 
 add_library(sylar SHARED ${LIB_SRC})
@@ -91,6 +92,11 @@ add_executable(test_address tests/test_address.cc)
 add_dependencies(test_address sylar)
 force_redefine_file_macro_for_sources(test_address) #__FILE__
 target_link_libraries(test_address ${LIBS})
+
+add_executable(test_socket tests/test_socket.cc)
+add_dependencies(test_socket sylar)
+force_redefine_file_macro_for_sources(test_socket) #__FILE__
+target_link_libraries(test_socket ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
