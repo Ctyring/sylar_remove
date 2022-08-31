@@ -20,9 +20,11 @@ void Semaphore::wait() {
     }
 }
 void Semaphore::notify() {
+    // SYLAR_LOG_ERROR(g_logger) << "notify start";
     if (sem_post(&m_semaphore)) {
         throw std::logic_error("sem_post error");
     }
+    // SYLAR_LOG_ERROR(g_logger) << "notify end";
 }
 
 // 获取自己当前的线程
@@ -81,9 +83,7 @@ void* Thread::run(void* arg) {
     std::function<void()> cb;
     // 清掉m_cb，防止线程内有智能指针等导致内存不释放问题。
     cb.swap(thread->m_cb);
-
     thread->m_semaphore.notify();
-
     cb();
     return 0;
 }
