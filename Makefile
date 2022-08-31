@@ -456,6 +456,78 @@ sylar/http/http.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http.cc.s
 .PHONY : sylar/http/http.cc.s
 
+sylar/http/http11_parser.rl.o: sylar/http/http11_parser.rl.cc.o
+.PHONY : sylar/http/http11_parser.rl.o
+
+# target to build an object file
+sylar/http/http11_parser.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cc.o
+.PHONY : sylar/http/http11_parser.rl.cc.o
+
+sylar/http/http11_parser.rl.i: sylar/http/http11_parser.rl.cc.i
+.PHONY : sylar/http/http11_parser.rl.i
+
+# target to preprocess a source file
+sylar/http/http11_parser.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cc.i
+.PHONY : sylar/http/http11_parser.rl.cc.i
+
+sylar/http/http11_parser.rl.s: sylar/http/http11_parser.rl.cc.s
+.PHONY : sylar/http/http11_parser.rl.s
+
+# target to generate assembly for a file
+sylar/http/http11_parser.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cc.s
+.PHONY : sylar/http/http11_parser.rl.cc.s
+
+sylar/http/http_parser.o: sylar/http/http_parser.cc.o
+.PHONY : sylar/http/http_parser.o
+
+# target to build an object file
+sylar/http/http_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http_parser.cc.o
+.PHONY : sylar/http/http_parser.cc.o
+
+sylar/http/http_parser.i: sylar/http/http_parser.cc.i
+.PHONY : sylar/http/http_parser.i
+
+# target to preprocess a source file
+sylar/http/http_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http_parser.cc.i
+.PHONY : sylar/http/http_parser.cc.i
+
+sylar/http/http_parser.s: sylar/http/http_parser.cc.s
+.PHONY : sylar/http/http_parser.s
+
+# target to generate assembly for a file
+sylar/http/http_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/http_parser.cc.s
+.PHONY : sylar/http/http_parser.cc.s
+
+sylar/http/httpclient_parser.rl.o: sylar/http/httpclient_parser.rl.cc.o
+.PHONY : sylar/http/httpclient_parser.rl.o
+
+# target to build an object file
+sylar/http/httpclient_parser.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cc.o
+.PHONY : sylar/http/httpclient_parser.rl.cc.o
+
+sylar/http/httpclient_parser.rl.i: sylar/http/httpclient_parser.rl.cc.i
+.PHONY : sylar/http/httpclient_parser.rl.i
+
+# target to preprocess a source file
+sylar/http/httpclient_parser.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cc.i
+.PHONY : sylar/http/httpclient_parser.rl.cc.i
+
+sylar/http/httpclient_parser.rl.s: sylar/http/httpclient_parser.rl.cc.s
+.PHONY : sylar/http/httpclient_parser.rl.s
+
+# target to generate assembly for a file
+sylar/http/httpclient_parser.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cc.s
+.PHONY : sylar/http/httpclient_parser.rl.cc.s
+
 sylar/iomanager.o: sylar/iomanager.cc.o
 .PHONY : sylar/iomanager.o
 
@@ -954,6 +1026,15 @@ help:
 	@echo "... sylar/http/http.o"
 	@echo "... sylar/http/http.i"
 	@echo "... sylar/http/http.s"
+	@echo "... sylar/http/http11_parser.rl.o"
+	@echo "... sylar/http/http11_parser.rl.i"
+	@echo "... sylar/http/http11_parser.rl.s"
+	@echo "... sylar/http/http_parser.o"
+	@echo "... sylar/http/http_parser.i"
+	@echo "... sylar/http/http_parser.s"
+	@echo "... sylar/http/httpclient_parser.rl.o"
+	@echo "... sylar/http/httpclient_parser.rl.i"
+	@echo "... sylar/http/httpclient_parser.rl.s"
 	@echo "... sylar/iomanager.o"
 	@echo "... sylar/iomanager.i"
 	@echo "... sylar/iomanager.s"

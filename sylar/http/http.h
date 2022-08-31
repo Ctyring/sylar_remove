@@ -6,6 +6,9 @@
 #include <sstream>
 #include <string>
 
+#include "http11_parser.h"
+#include "httpclient_parser.h"
+
 namespace sylar {
 namespace http {
 
@@ -314,6 +317,13 @@ class HttpResponse {
     std::string m_reason;
     MapType m_headers;
 };
+
+// class HttpRequestParser {
+//    public:
+//     typedef std::shared_ptr<HttpRequestParser> ptr;
+// };
+
+// class HttpResponseParser {};
 
 }  // namespace http
 }  // namespace sylar
