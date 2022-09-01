@@ -318,12 +318,5 @@ class HttpResponse {
     MapType m_headers;
 };
 
-// class HttpRequestParser {
-//    public:
-//     typedef std::shared_ptr<HttpRequestParser> ptr;
-// };
-
-// class HttpResponseParser {};
-
 }  // namespace http
 }  // namespace sylar
