@@ -192,7 +192,6 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
        << ((uint32_t)(m_version & 0x0F)) << " " << (uint32_t)m_status << " "
        << (m_reason.empty() ? HttpStatusToString(m_status) : m_reason)
        << "\r\n";
-
     for (auto& i : m_headers) {
         if (strcasecmp(i.first.c_str(), "connection") == 0) {
             continue;
@@ -202,11 +201,19 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
     os << "connection: " << (m_close ? "close" : "keep-alive") << "\r\n";
 
     if (!m_body.empty()) {
-        os << "content-length: " << m_body.size() << "\r\n\r\n";
+        os << "content-length: " << m_body.size() << "\r\n\r\n" << m_body;
     } else {
         os << "\r\n";
     }
     return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const HttpRequest& req) {
+    return req.dump(os);
+}
+
+std::ostream& operator<<(std::ostream& os, const HttpResponse& rsp) {
+    return rsp.dump(os);
 }
 
 }  // namespace http
