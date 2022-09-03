@@ -208,5 +208,6 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
     }
     return os;
 }
+
 }  // namespace http
 }  // namespace sylar

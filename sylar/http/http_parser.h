@@ -21,6 +21,10 @@ class HttpRequestParser {
 
     uint64_t getContentLength();
 
+   public:
+    static uint64_t GetHttpRequestBufferSize();
+    static uint64_t GetHttpRequestMaxBodySize();
+
    private:
     http_parser m_parser;
     HttpRequest::ptr m_data;
