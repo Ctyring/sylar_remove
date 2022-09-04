@@ -41,6 +41,7 @@ set(LIB_SRC
     sylar/stream.cc
 	sylar/http/http_session.cc
 	sylar/http/http_server.cc
+	sylar/http/servlet.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)

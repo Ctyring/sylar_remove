@@ -652,6 +652,30 @@ sylar/http/httpclient_parser.rl.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cc.s
 .PHONY : sylar/http/httpclient_parser.rl.cc.s
 
+sylar/http/servlet.o: sylar/http/servlet.cc.o
+.PHONY : sylar/http/servlet.o
+
+# target to build an object file
+sylar/http/servlet.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlet.cc.o
+.PHONY : sylar/http/servlet.cc.o
+
+sylar/http/servlet.i: sylar/http/servlet.cc.i
+.PHONY : sylar/http/servlet.i
+
+# target to preprocess a source file
+sylar/http/servlet.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlet.cc.i
+.PHONY : sylar/http/servlet.cc.i
+
+sylar/http/servlet.s: sylar/http/servlet.cc.s
+.PHONY : sylar/http/servlet.s
+
+# target to generate assembly for a file
+sylar/http/servlet.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlet.cc.s
+.PHONY : sylar/http/servlet.cc.s
+
 sylar/iomanager.o: sylar/iomanager.cc.o
 .PHONY : sylar/iomanager.o
 
@@ -1316,6 +1340,9 @@ help:
 	@echo "... sylar/http/httpclient_parser.rl.o"
 	@echo "... sylar/http/httpclient_parser.rl.i"
 	@echo "... sylar/http/httpclient_parser.rl.s"
+	@echo "... sylar/http/servlet.o"
+	@echo "... sylar/http/servlet.i"
+	@echo "... sylar/http/servlet.s"
 	@echo "... sylar/iomanager.o"
 	@echo "... sylar/iomanager.i"
 	@echo "... sylar/iomanager.s"
