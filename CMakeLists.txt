@@ -47,6 +47,7 @@ set(LIB_SRC
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
+ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
 
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(sylar) #__FILE__
@@ -80,6 +81,7 @@ sylar_add_executable(test_tcp_server "tests/test_tcp_server.cc" sylar "${LIBS}")
 sylar_add_executable(echo_server "examples/echo_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_http_server "tests/test_http_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_http_connection "tests/test_http_connection.cc" sylar "${LIBS}")
+sylar_add_executable(test_uri "tests/test_uri.cc" sylar "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

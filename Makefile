@@ -353,6 +353,19 @@ test_http_connection/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/build
 .PHONY : test_http_connection/fast
 
+#=============================================================================
+# Target rules for targets named test_uri
+
+# Build rule for target.
+test_uri: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_uri
+.PHONY : test_uri
+
+# fast build rule for target.
+test_uri/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/build
+.PHONY : test_uri/fast
+
 examples/echo_server.o: examples/echo_server.cc.o
 .PHONY : examples/echo_server.o
 
@@ -929,6 +942,30 @@ sylar/timer.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/timer.cc.s
 .PHONY : sylar/timer.cc.s
 
+sylar/uri.rl.o: sylar/uri.rl.cc.o
+.PHONY : sylar/uri.rl.o
+
+# target to build an object file
+sylar/uri.rl.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/uri.rl.cc.o
+.PHONY : sylar/uri.rl.cc.o
+
+sylar/uri.rl.i: sylar/uri.rl.cc.i
+.PHONY : sylar/uri.rl.i
+
+# target to preprocess a source file
+sylar/uri.rl.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/uri.rl.cc.i
+.PHONY : sylar/uri.rl.cc.i
+
+sylar/uri.rl.s: sylar/uri.rl.cc.s
+.PHONY : sylar/uri.rl.s
+
+# target to generate assembly for a file
+sylar/uri.rl.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/uri.rl.cc.s
+.PHONY : sylar/uri.rl.cc.s
+
 sylar/util.o: sylar/util.cc.o
 .PHONY : sylar/util.o
 
@@ -1313,6 +1350,30 @@ tests/test_thread.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.s
 .PHONY : tests/test_thread.cc.s
 
+tests/test_uri.o: tests/test_uri.cc.o
+.PHONY : tests/test_uri.o
+
+# target to build an object file
+tests/test_uri.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/tests/test_uri.cc.o
+.PHONY : tests/test_uri.cc.o
+
+tests/test_uri.i: tests/test_uri.cc.i
+.PHONY : tests/test_uri.i
+
+# target to preprocess a source file
+tests/test_uri.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/tests/test_uri.cc.i
+.PHONY : tests/test_uri.cc.i
+
+tests/test_uri.s: tests/test_uri.cc.s
+.PHONY : tests/test_uri.s
+
+# target to generate assembly for a file
+tests/test_uri.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/tests/test_uri.cc.s
+.PHONY : tests/test_uri.cc.s
+
 tests/test_util.o: tests/test_util.cc.o
 .PHONY : tests/test_util.o
 
@@ -1362,6 +1423,7 @@ help:
 	@echo "... test_socket"
 	@echo "... test_tcp_server"
 	@echo "... test_thread"
+	@echo "... test_uri"
 	@echo "... test_util"
 	@echo "... examples/echo_server.o"
 	@echo "... examples/echo_server.i"
@@ -1435,6 +1497,9 @@ help:
 	@echo "... sylar/timer.o"
 	@echo "... sylar/timer.i"
 	@echo "... sylar/timer.s"
+	@echo "... sylar/uri.rl.o"
+	@echo "... sylar/uri.rl.i"
+	@echo "... sylar/uri.rl.s"
 	@echo "... sylar/util.o"
 	@echo "... sylar/util.i"
 	@echo "... sylar/util.s"
@@ -1483,6 +1548,9 @@ help:
 	@echo "... tests/test_thread.o"
 	@echo "... tests/test_thread.i"
 	@echo "... tests/test_thread.s"
+	@echo "... tests/test_uri.o"
+	@echo "... tests/test_uri.i"
+	@echo "... tests/test_uri.s"
 	@echo "... tests/test_util.o"
 	@echo "... tests/test_util.i"
 	@echo "... tests/test_util.s"
