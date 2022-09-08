@@ -161,6 +161,7 @@ Fiber::ptr Fiber::GetThis() {
 //协程切换到后台，并且设置为Ready状态
 void Fiber::YieldToReady() {
     Fiber::ptr cur = GetThis();
+    SYLAR_ASSERT(cur->m_state == EXEC);
     cur->m_state = READY;
     cur->swapOut();
 }
@@ -168,6 +169,7 @@ void Fiber::YieldToReady() {
 //协程切换到后台，并且设置为Hold状态
 void Fiber::YieldToHold() {
     Fiber::ptr cur = GetThis();
+    SYLAR_ASSERT(cur->m_state == EXEC);
     cur->m_state = HOLD;
     cur->swapOut();
 }

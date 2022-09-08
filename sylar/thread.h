@@ -16,19 +16,32 @@ class Semaphore : Noncopyable {
    public:
     Semaphore(uint32_t count = 0);
     ~Semaphore();
+    // 等待并消耗一个信号量
     void wait();
+    // 释放一个信号量
     void notify();
 
    private:
     sem_t m_semaphore;
 };
+
+/**
+ * @brief 局部锁的模板实现
+ */
 template <class T>
 struct ScopedLockImpl {
    public:
+    /**
+     * @brief 构造函数
+     * @param mutex
+     */
     ScopedLockImpl(T& mutex) : m_mutex(mutex) {
         m_mutex.lock();
         m_locked = true;
     }
+    /**
+     * @brief 析构函数，自动解锁
+     */
     ~ScopedLockImpl() { unlock(); }
     void lock() {
         if (!m_locked) {
@@ -36,6 +49,9 @@ struct ScopedLockImpl {
             m_locked = true;
         }
     }
+    /**
+     * @brief 解锁
+     */
     void unlock() {
         if (m_locked) {
             m_mutex.unlock();
@@ -44,6 +60,9 @@ struct ScopedLockImpl {
     }
 
    private:
+    /**
+     * @brief 锁
+     */
     T& m_mutex;
     bool m_locked;
 };

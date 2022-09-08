@@ -6,7 +6,7 @@
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
-void run() {
+void testNormal() {
     sylar::Address::ptr addr =
         sylar::Address::LookupAnyIPAddress("www.sylar.top:80");
     if (!addr) {
@@ -39,6 +39,35 @@ void run() {
 
     std::ofstream ofs("rsp.dat");
     ofs << *rsp;
+}
+
+void testHttp() {
+    auto r =
+        sylar::http::HttpConnection::DoGet("http://www.sylar.top/blog/", 300);
+    SYLAR_LOG_INFO(g_logger)
+        << "result=" << r->result << " error=" << r->error
+        << " rsp=" << (r->response ? r->response->toString() : "");
+}
+
+void test_pool() {
+    sylar::http::HttpConnectionPool::ptr pool(
+        new sylar::http::HttpConnectionPool("www.sylar.top", "", 80, 10,
+                                            1000 * 30, 5));
+
+    sylar::IOManager::GetThis()->addTimer(
+        1000,
+        [pool]() {
+            auto r = pool->doGet("/", 300);
+            SYLAR_LOG_INFO(g_logger) << r->toString();
+        },
+        true);
+}
+
+void run() {
+    // testNormal();
+    // SYLAR_LOG_INFO(g_logger) << "=========================";
+    // testHttp();
+    test_pool();
 }
 
 int main(int argc, char** argv) {
