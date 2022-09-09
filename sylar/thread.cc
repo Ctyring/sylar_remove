@@ -56,14 +56,17 @@ Thread::Thread(std::function<void()> cb, const std::string& name)
     m_semaphore.wait();
 }
 Thread::~Thread() {
+    SYLAR_LOG_DEBUG(g_logger) << "线程销毁";
     if (m_thread) {
-        // 分离线程
+        // 将线程分离(因为线程类已经没了，但线程还没结束)，将该线程的状态设置为detached,则该线程运行结束后会自动释放所有资源。
         pthread_detach(m_thread);
     }
 }
 
 void Thread::join() {
     if (m_thread) {
+        // 以阻塞的方式等待线程结束并回收
+        SYLAR_LOG_DEBUG(g_logger) << "线程回收";
         int rt = pthread_join(m_thread, nullptr);
         if (rt) {
             SYLAR_LOG_ERROR(g_logger)

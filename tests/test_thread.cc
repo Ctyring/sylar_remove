@@ -22,15 +22,15 @@ void fun1() {
 }
 
 void fun2() {
-    while (true) {
-        SYLAR_LOG_INFO(g_logger) << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-    }
+    // while (true) {
+    SYLAR_LOG_INFO(g_logger) << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    // }
 }
 
 void fun3() {
-    while (true) {
-        SYLAR_LOG_INFO(g_logger) << "========================================";
-    }
+    // while (true) {
+    SYLAR_LOG_INFO(g_logger) << "========================================";
+    // }
 }
 
 int main(int argc, char** argv) {
@@ -52,7 +52,6 @@ int main(int argc, char** argv) {
         thrs.push_back(thr);
         thrs.push_back(thr2);
     }
-    sleep(10);
     for (size_t i = 0; i < thrs.size(); ++i) {
         thrs[i]->join();
     }

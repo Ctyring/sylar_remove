@@ -15,6 +15,7 @@ class Fiber : public std::enable_shared_from_this<Fiber> {
    public:
     typedef std::shared_ptr<Fiber> ptr;
 
+    // 初始化、
     enum State { INIT, HOLD, EXEC, TERM, READY, EXCEPT };
 
    private:
