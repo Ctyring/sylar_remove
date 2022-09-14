@@ -9,9 +9,9 @@
 #ifndef __SYLAR_FIBER_H__
 #define __SYLAR_FIBER_H__
 
-#include <memory>
-#include <functional>
 #include <ucontext.h>
+#include <functional>
+#include <memory>
 #include "thread.h"
 
 namespace sylar {
@@ -22,8 +22,9 @@ class Scheduler;
  * @brief 协程类
  */
 class Fiber : public std::enable_shared_from_this<Fiber> {
-friend class Scheduler;
-public:
+    friend class Scheduler;
+
+   public:
     typedef std::shared_ptr<Fiber> ptr;
 
     /**
@@ -43,21 +44,24 @@ public:
         /// 异常状态
         EXCEPT
     };
-private:
+
+   private:
     /**
      * @brief 无参构造函数
      * @attention 每个线程第一个协程的构造
      */
     Fiber();
 
-public:
+   public:
     /**
      * @brief 构造函数
      * @param[in] cb 协程执行的函数
      * @param[in] stacksize 协程栈大小
      * @param[in] use_caller 是否在MainFiber上调度
      */
-    Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);
+    Fiber(std::function<void()> cb,
+          size_t stacksize = 0,
+          bool use_caller = false);
 
     /**
      * @brief 析构函数
@@ -99,14 +103,14 @@ public:
     /**
      * @brief 返回协程id
      */
-    uint64_t getId() const { return m_id;}
+    uint64_t getId() const { return m_id; }
 
     /**
      * @brief 返回协程状态
      */
-    State getState() const { return m_state;}
-public:
+    State getState() const { return m_state; }
 
+   public:
     /**
      * @brief 设置当前线程的运行协程
      * @param[in] f 运行协程
@@ -151,7 +155,8 @@ public:
      * @brief 获取当前协程的id
      */
     static uint64_t GetFiberId();
-private:
+
+   private:
     /// 协程id
     uint64_t m_id = 0;
     /// 协程运行栈大小
@@ -166,6 +171,6 @@ private:
     std::function<void()> m_cb;
 };
 
-}
+}  // namespace sylar
 
 #endif

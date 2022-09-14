@@ -46,7 +46,7 @@ Fiber::Fiber() {
 
     ++s_fiber_count;
 
-    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber";
+    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber Main";
 }
 
 Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
@@ -119,8 +119,10 @@ void Fiber::call() {
 //切换到当前协程执行
 void Fiber::swapIn() {
     SetThis(this);
+
     SYLAR_ASSERT(m_state != EXEC);
     m_state = EXEC;
+
     if (swapcontext(&Scheduler::GetMainFiber()->m_ctx, &m_ctx)) {
         SYLAR_ASSERT2(false, "swapcontext");
     }
