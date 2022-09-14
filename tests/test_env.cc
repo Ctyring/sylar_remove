@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
     std::cout << "test=" << sylar::EnvMgr::GetInstance()->getEnv("TEST", "")
               << std::endl;
     std::cout << "set env "
-              << sylar::EnvMgr::GetInstance()->setEnv("TEST", "yy")
+              << sylar::EnvMgr::GetInstance()->setEnv("TEST", "yy") 
               << std::endl;
     std::cout << "test=" << sylar::EnvMgr::GetInstance()->getEnv("TEST", "")
               << std::endl;
