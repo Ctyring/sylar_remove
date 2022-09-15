@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <string>
 #include <vector>
+#include "sylar/util/hash_util.h"
 
 namespace sylar {
 

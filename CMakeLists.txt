@@ -18,6 +18,11 @@ link_directories(/yaml-cpp/lib)
 
 message("***", ${YAMLCPP})
 
+find_package(OpenSSL REQUIRED)
+if(OPENSSL_FOUND)
+    include_directories(${OPENSSL_INCLUDE_DIR})
+endif()
+
 set(LIB_SRC 
 	sylar/config.cc
 	sylar/fiber.cc
@@ -62,6 +67,7 @@ set(LIBS
 		dl
         pthread
         yaml-cpp
+		${OPENSSL_LIBRARIES}
 		)
 
 message("***", ${LIBS})

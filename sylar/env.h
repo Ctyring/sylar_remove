@@ -27,6 +27,7 @@ class Env {
     bool setEnv(const std::string& key, const std::string& val);
     std::string getEnv(const std::string& key,
                        const std::string& default_value = "");
+    std::string getAbsolutePath(const std::string& path) const;
 
    private:
     RWMutexType m_mutex;
