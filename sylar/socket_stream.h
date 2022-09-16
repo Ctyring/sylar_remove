@@ -1,3 +1,4 @@
+#pragma once
 #include "socket.h"
 #include "stream.h"
 

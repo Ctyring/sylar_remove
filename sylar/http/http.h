@@ -172,13 +172,13 @@ T getAs(const MapType& m, const std::string& key, const T& def = T()) {
     }
     return def;
 }
-
+class HttpResponse;
 class HttpRequest {
    public:
     typedef std::shared_ptr<HttpRequest> ptr;
     typedef std::map<std::string, std::string, CaseInsensitiveLess> MapType;
     HttpRequest(uint8_t version = 0x11, bool close = true);
-
+    std::shared_ptr<HttpResponse> createResponse();
     HttpMethod getMethod() const { return m_method; }
     uint8_t getVersion() const { return m_version; }
     const std::string& getPath() const { return m_path; }
@@ -197,6 +197,16 @@ class HttpRequest {
 
     bool isClose() const { return m_close; }
     void setClose(bool v) { m_close = v; }
+
+    /**
+     * @brief 是否websocket
+     */
+    bool isWebsocket() const { return m_websocket; }
+
+    /**
+     * @brief 设置是否websocket
+     */
+    void setWebsocket(bool v) { m_websocket = v; }
 
     void setHeaders(const MapType& v) { m_headers = v; }
     void setParams(const MapType& v) { m_params = v; }
@@ -259,7 +269,8 @@ class HttpRequest {
     HttpMethod m_method;
     uint8_t m_version;
     bool m_close;
-
+    /// 是否为websocket
+    bool m_websocket;
     std::string m_path;
     std::string m_query;
     std::string m_fragment;
@@ -290,7 +301,15 @@ class HttpResponse {
 
     bool isClose() const { return m_close; }
     void setClose(bool v) { m_close = v; }
+    /**
+     * @brief 是否websocket
+     */
+    bool isWebsocket() const { return m_websocket; }
 
+    /**
+     * @brief 设置是否websocket
+     */
+    void setWebsocket(bool v) { m_websocket = v; }
     std::string getHeader(const std::string& key,
                           const std::string& def = "") const;
     void setHeader(const std::string& key, const std::string& val);
@@ -313,6 +332,8 @@ class HttpResponse {
     HttpStatus m_status;
     uint8_t m_version;
     bool m_close;
+    /// 是否为websocket
+    bool m_websocket;
     std::string m_body;
     std::string m_reason;
     MapType m_headers;

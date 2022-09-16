@@ -50,6 +50,11 @@ set(LIB_SRC
 	sylar/http/http_connection.cc
 	sylar/daemon.cc
 	sylar/env.cc
+	sylar/http/ws_connection.cc
+    sylar/http/ws_session.cc
+    sylar/http/ws_server.cc
+    sylar/http/ws_servlet.cc
+	sylar/util/hash_util.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -93,6 +98,8 @@ sylar_add_executable(test_uri "tests/test_uri.cc" sylar "${LIBS}")
 sylar_add_executable(my_http_server "samples/my_http_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_daemon "tests/test_daemon.cc" sylar "${LIBS}")
 sylar_add_executable(test_env "tests/test_env.cc" sylar "${LIBS}")
+sylar_add_executable(test_ws_server "tests/test_ws_server.cc" sylar "${LIBS}")
+sylar_add_executable(test_ws_client "tests/test_ws_client.cc" sylar "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
