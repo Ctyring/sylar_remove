@@ -137,6 +137,9 @@ HttpMethod CharsToHttpMethod(const char* m);
 const char* HttpMethodToString(const HttpMethod& m);
 const char* HttpStatusToString(const HttpStatus& s);
 
+/**
+ * @brief map的比较函数
+ */
 struct CaseInsensitiveLess {
     bool operator()(const std::string& lhs, const std::string& rhs) const;
 };
