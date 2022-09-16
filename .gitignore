@@ -8,3 +8,4 @@ system.txt
 lib/
 bin/*
 !/bin/conf/
+build/
