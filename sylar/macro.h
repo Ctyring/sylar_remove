@@ -1,5 +1,5 @@
 #ifndef __SYLAR_MACRO_H__
-#define __SYLAR_Macro_H__
+#define __SYLAR_MACRO_H__
 #include <assert.h>
 #if defined __GNUC__ || defined __llvm__
 #define SYLAR_LIKELY(x) __builtin_expect(!!(x), 1)
