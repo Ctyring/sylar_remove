@@ -114,6 +114,7 @@ bool Application::init(int argc, char** argv) {
     std::string conf_path = sylar::EnvMgr::GetInstance()->getAbsolutePath(
         sylar::EnvMgr::GetInstance()->get("c", "conf"));
     SYLAR_LOG_INFO(g_logger) << "load conf path:" << conf_path;
+
     sylar::Config::LoadFromConfDir(conf_path);
 
     std::string pidfile =
