@@ -610,6 +610,54 @@ class FileLogAppender : public LogAppender {
 };
 
 /**
+ * @brief 按照时间切片的日志输出器
+ */
+class TimeSlicingFileLogAppender : public LogAppender {
+   public:
+    typedef std::shared_ptr<TimeSlicingFileLogAppender> ptr;
+    /**
+     * @brief 构造函数
+     * @param[in] prefix 文件前缀
+     * @param[in] interval 切片间隔
+     * @param[in] beginTime
+     * 允许设定开始时间，比如可以每周一开始一个新的日志文件，默认是从当前时间开始计算。
+     * @param[in] suffix 文件后缀
+     */
+    TimeSlicingFileLogAppender(const std::string& path,
+                               const std::string& prefix,
+                               const std::string& suffix = ".log",
+                               uint64_t interval = 60 * 60 * 24,
+                               std::string timeformat = "%Y-%m-%d %H:%M:%S",
+                               std::string beginTime = "");
+    void log(Logger::ptr logger,
+             LogLevel::Level level,
+             LogEvent::ptr event) override;
+    std::string toYamlString() override;
+
+    /**
+     * @brief 重新打开日志文件
+     * @return 成功返回true
+     */
+    bool reopen(u_int64_t now);
+
+   private:
+    /// 文件路径
+    std::string m_path;
+    /// 文件路径前缀
+    std::string m_prefix;
+    /// 文件路径后缀
+    std::string m_suffix;
+    /// 上次读入时间
+    uint64_t m_lastTime;
+    /// 文件流
+    std::ofstream m_filestream;
+    /// 间隔时间
+    uint64_t m_interval;
+    /// 时间格式
+    std::string m_fmt;
+};
+
+/**
  * @brief 日志器管理类
  */
 class LoggerManager {

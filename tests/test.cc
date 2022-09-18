@@ -11,16 +11,21 @@ int main(int argc, char const* argv[]) {
     sylar::LogFormatter::ptr fmt(new sylar::LogFormatter("%d%T%p%T%m%n"));
     file_appender->setFormatter(fmt);
     file_appender->setLevel(sylar::LogLevel::ERROR);
+    // logger->addAppender(file_appender);
 
-    logger->addAppender(file_appender);
+    sylar::TimeSlicingFileLogAppender::ptr ts_file_appender(
+        new sylar::TimeSlicingFileLogAppender(".", "test", ".log", 1));
+    logger->addAppender(ts_file_appender);
     // sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__, __LINE__, 0,
     // sylar::GetThreadId(), sylar::GetFiberId(), 2, time(0)));
     // logger->log(sylar::LogLevel::DEBUG, event);
+    for (int i = 0; i < 10; i++) {
+        SYLAR_LOG_INFO(logger) << "test macro";
+        SYLAR_LOG_FMT_ERROR(logger, "test macro fmt error %s", "aa");
+        sleep(10);
+    }
 
-    SYLAR_LOG_INFO(logger) << "test macro";
-    SYLAR_LOG_FMT_ERROR(logger, "test macro fmt error %s", "aa");
-
-    auto l = sylar::LoggerMgr::GetInstance()->getLogger("xx");
-    SYLAR_LOG_INFO(l) << "xxx";
+    // auto l = sylar::LoggerMgr::GetInstance()->getLogger("xx");
+    // SYLAR_LOG_INFO(l) << "xxx";
     return 0;
 }

@@ -1383,6 +1383,33 @@ sylar/util/hash_util.cc.s:
 	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/hash_util.cc.s
 .PHONY : sylar/util/hash_util.cc.s
 
+sylar/util/time.o: sylar/util/time.cc.o
+
+.PHONY : sylar/util/time.o
+
+# target to build an object file
+sylar/util/time.cc.o:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/time.cc.o
+.PHONY : sylar/util/time.cc.o
+
+sylar/util/time.i: sylar/util/time.cc.i
+
+.PHONY : sylar/util/time.i
+
+# target to preprocess a source file
+sylar/util/time.cc.i:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/time.cc.i
+.PHONY : sylar/util/time.cc.i
+
+sylar/util/time.s: sylar/util/time.cc.s
+
+.PHONY : sylar/util/time.s
+
+# target to generate assembly for a file
+sylar/util/time.cc.s:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/time.cc.s
+.PHONY : sylar/util/time.cc.s
+
 tests/test.o: tests/test.cc.o
 
 .PHONY : tests/test.o
@@ -2115,6 +2142,9 @@ help:
 	@echo "... sylar/util/hash_util.o"
 	@echo "... sylar/util/hash_util.i"
 	@echo "... sylar/util/hash_util.s"
+	@echo "... sylar/util/time.o"
+	@echo "... sylar/util/time.i"
+	@echo "... sylar/util/time.s"
 	@echo "... tests/test.o"
 	@echo "... tests/test.i"
 	@echo "... tests/test.s"

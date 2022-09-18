@@ -8,6 +8,7 @@
 #include "env.h"
 #include "macro.h"
 #include "util.h"
+#include "util/time.h"
 
 namespace sylar {
 
@@ -59,6 +60,7 @@ LogEventWrap::~LogEventWrap() {
 std::stringstream& LogEventWrap::getSS() {
     return m_event->getSS();
 }
+
 void LogEvent::format(const char* fmt, ...) {
     va_list al;
     va_start(al, fmt);
@@ -429,6 +431,76 @@ bool FileLogAppender::reopen() {
     }
     return FSUtil::OpenForWrite(m_filestream, m_filename, std::ios::app);
 }
+TimeSlicingFileLogAppender::TimeSlicingFileLogAppender(
+    const std::string& path,
+    const std::string& prefix,
+    const std::string& suffix,
+    uint64_t interval,
+    std::string timeformat,
+    std::string beginTime)
+    : m_path(path),
+      m_prefix(prefix),
+      m_suffix(suffix),
+      m_interval(interval),
+      m_fmt(timeformat) {
+    if (beginTime.empty()) {
+        m_lastTime = time(0);
+    } else {
+        m_lastTime = ParseTime(beginTime, m_fmt);
+    }
+    reopen(uint64_t(time(0)));
+}
+void TimeSlicingFileLogAppender::log(Logger::ptr logger,
+                                     LogLevel::Level level,
+                                     LogEvent::ptr event) {
+    if (level >= m_level) {
+        uint64_t now = event->getTime();
+        if (now >= (m_lastTime + m_interval)) {
+            reopen(now);
+        }
+        MutexType::Lock lock(m_mutex);
+        if (!m_formatter->format(m_filestream, logger, level, event)) {
+            std::cout << "error" << std::endl;
+        }
+    }
+}
+
+std::string TimeSlicingFileLogAppender::toYamlString() {
+    MutexType::Lock lock(m_mutex);
+    YAML::Node node;
+    node["type"] = "FileLogAppender";
+    node["path"] = m_path;
+    node["prefix"] = m_prefix;
+    node["suffix"] = m_suffix;
+    node["interval"] = m_interval;
+    // beginTime 需要转化为年月日时分秒
+    std::string beginTime = FormatTime(m_lastTime, m_fmt);
+    node["beginTime"] = m_lastTime;
+    if (m_level != LogLevel::UNKNOW) {
+        node["level"] = LogLevel::ToString(m_level);
+    }
+    if (m_hasFormatter && m_formatter) {
+        node["formatter"] = m_formatter->getPattern();
+    }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
+}
+
+bool TimeSlicingFileLogAppender::reopen(uint64_t now) {
+    MutexType::Lock lock(m_mutex);
+    if (m_filestream) {
+        m_filestream.close();
+    }
+    // 将时间戳now格式化为年月日时分秒
+    struct tm tm;
+    time_t time = now;
+    localtime_r(&time, &tm);
+    std::stringstream ss;
+    std::string filename =
+        m_path + "/" + m_prefix + "-" + FormatTime(now, m_fmt) + m_suffix;
+    return FSUtil::OpenForWrite(m_filestream, filename, std::ios::app);
+}
 
 void StdoutLogAppender::log(std::shared_ptr<Logger> logger,
                             LogLevel::Level level,
@@ -607,7 +679,8 @@ void LogFormatter::init() {
             }
         }
 
-        // std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ")
+        // std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i)
+        // << ")
         // - (" << std::get<2>(i) << ")" << std::endl;
     }
     // std::cout << m_items.size() << std::endl;
@@ -711,9 +784,9 @@ class LexicalCast<std::string, std::set<LogDefine> > {
                     } else if (type == "StdoutLogAppender") {
                         lad.type = 2;
                     } else {
-                        std::cout
-                            << "log config error: appender type is invalid, "
-                            << a << std::endl;
+                        std::cout << "log config error: appender type is "
+                                     "invalid, "
+                                  << a << std::endl;
                         continue;
                     }
 
