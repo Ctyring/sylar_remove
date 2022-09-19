@@ -1,10 +1,8 @@
 /**
  * @file log.h
  * @brief 日志模块封装
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-05-23
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
+ * @author cty
+ * @email 173479693@qq.com
  */
 #ifndef __SYLAR_LOG_H__
 #define __SYLAR_LOG_H__

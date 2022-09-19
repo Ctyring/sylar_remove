@@ -33,6 +33,7 @@ namespace sylar {
 class ConfigVarBase {
    public:
     typedef std::shared_ptr<ConfigVarBase> ptr;
+
     /**
      * @brief 构造函数
      * @param[in] name 配置参数名称[0-9a-z_.]
@@ -482,13 +483,18 @@ class Config {
         const std::string& description = "") {
         RWMutexType::WriteLock lock(GetMutex());
         auto it = GetDatas().find(name);
+        // 如果存在
         if (it != GetDatas().end()) {
+            // 看能不能转换成想要的类型
             auto tmp = std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
+            // 如果可以，直接返回
             if (tmp) {
                 SYLAR_LOG_INFO(SYLAR_LOG_ROOT())
                     << "Lookup name=" << name << " exists";
                 return tmp;
-            } else {
+            }
+            // 如果不行，说明类型错误
+            else {
                 SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
                     << "Lookup name=" << name << " exists but type not "
                     << typeid(T).name()
@@ -497,13 +503,14 @@ class Config {
                 return nullptr;
             }
         }
-
+        // 如果不存在，先判断类型名是否合法
         if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678") !=
             std::string::npos) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name invalid " << name;
             throw std::invalid_argument(name);
         }
 
+        // 合法就创建新的配置参数
         typename ConfigVar<T>::ptr v(
             new ConfigVar<T>(name, default_value, description));
         GetDatas()[name] = v;
