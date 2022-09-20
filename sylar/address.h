@@ -130,6 +130,7 @@ class UnixAddress : public Address {
     const sockaddr* getAddr() const override;
     sockaddr* getAddr() override;
     socklen_t getAddrLen() const override;
+    std::string getPath() const;
     void setAddrLen(u_int32_t v);
     std::ostream& insert(std::ostream& os) const override;
 

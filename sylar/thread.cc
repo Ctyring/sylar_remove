@@ -6,29 +6,6 @@ static thread_local std::string t_thread_name = "UNKNOW";
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
-Semaphore::Semaphore(uint32_t count) {
-    // 三个参数：初始化对象，信号量类型(0代表线程间，其他代表进程间)，信号量大小
-    if (sem_init(&m_semaphore, 0, count)) {
-        throw std::logic_error("sem_init error");
-    }
-}
-Semaphore::~Semaphore() {
-    // 销毁信号量
-    sem_destroy(&m_semaphore);
-}
-void Semaphore::wait() {
-    // 信号量减一(如果信号量为0，阻塞等待)
-    if (sem_wait(&m_semaphore)) {
-        throw std::logic_error("sem_wait error");
-    }
-}
-void Semaphore::notify() {
-    // 信号量加一
-    if (sem_post(&m_semaphore)) {
-        throw std::logic_error("sem_post error");
-    }
-}
-
 // 获取自己当前的线程
 Thread* Thread::GetThis() {
     return t_thread;

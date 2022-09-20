@@ -80,10 +80,14 @@ class ServletDispatch : public Servlet {
 class NotFoundServlet : public Servlet {
    public:
     typedef std::shared_ptr<NotFoundServlet> ptr;
-    NotFoundServlet();
+    NotFoundServlet(const std::string& name);
     virtual int32_t handle(sylar::http::HttpRequest::ptr request,
                            sylar::http::HttpResponse::ptr response,
                            sylar::http::HttpSession::ptr session) override;
+
+   private:
+    std::string m_name;
+    std::string m_content;
 };
 }  // namespace http
 }  // namespace sylar

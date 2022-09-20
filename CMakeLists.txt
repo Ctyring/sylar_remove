@@ -57,6 +57,8 @@ set(LIB_SRC
 	sylar/util/hash_util.cc
 	sylar/application.cc
 	sylar/util/time.cc
+	sylar/worker.cc
+	sylar/mutex.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)

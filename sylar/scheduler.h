@@ -1,6 +1,7 @@
 #ifndef __SYLAR_SCHEDULER_H__
 #define __SYLAR_SCHEDULER_H__
 
+#include <iostream>
 #include <list>
 #include <memory>
 #include <vector>
@@ -55,6 +56,8 @@ class Scheduler {
             tickle();
         }
     }
+    void switchTo(int thread = -1);
+    std::ostream& dump(std::ostream& os);
 
    protected:
     virtual void tickle();
@@ -118,6 +121,15 @@ class Scheduler {
     bool m_stopping = true;
     bool m_autoStop = false;
     int m_rootThread = 0;
+};
+
+class SchedulerSwitcher : public Noncopyable {
+   public:
+    SchedulerSwitcher(Scheduler* target = nullptr);
+    ~SchedulerSwitcher();
+
+   private:
+    Scheduler* m_caller;
 };
 
 }  // namespace sylar

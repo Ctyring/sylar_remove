@@ -4,6 +4,7 @@
 #include <functional>
 #include <iostream>
 #include <map>
+#include <string>
 #include "config.h"
 #include "env.h"
 #include "macro.h"
@@ -744,159 +745,145 @@ struct LogDefine {
     }
 
     bool operator<(const LogDefine& oth) const { return name < oth.name; }
+
+    bool isValid() const { return !name.empty(); }
 };
 
 template <>
-class LexicalCast<std::string, std::set<LogDefine> > {
+class LexicalCast<std::string, LogDefine> {
    public:
-    std::set<LogDefine> operator()(const std::string& v) {
-        YAML::Node node = YAML::Load(v);
-        std::set<LogDefine> vec;
-        // node["name"].IsDefined()
-        for (size_t i = 0; i < node.size(); ++i) {
-            auto n = node[i];
-            if (!n["name"].IsDefined()) {
-                std::cout << "log config error: name is null, " << n
-                          << std::endl;
-                continue;
-            }
-
-            LogDefine ld;
-            ld.name = n["name"].as<std::string>();
-            ld.level = LogLevel::FromString(
-                n["level"].IsDefined() ? n["level"].as<std::string>() : "");
-            if (n["formatter"].IsDefined()) {
-                ld.formatter = n["formatter"].as<std::string>();
-            }
-
-            if (n["appenders"].IsDefined()) {
-                // std::cout << "==" << ld.name << " = " <<
-                // n["appenders"].size() << std::endl;
-                for (size_t x = 0; x < n["appenders"].size(); ++x) {
-                    auto a = n["appenders"][x];
-                    if (!a["type"].IsDefined()) {
-                        std::cout << "log config error: appender type is null, "
-                                  << a << std::endl;
-                        continue;
-                    }
-                    std::string type = a["type"].as<std::string>();
-                    LogAppenderDefine lad;
-                    if (type == "FileLogAppender") {
-                        lad.type = 1;
-                        if (!a["file"].IsDefined()) {
-                            std::cout << "log config error: fileappender file "
-                                         "is null, "
-                                      << a << std::endl;
-                            continue;
-                        }
-                        lad.file = a["file"].as<std::string>();
-                        if (a["formatter"].IsDefined()) {
-                            lad.formatter = a["formatter"].as<std::string>();
-                        }
-                    } else if (type == "StdoutLogAppender") {
-                        lad.type = 2;
-                    } else if (type == "TimeSlicingFileLogAppender") {
-                        lad.type = 3;
-                        if (!a["path"].IsDefined()) {
-                            std::cout << "log config error: fileappender path "
-                                         "is null, "
-                                      << a << std::endl;
-                            continue;
-                        } else {
-                            lad.path = a["path"].as<std::string>();
-                        }
-                        if (!a["prefix"].IsDefined()) {
-                            std::cout
-                                << "log config error: fileappender prefix "
-                                   "is null, "
-                                << a << std::endl;
-                            continue;
-                        } else {
-                            lad.prefix = a["prefix"].as<std::string>();
-                        }
-                        if (a["suffix"].IsDefined()) {
-                            lad.suffix = a["suffix"].as<std::string>();
-                        } else {
-                            lad.suffix = ".log";
-                        }
-                        if (a["beginTime"].IsDefined()) {
-                            lad.beginTime = a["beginTime"].as<std::string>();
-                        } else {
-                            lad.beginTime = time(0);
-                        }
-                        if (a["interval"].IsDefined()) {
-                            lad.interval = a["interval"].as<uint64_t>();
-                        } else {
-                            lad.interval = 60 * 60 * 24;
-                        }
-                        if (a["fmt"].IsDefined()) {
-                            lad.fmt = a["fmt"].as<std::string>();
-                        } else {
-                            lad.fmt = "%Y-%m-%d %H:%M:%S";
-                        }
-                    } else {
-                        std::cout << "log config error: appender type is "
-                                     "invalid, "
-                                  << a << std::endl;
-                        continue;
-                    }
-
-                    ld.appenders.push_back(lad);
-                }
-            }
-            // std::cout << "---" << ld.name << " - "
-            //           << ld.appenders.size() << std::endl;
-            vec.insert(ld);
+    LogDefine operator()(const std::string& v) {
+        YAML::Node n = YAML::Load(v);
+        LogDefine ld;
+        if (!n["name"].IsDefined()) {
+            std::cout << "log config error: name is null, " << n << std::endl;
+            throw std::logic_error("log config name is null");
         }
-        return vec;
+        ld.name = n["name"].as<std::string>();
+        ld.level = LogLevel::FromString(
+            n["level"].IsDefined() ? n["level"].as<std::string>() : "");
+        if (n["formatter"].IsDefined()) {
+            ld.formatter = n["formatter"].as<std::string>();
+        }
+        if (n["appenders"].IsDefined()) {
+            // std::cout << "==" << ld.name << " = " << n["appenders"].size() <<
+            // std::endl;
+            for (size_t x = 0; x < n["appenders"].size(); ++x) {
+                auto a = n["appenders"][x];
+                if (!a["type"].IsDefined()) {
+                    std::cout << "log config error: appender type is null, "
+                              << a << std::endl;
+                    continue;
+                }
+                std::string type = a["type"].as<std::string>();
+                LogAppenderDefine lad;
+                if (type == "FileLogAppender") {
+                    lad.type = 1;
+                    if (!a["file"].IsDefined()) {
+                        std::cout
+                            << "log config error: fileappender file is null, "
+                            << a << std::endl;
+                        continue;
+                    }
+                    lad.file = a["file"].as<std::string>();
+                    if (a["formatter"].IsDefined()) {
+                        lad.formatter = a["formatter"].as<std::string>();
+                    }
+                } else if (type == "StdoutLogAppender") {
+                    lad.type = 2;
+                } else if (type == "TimeSlicingFileLogAppender") {
+                    lad.type = 3;
+                    if (!a["path"].IsDefined()) {
+                        std::cout << "log config error: "
+                                     "fileappender path "
+                                     "is null, "
+                                  << a << std::endl;
+                        continue;
+                    } else {
+                        lad.path = a["path"].as<std::string>();
+                    }
+                    if (!a["prefix"].IsDefined()) {
+                        std::cout << "log config error: "
+                                     "fileappender prefix "
+                                     "is null, "
+                                  << a << std::endl;
+                        continue;
+                    } else {
+                        lad.prefix = a["prefix"].as<std::string>();
+                    }
+                    if (a["suffix"].IsDefined()) {
+                        lad.suffix = a["suffix"].as<std::string>();
+                    } else {
+                        lad.suffix = ".log";
+                    }
+                    if (a["beginTime"].IsDefined()) {
+                        lad.beginTime = a["beginTime"].as<std::string>();
+                    } else {
+                        lad.beginTime = time(0);
+                    }
+                    if (a["interval"].IsDefined()) {
+                        lad.interval = a["interval"].as<uint64_t>();
+                    } else {
+                        lad.interval = 60 * 60 * 24;
+                    }
+                    if (a["fmt"].IsDefined()) {
+                        lad.fmt = a["fmt"].as<std::string>();
+                    } else {
+                        lad.fmt = "%Y-%m-%d %H:%M:%S";
+                    }
+                } else {
+                    std::cout << "log config error: appender type is invalid, "
+                              << a << std::endl;
+                    continue;
+                }
+
+                ld.appenders.push_back(lad);
+            }
+        }
+        return ld;
     }
 };
 
 template <>
-class LexicalCast<std::set<LogDefine>, std::string> {
+class LexicalCast<LogDefine, std::string> {
    public:
-    std::string operator()(const std::set<LogDefine>& v) {
-        YAML::Node node;
-        for (auto& i : v) {
-            YAML::Node n;
-            n["name"] = i.name;
-            if (i.level != LogLevel::UNKNOW) {
-                n["level"] = LogLevel::ToString(i.level);
+    std::string operator()(const LogDefine& i) {
+        YAML::Node n;
+        n["name"] = i.name;
+        if (i.level != LogLevel::UNKNOW) {
+            n["level"] = LogLevel::ToString(i.level);
+        }
+        if (i.formatter.empty()) {
+            n["formatter"] = i.formatter;
+        }
+        for (auto& a : i.appenders) {
+            YAML::Node na;
+            if (a.type == 1) {
+                na["type"] = "FileLogAppender";
+                na["file"] = a.file;
+            } else if (a.type == 2) {
+                na["type"] = "StdoutLogAppender";
+            } else if (a.type == 3) {
+                na["type"] = "TimeSlicingFileLogAppender";
+                na["path"] = a.path;
+                na["prefix"] = a.prefix;
+                na["suffix"] = a.suffix;
+                na["beginTime"] = a.beginTime;
+                na["interval"] = a.interval;
+                na["fmt"] = a.fmt;
             }
-            if (i.formatter.empty()) {
-                n["formatter"] = i.formatter;
+            if (a.level != LogLevel::UNKNOW) {
+                na["level"] = LogLevel::ToString(a.level);
             }
 
-            for (auto& a : i.appenders) {
-                YAML::Node na;
-                if (a.type == 1) {
-                    na["type"] = "FileLogAppender";
-                    na["file"] = a.file;
-                } else if (a.type == 2) {
-                    na["type"] = "StdoutLogAppender";
-                } else if (a.type == 3) {
-                    na["type"] = "TimeSlicingFileLogAppender";
-                    na["path"] = a.path;
-                    na["prefix"] = a.prefix;
-                    na["suffix"] = a.suffix;
-                    na["beginTime"] = a.beginTime;
-                    na["interval"] = a.interval;
-                    na["fmt"] = a.fmt;
-                }
-                if (a.level != LogLevel::UNKNOW) {
-                    na["level"] = LogLevel::ToString(a.level);
-                }
-
-                if (!a.formatter.empty()) {
-                    na["formatter"] = a.formatter;
-                }
-
-                n["appenders"].push_back(na);
+            if (!a.formatter.empty()) {
+                na["formatter"] = a.formatter;
             }
-            node.push_back(n);
+
+            n["appenders"].push_back(na);
         }
         std::stringstream ss;
-        ss << node;
+        ss << n;
         return ss.str();
     }
 };

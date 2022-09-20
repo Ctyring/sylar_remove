@@ -4,14 +4,14 @@ logs:
       formatter: '%d%T%m%n'
       appenders:
           - type: FileLogAppender
-            file: root.txt
+            file: /apps/logs/sylar/root.txt
           - type: StdoutLogAppender
     - name: system
       level: debug
       formatter: '%d%T%m%n'
       appenders:
           - type: FileLogAppender
-            file: system.txt
+            file: /apps/logs/sylar/system.txt
             formatter: '%d%T[%p]%T%m%n'
           - type: StdoutLogAppender
           # - type: TimeSlicingFileLogAppender

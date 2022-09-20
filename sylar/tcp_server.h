@@ -53,6 +53,8 @@ class TcpServer : public std::enable_shared_from_this<TcpServer>, Noncopyable {
                       std::vector<Address::ptr>& fails,
                       bool ssl = false);
 
+    bool loadCertificates(const std::string& cert_file,
+                          const std::string& key_file);
     /**
      * @brief 启动服务
      * @pre 需要bind成功后执行
@@ -82,7 +84,7 @@ class TcpServer : public std::enable_shared_from_this<TcpServer>, Noncopyable {
     /**
      * @brief 设置服务器名称
      */
-    void setName(const std::string& v) { m_name = v; }
+    virtual void setName(const std::string& v) { m_name = v; }
 
     /**
      * @brief 是否停止

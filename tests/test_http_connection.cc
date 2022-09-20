@@ -51,8 +51,29 @@ void testHttp() {
 
 void test_pool() {
     sylar::http::HttpConnectionPool::ptr pool(
-        new sylar::http::HttpConnectionPool("www.sylar.top", "", 80, 10,
+        new sylar::http::HttpConnectionPool("www.sylar.top", "", 80, false, 10,
                                             1000 * 30, 5));
+
+    sylar::IOManager::GetThis()->addTimer(
+        1000,
+        [pool]() {
+            auto r = pool->doGet("/", 300);
+            SYLAR_LOG_INFO(g_logger) << r->toString();
+        },
+        true);
+}
+
+void test_https() {
+    auto r = sylar::http::HttpConnection::DoGet("https://www.baidu.com/", 300);
+    SYLAR_LOG_INFO(g_logger)
+        << "result=" << r->result << " error=" << r->error
+        << " rsp=" << (r->response ? r->response->toString() : "");
+
+    // sylar::http::HttpConnectionPool::ptr pool(new
+    // sylar::http::HttpConnectionPool(
+    //             "www.baidu.com", "", 443, true, 10, 1000 * 30, 5));
+    auto pool = sylar::http::HttpConnectionPool::Create("https://www.baidu.com",
+                                                        "", 10, 1000 * 30, 5);
 
     sylar::IOManager::GetThis()->addTimer(
         1000,
@@ -72,6 +93,6 @@ void run() {
 
 int main(int argc, char** argv) {
     sylar::IOManager iom(2);
-    iom.schedule(run);
+    iom.schedule(test_https);
     return 0;
 }

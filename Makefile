@@ -1113,6 +1113,33 @@ sylar/log.cc.s:
 	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/log.cc.s
 .PHONY : sylar/log.cc.s
 
+sylar/mutex.o: sylar/mutex.cc.o
+
+.PHONY : sylar/mutex.o
+
+# target to build an object file
+sylar/mutex.cc.o:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/mutex.cc.o
+.PHONY : sylar/mutex.cc.o
+
+sylar/mutex.i: sylar/mutex.cc.i
+
+.PHONY : sylar/mutex.i
+
+# target to preprocess a source file
+sylar/mutex.cc.i:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/mutex.cc.i
+.PHONY : sylar/mutex.cc.i
+
+sylar/mutex.s: sylar/mutex.cc.s
+
+.PHONY : sylar/mutex.s
+
+# target to generate assembly for a file
+sylar/mutex.cc.s:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/mutex.cc.s
+.PHONY : sylar/mutex.cc.s
+
 sylar/scheduler.o: sylar/scheduler.cc.o
 
 .PHONY : sylar/scheduler.o
@@ -1409,6 +1436,33 @@ sylar/util/time.s: sylar/util/time.cc.s
 sylar/util/time.cc.s:
 	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/time.cc.s
 .PHONY : sylar/util/time.cc.s
+
+sylar/worker.o: sylar/worker.cc.o
+
+.PHONY : sylar/worker.o
+
+# target to build an object file
+sylar/worker.cc.o:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.o
+.PHONY : sylar/worker.cc.o
+
+sylar/worker.i: sylar/worker.cc.i
+
+.PHONY : sylar/worker.i
+
+# target to preprocess a source file
+sylar/worker.cc.i:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.i
+.PHONY : sylar/worker.cc.i
+
+sylar/worker.s: sylar/worker.cc.s
+
+.PHONY : sylar/worker.s
+
+# target to generate assembly for a file
+sylar/worker.cc.s:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.s
+.PHONY : sylar/worker.cc.s
 
 tests/test.o: tests/test.cc.o
 
@@ -2112,6 +2166,9 @@ help:
 	@echo "... sylar/log.o"
 	@echo "... sylar/log.i"
 	@echo "... sylar/log.s"
+	@echo "... sylar/mutex.o"
+	@echo "... sylar/mutex.i"
+	@echo "... sylar/mutex.s"
 	@echo "... sylar/scheduler.o"
 	@echo "... sylar/scheduler.i"
 	@echo "... sylar/scheduler.s"
@@ -2145,6 +2202,9 @@ help:
 	@echo "... sylar/util/time.o"
 	@echo "... sylar/util/time.i"
 	@echo "... sylar/util/time.s"
+	@echo "... sylar/worker.o"
+	@echo "... sylar/worker.i"
+	@echo "... sylar/worker.s"
 	@echo "... tests/test.o"
 	@echo "... tests/test.i"
 	@echo "... tests/test.s"

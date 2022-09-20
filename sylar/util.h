@@ -7,6 +7,7 @@
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <boost/lexical_cast.hpp>
 #include <iomanip>
 #include <string>
 #include <vector>
@@ -50,6 +51,32 @@ class FSUtil {
                              const std::string& filename,
                              std::ios_base::openmode mode);
 };
+template <class Map, class K, class V>
+V GetParamValue(const Map& m, const K& k, const V& def = V()) {
+    auto it = m.find(k);
+    if (it == m.end()) {
+        return def;
+    }
+    try {
+        return boost::lexical_cast<V>(it->second);
+    } catch (...) {
+    }
+    return def;
+}
+
+template <class Map, class K, class V>
+bool CheckGetParamValue(const Map& m, const K& k, V& v) {
+    auto it = m.find(k);
+    if (it == m.end()) {
+        return false;
+    }
+    try {
+        v = boost::lexical_cast<V>(it->second);
+        return true;
+    } catch (...) {
+    }
+    return false;
+}
 }  // namespace sylar
 
 #endif
