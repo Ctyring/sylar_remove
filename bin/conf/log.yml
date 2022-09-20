@@ -14,3 +14,8 @@ logs:
             file: system.txt
             formatter: '%d%T[%p]%T%m%n'
           - type: StdoutLogAppender
+          # - type: TimeSlicingFileLogAppender
+          #   path: "."
+          #   prefix: "test"
+          #   suffix: ".txt"
+          #   interval: 1

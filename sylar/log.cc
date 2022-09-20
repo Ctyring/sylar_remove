@@ -709,10 +709,22 @@ Logger::ptr LoggerManager::getLogger(const std::string& name) {
 }
 
 struct LogAppenderDefine {
-    int type = 0;  // 1 File, 2 Stdout
+    int type = 0;  // 1 File, 2 Stdout 3 时间分片
     LogLevel::Level level = LogLevel::UNKNOW;
     std::string formatter;
     std::string file;
+    /// 文件路径
+    std::string path;
+    /// 日志所在文件夹
+    std::string prefix;
+    /// 文件路径后缀
+    std::string suffix;
+    /// 开始时间
+    std::string beginTime;
+    /// 间隔时间
+    uint64_t interval;
+    /// 时间格式
+    std::string fmt;
 
     bool operator==(const LogAppenderDefine& oth) const {
         return type == oth.type && level == oth.level &&
@@ -783,6 +795,45 @@ class LexicalCast<std::string, std::set<LogDefine> > {
                         }
                     } else if (type == "StdoutLogAppender") {
                         lad.type = 2;
+                    } else if (type == "TimeSlicingFileLogAppender") {
+                        lad.type = 3;
+                        if (!a["path"].IsDefined()) {
+                            std::cout << "log config error: fileappender path "
+                                         "is null, "
+                                      << a << std::endl;
+                            continue;
+                        } else {
+                            lad.path = a["path"].as<std::string>();
+                        }
+                        if (!a["prefix"].IsDefined()) {
+                            std::cout
+                                << "log config error: fileappender prefix "
+                                   "is null, "
+                                << a << std::endl;
+                            continue;
+                        } else {
+                            lad.prefix = a["prefix"].as<std::string>();
+                        }
+                        if (a["suffix"].IsDefined()) {
+                            lad.suffix = a["suffix"].as<std::string>();
+                        } else {
+                            lad.suffix = ".log";
+                        }
+                        if (a["beginTime"].IsDefined()) {
+                            lad.beginTime = a["beginTime"].as<std::string>();
+                        } else {
+                            lad.beginTime = time(0);
+                        }
+                        if (a["interval"].IsDefined()) {
+                            lad.interval = a["interval"].as<uint64_t>();
+                        } else {
+                            lad.interval = 60 * 60 * 24;
+                        }
+                        if (a["fmt"].IsDefined()) {
+                            lad.fmt = a["fmt"].as<std::string>();
+                        } else {
+                            lad.fmt = "%Y-%m-%d %H:%M:%S";
+                        }
                     } else {
                         std::cout << "log config error: appender type is "
                                      "invalid, "
@@ -823,6 +874,14 @@ class LexicalCast<std::set<LogDefine>, std::string> {
                     na["file"] = a.file;
                 } else if (a.type == 2) {
                     na["type"] = "StdoutLogAppender";
+                } else if (a.type == 3) {
+                    na["type"] = "TimeSlicingFileLogAppender";
+                    na["path"] = a.path;
+                    na["prefix"] = a.prefix;
+                    na["suffix"] = a.suffix;
+                    na["beginTime"] = a.beginTime;
+                    na["interval"] = a.interval;
+                    na["fmt"] = a.fmt;
                 }
                 if (a.level != LogLevel::UNKNOW) {
                     na["level"] = LogLevel::ToString(a.level);
@@ -878,6 +937,10 @@ struct LogIniter {
                         } else {
                             continue;
                         }
+                    } else if (a.type == 3) {
+                        ap.reset(new TimeSlicingFileLogAppender(
+                            a.path, a.prefix, a.suffix, a.interval, a.fmt,
+                            a.beginTime));
                     }
                     ap->setLevel(a.level);
                     if (!a.formatter.empty()) {
