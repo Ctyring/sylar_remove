@@ -66,13 +66,6 @@ void Scheduler::start() {
         m_threadIds.push_back(m_threads[i]->getId());
     }
     lock.unlock();
-
-    // if (m_rootFiber)
-    // {
-    //     // m_rootFiber->swapIn();
-    //     m_rootFiber->call();
-    //     SYLAR_LOG_INFO(g_logger) << "call out " << m_rootFiber->getState();
-    // }
 }
 
 void Scheduler::stop() {
@@ -123,9 +116,6 @@ void Scheduler::stop() {
     if (stopping()) {
         return;
     }
-
-    // if(exit_on_this_fiber) {
-    // }
 }
 
 void Scheduler::setThis() {
