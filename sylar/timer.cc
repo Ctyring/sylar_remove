@@ -83,6 +83,12 @@ bool Timer::reset(uint64_t ms, bool from_now) {
     return true;
 }
 
+TimerManager::TimerManager() {
+    m_previouseTime = sylar::GetCurrentMS();
+}
+
+TimerManager::~TimerManager() {}
+
 Timer::ptr TimerManager::addTimer(uint64_t ms,
                                   std::function<void()> cb,
                                   bool recurring) {

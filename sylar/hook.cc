@@ -110,30 +110,23 @@ static ssize_t do_io(int fd,
 
 retry:
     ssize_t n = fun(fd, std::forward<Args>(args)...);
-    // 如果中断就不断重试
     while (n == -1 && errno == EINTR) {
         n = fun(fd, std::forward<Args>(args)...);
     }
-    // 如果状态变成阻塞状态，说明需要做异步操作
     if (n == -1 && errno == EAGAIN) {
         sylar::IOManager* iom = sylar::IOManager::GetThis();
         sylar::Timer::ptr timer;
         std::weak_ptr<timer_info> winfo(tinfo);
 
-        // 如果存在超时时间，添加一个定时器
         if (to != (uint64_t)-1) {
             timer = iom->addConditionTimer(
                 to,
                 [winfo, fd, iom, event]() {
                     auto t = winfo.lock();
-                    // 如果定时器已经失效，直接返回
                     if (!t || t->cancelled) {
                         return;
                     }
-                    // 到这里说明已经超时
-                    // 将状态设置为错误
                     t->cancelled = ETIMEDOUT;
-                    // 强制唤醒事件
                     iom->cancelEvent(fd, (sylar::IOManager::Event)(event));
                 },
                 winfo);
@@ -156,8 +149,6 @@ retry:
                 errno = tinfo->cancelled;
                 return -1;
             }
-            SYLAR_ASSERT(sylar::Fiber::GetThis()->getState() ==
-                         sylar::Fiber::EXEC);
             goto retry;
         }
     }
@@ -177,9 +168,11 @@ unsigned int sleep(unsigned int seconds) {
 
     sylar::Fiber::ptr fiber = sylar::Fiber::GetThis();
     sylar::IOManager* iom = sylar::IOManager::GetThis();
-    // 这里bind了一个函数指针
     iom->addTimer(
         seconds * 1000,
+        // ::* 指向成员的指针
+        // void(*)(int) &a; 把a转换成返回值为void，参数为int的函数指针
+        // bind绑定类成员函数时，第一个参数表示对象成员函数地址，第二个参数表示对象地址
         std::bind((void(sylar::Scheduler::*)(sylar::Fiber::ptr, int thread)) &
                       sylar::IOManager::schedule,
                   iom, fiber, -1));
@@ -238,6 +231,7 @@ int connect_with_timeout(int fd,
     if (!sylar::t_hook_enable) {
         return connect_f(fd, addr, addrlen);
     }
+    // 文件句柄的情况判断
     sylar::FdCtx::ptr ctx = sylar::FdMgr::GetInstance()->get(fd);
     if (!ctx || ctx->isClose()) {
         errno = EBADF;
@@ -252,35 +246,41 @@ int connect_with_timeout(int fd,
         return connect_f(fd, addr, addrlen);
     }
 
+    // 如果而文件是正常的，进行连接
     int n = connect_f(fd, addr, addrlen);
+    // 如果连接成功，或者连接失败，但是错误不是EINPROGRESS，直接返回
     if (n == 0) {
         return 0;
     } else if (n != -1 || errno != EINPROGRESS) {
         return n;
     }
-
+    // EINPROGRESS 表示连接正在进行中
     sylar::IOManager* iom = sylar::IOManager::GetThis();
     sylar::Timer::ptr timer;
     std::shared_ptr<timer_info> tinfo(new timer_info);
     std::weak_ptr<timer_info> winfo(tinfo);
-
+    // 如果存在超时时间，添加一个定时器，定时器会在超时的时候调用
     if (timeout_ms != (uint64_t)-1) {
         timer = iom->addConditionTimer(
             timeout_ms,
             [winfo, fd, iom]() {
                 auto t = winfo.lock();
+                // 如果到期的时候，连接已经成功了，那么就不需要取消了
                 if (!t || t->cancelled) {
                     return;
                 }
+                // 修改状态并取消事件
                 t->cancelled = ETIMEDOUT;
                 iom->cancelEvent(fd, sylar::IOManager::WRITE);
             },
             winfo);
     }
-
+    // 添加事件
     int rt = iom->addEvent(fd, sylar::IOManager::WRITE);
     if (rt == 0) {
+        // 把自己切出去
         sylar::Fiber::YieldToHold();
+        // 如果是超时，这里就会返回
         if (timer) {
             timer->cancel();
         }
@@ -295,12 +295,14 @@ int connect_with_timeout(int fd,
         SYLAR_LOG_ERROR(g_logger)
             << "connect addEvent(" << fd << ", WRITE) error";
     }
-
+    // 判断是否连接成功
     int error = 0;
     socklen_t len = sizeof(int);
+    // 获取状态码
     if (-1 == getsockopt(fd, SOL_SOCKET, SO_ERROR, &error, &len)) {
         return -1;
     }
+    // 如果状态码为0，表示连接成功
     if (!error) {
         return 0;
     } else {
@@ -438,7 +440,10 @@ int fcntl(int fd, int cmd, ... /* arg */) {
         case F_SETSIG:
         case F_SETLEASE:
         case F_NOTIFY:
-        case F_SETPIPE_SZ: {
+#ifdef F_SETPIPE_SZ
+        case F_SETPIPE_SZ:
+#endif
+        {
             int arg = va_arg(va, int);
             va_end(va);
             return fcntl_f(fd, cmd, arg);
@@ -447,7 +452,10 @@ int fcntl(int fd, int cmd, ... /* arg */) {
         case F_GETOWN:
         case F_GETSIG:
         case F_GETLEASE:
-        case F_GETPIPE_SZ: {
+#ifdef F_GETPIPE_SZ
+        case F_GETPIPE_SZ:
+#endif
+        {
             va_end(va);
             return fcntl_f(fd, cmd);
         } break;
