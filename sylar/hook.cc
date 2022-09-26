@@ -110,14 +110,16 @@ static ssize_t do_io(int fd,
 
 retry:
     ssize_t n = fun(fd, std::forward<Args>(args)...);
+    // 如果失败并且失败原因为中断，那么重试
     while (n == -1 && errno == EINTR) {
         n = fun(fd, std::forward<Args>(args)...);
     }
+    // 失败原因是当前没有数据
     if (n == -1 && errno == EAGAIN) {
         sylar::IOManager* iom = sylar::IOManager::GetThis();
         sylar::Timer::ptr timer;
         std::weak_ptr<timer_info> winfo(tinfo);
-
+        // 如果有超时时间
         if (to != (uint64_t)-1) {
             timer = iom->addConditionTimer(
                 to,
