@@ -133,7 +133,7 @@ retry:
                 },
                 winfo);
         }
-
+        
         int rt = iom->addEvent(fd, (sylar::IOManager::Event)(event));
         if (SYLAR_UNLIKELY(rt)) {
             SYLAR_LOG_ERROR(g_logger)
