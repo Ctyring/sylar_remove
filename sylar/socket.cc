@@ -125,6 +125,7 @@ bool Socket::setOption(int level,
 
 Socket::ptr Socket::accept() {
     Socket::ptr sock(new Socket(m_family, m_type, m_protocol));
+    // 异步等待连接(hook)
     int newsock = ::accept(m_sock, nullptr, nullptr);
     if (newsock == -1) {
         SYLAR_LOG_ERROR(g_logger) << "accept(" << m_sock << ") errno=" << errno
@@ -198,7 +199,7 @@ bool Socket::connect(const Address::ptr addr, uint64_t timeout_ms) {
             << addr->getFamily() << ") not equal, addr=" << addr->toString();
         return false;
     }
-
+    // 这两个函数之前hook过，所以不会阻塞
     if (timeout_ms == (uint64_t)-1) {
         if (::connect(m_sock, addr->getAddr(), addr->getAddrLen())) {
             SYLAR_LOG_ERROR(g_logger)
@@ -623,18 +624,21 @@ bool SSLSocket::init(int sock) {
 bool SSLSocket::loadCertificates(const std::string& cert_file,
                                  const std::string& key_file) {
     m_ctx.reset(SSL_CTX_new(SSLv23_server_method()), SSL_CTX_free);
+    // 调用证书
     if (SSL_CTX_use_certificate_chain_file(m_ctx.get(), cert_file.c_str()) !=
         1) {
         SYLAR_LOG_ERROR(g_logger)
             << "SSL_CTX_use_certificate_chain_file(" << cert_file << ") error";
         return false;
     }
+    // 加载自己的私钥
     if (SSL_CTX_use_PrivateKey_file(m_ctx.get(), key_file.c_str(),
                                     SSL_FILETYPE_PEM) != 1) {
         SYLAR_LOG_ERROR(g_logger)
             << "SSL_CTX_use_PrivateKey_file(" << key_file << ") error";
         return false;
     }
+    // 验证证书和私钥是否相符
     if (SSL_CTX_check_private_key(m_ctx.get()) != 1) {
         SYLAR_LOG_ERROR(g_logger)
             << "SSL_CTX_check_private_key cert_file=" << cert_file

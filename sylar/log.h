@@ -107,12 +107,10 @@
  * @brief 获取name的日志器
  */
 #define SYLAR_LOG_NAME(name) sylar::LoggerMgr::GetInstance()->getLogger(name)
-
 namespace sylar {
 
 class Logger;
 class LoggerManager;
-
 /**
  * @brief 日志级别
  */

@@ -12,7 +12,6 @@
 #include "util/time.h"
 
 namespace sylar {
-
 const char* LogLevel::ToString(LogLevel::Level level) {
     switch (level) {
 #define XX(name)         \

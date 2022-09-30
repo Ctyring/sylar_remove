@@ -438,7 +438,11 @@ class SSLSocket : public Socket {
                          size_t length,
                          Address::ptr from,
                          int flags = 0) override;
-
+    /**
+     * @brief 加载证书
+     * @param[in] cert_file 证书链
+     * @param[in] key_file 秘钥
+     */
     bool loadCertificates(const std::string& cert_file,
                           const std::string& key_file);
     virtual std::ostream& dump(std::ostream& os) const override;
