@@ -36,6 +36,7 @@ HttpResponse::ptr HttpConnection::recvResponse() {
             return nullptr;
         }
         len += offset;
+        // 封装结尾
         data[len] = '\0';
         size_t nparse = parser->execute(data, len, false);
         if (parser->hasError()) {
@@ -52,6 +53,7 @@ HttpResponse::ptr HttpConnection::recvResponse() {
         }
     } while (true);
     auto& client_parser = parser->getParser();
+    // 判断是否分块
     if (client_parser.chunked) {
         std::string body;
         int len = offset;
@@ -76,18 +78,23 @@ HttpResponse::ptr HttpConnection::recvResponse() {
                 }
             } while (!parser->isFinished());
             len -= 2;
-
             SYLAR_LOG_INFO(g_logger)
                 << "content_len=" << client_parser.content_len;
+            // 如果目前读的长度已经超过了content_len
             if (client_parser.content_len <= len) {
+                // 将data中的请求体读出来
                 body.append(data, client_parser.content_len);
+                // 将data中的请求体后面的数据前移
                 memmove(data, data + client_parser.content_len,
                         len - client_parser.content_len);
+                // 更新len
                 len -= client_parser.content_len;
             } else {
+                // 如果目前读的长度没有超过content_len，说明请求体还没完全读出来
                 body.append(data, len);
                 int left = client_parser.content_len - len;
                 while (left > 0) {
+                    // 继续读
                     int rt = read(
                         data, left > (int)buff_size ? (int)buff_size : left);
                     if (rt <= 0) {
@@ -101,7 +108,9 @@ HttpResponse::ptr HttpConnection::recvResponse() {
             }
         } while (!client_parser.chunks_done);
         parser->getData()->setBody(body);
-    } else {
+    }
+    // 如果不分块，处理方法和session相同
+    else {
         int64_t length = parser->getContentLength();
         if (length > 0) {
             std::string body;
@@ -227,13 +236,16 @@ HttpResult::ptr HttpConnection::DoRequest(
 HttpResult::ptr HttpConnection::DoRequest(HttpRequest::ptr req,
                                           Uri::ptr uri,
                                           uint64_t timeout_ms) {
+    // 是否启用https
     bool is_ssl = uri->getScheme() == "https";
+    // 地址
     Address::ptr addr = uri->createAddress();
     if (!addr) {
         return std::make_shared<HttpResult>(
             (int)HttpResult::Error::INVALID_HOST, nullptr,
             "invalid host: " + uri->getHost());
     }
+    // 根据ssl创建socket
     Socket::ptr sock =
         is_ssl ? SSLSocket::CreateTCP(addr) : Socket::CreateTCP(addr);
     if (!sock) {
@@ -243,13 +255,17 @@ HttpResult::ptr HttpConnection::DoRequest(HttpRequest::ptr req,
                 " errno=" + std::to_string(errno) +
                 " errstr=" + std::string(strerror(errno)));
     }
+    // 连接
     if (!sock->connect(addr)) {
         return std::make_shared<HttpResult>(
             (int)HttpResult::Error::CONNECT_FAIL, nullptr,
             "connect fail: " + addr->toString());
     }
+    // 设置超时
     sock->setRecvTimeout(timeout_ms);
+    // 创建http连接
     HttpConnection::ptr conn = std::make_shared<HttpConnection>(sock);
+    // 发送请求
     int rt = conn->sendRequest(req);
     if (rt == 0) {
         return std::make_shared<HttpResult>(
@@ -262,6 +278,7 @@ HttpResult::ptr HttpConnection::DoRequest(HttpRequest::ptr req,
             "send request socket error errno=" + std::to_string(errno) +
                 " errstr=" + std::string(strerror(errno)));
     }
+    // 接收响应
     auto rsp = conn->recvResponse();
     if (!rsp) {
         return std::make_shared<HttpResult>(
@@ -346,6 +363,7 @@ HttpConnection::ptr HttpConnectionPool::getConnection() {
         ptr = new HttpConnection(sock);
         ++m_total;
     }
+    // 提供了释放函数，当HttpConnection::ptr被释放时，会调用该函数
     return HttpConnection::ptr(ptr, std::bind(&HttpConnectionPool::ReleasePtr,
                                               std::placeholders::_1, this));
 }

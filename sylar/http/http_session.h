@@ -1,6 +1,6 @@
 #pragma once
 #include "http.h"
-#include "sylar/socket_stream.h"
+#include "sylar/streams/socket_stream.h"
 namespace sylar {
 namespace http {
 class HttpSession : public SocketStream {

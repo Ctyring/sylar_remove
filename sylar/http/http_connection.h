@@ -1,7 +1,16 @@
-#pragma once
+/**
+ * @file http_connection.h
+ * @brief HTTP客户端类
+ * @author sylar.yin
+ * @email 564628276@qq.com
+ * @date 2019-06-11
+ * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
+ */
+#ifndef __SYLAR_HTTP_CONNECTION_H__
+#define __SYLAR_HTTP_CONNECTION_H__
 
 #include "http.h"
-#include "sylar/socket_stream.h"
+#include "sylar/streams/socket_stream.h"
 #include "sylar/thread.h"
 #include "sylar/uri.h"
 
@@ -189,6 +198,7 @@ class HttpConnection : public SocketStream {
      * @brief 接收HTTP响应
      */
     HttpResponse::ptr recvResponse();
+
     /**
      * @brief 发送HTTP请求
      * @param[in] req HTTP请求结构
@@ -328,6 +338,7 @@ class HttpConnectionPool {
     uint32_t m_maxAliveTime;
     uint32_t m_maxRequest;
     bool m_isHttps;
+
     MutexType m_mutex;
     std::list<HttpConnection*> m_conns;
     std::atomic<int32_t> m_total = {0};
@@ -335,3 +346,5 @@ class HttpConnectionPool {
 
 }  // namespace http
 }  // namespace sylar
+
+#endif

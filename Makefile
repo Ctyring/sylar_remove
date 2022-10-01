@@ -1194,33 +1194,6 @@ sylar/socket.cc.s:
 	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket.cc.s
 .PHONY : sylar/socket.cc.s
 
-sylar/socket_stream.o: sylar/socket_stream.cc.o
-
-.PHONY : sylar/socket_stream.o
-
-# target to build an object file
-sylar/socket_stream.cc.o:
-	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket_stream.cc.o
-.PHONY : sylar/socket_stream.cc.o
-
-sylar/socket_stream.i: sylar/socket_stream.cc.i
-
-.PHONY : sylar/socket_stream.i
-
-# target to preprocess a source file
-sylar/socket_stream.cc.i:
-	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket_stream.cc.i
-.PHONY : sylar/socket_stream.cc.i
-
-sylar/socket_stream.s: sylar/socket_stream.cc.s
-
-.PHONY : sylar/socket_stream.s
-
-# target to generate assembly for a file
-sylar/socket_stream.cc.s:
-	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/socket_stream.cc.s
-.PHONY : sylar/socket_stream.cc.s
-
 sylar/stream.o: sylar/stream.cc.o
 
 .PHONY : sylar/stream.o
@@ -1247,6 +1220,33 @@ sylar/stream.s: sylar/stream.cc.s
 sylar/stream.cc.s:
 	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/stream.cc.s
 .PHONY : sylar/stream.cc.s
+
+sylar/streams/socket_stream.o: sylar/streams/socket_stream.cc.o
+
+.PHONY : sylar/streams/socket_stream.o
+
+# target to build an object file
+sylar/streams/socket_stream.cc.o:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/socket_stream.cc.o
+.PHONY : sylar/streams/socket_stream.cc.o
+
+sylar/streams/socket_stream.i: sylar/streams/socket_stream.cc.i
+
+.PHONY : sylar/streams/socket_stream.i
+
+# target to preprocess a source file
+sylar/streams/socket_stream.cc.i:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/socket_stream.cc.i
+.PHONY : sylar/streams/socket_stream.cc.i
+
+sylar/streams/socket_stream.s: sylar/streams/socket_stream.cc.s
+
+.PHONY : sylar/streams/socket_stream.s
+
+# target to generate assembly for a file
+sylar/streams/socket_stream.cc.s:
+	$(MAKE) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/socket_stream.cc.s
+.PHONY : sylar/streams/socket_stream.cc.s
 
 sylar/tcp_server.o: sylar/tcp_server.cc.o
 
@@ -2175,12 +2175,12 @@ help:
 	@echo "... sylar/socket.o"
 	@echo "... sylar/socket.i"
 	@echo "... sylar/socket.s"
-	@echo "... sylar/socket_stream.o"
-	@echo "... sylar/socket_stream.i"
-	@echo "... sylar/socket_stream.s"
 	@echo "... sylar/stream.o"
 	@echo "... sylar/stream.i"
 	@echo "... sylar/stream.s"
+	@echo "... sylar/streams/socket_stream.o"
+	@echo "... sylar/streams/socket_stream.i"
+	@echo "... sylar/streams/socket_stream.s"
 	@echo "... sylar/tcp_server.o"
 	@echo "... sylar/tcp_server.i"
 	@echo "... sylar/tcp_server.s"
