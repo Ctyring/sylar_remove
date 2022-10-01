@@ -370,13 +370,17 @@ void ByteArray::read(void* buf, size_t size) {
     if (size > getReadSize()) {
         throw std::out_of_range("not enough len");
     }
-
+    // 当前的位置
     size_t npos = m_position % m_baseSize;
+    // 当前剩余的容量
     size_t ncap = m_cur->size - npos;
     size_t bpos = 0;
     while (size > 0) {
+        // 如果够用
         if (ncap >= size) {
+            // 拷贝出来
             memcpy((char*)buf + bpos, m_cur->ptr + npos, size);
+            // 如果用完了，就走到下一个
             if (m_cur->size == (npos + size)) {
                 m_cur = m_cur->next;
             }
@@ -384,7 +388,9 @@ void ByteArray::read(void* buf, size_t size) {
             bpos += size;
             size = 0;
         } else {
+            // 先把当前块能保存的拷贝出来
             memcpy((char*)buf + bpos, m_cur->ptr + npos, ncap);
+            // 更新到下一个块
             m_position += ncap;
             bpos += ncap;
             size -= ncap;
@@ -396,7 +402,7 @@ void ByteArray::read(void* buf, size_t size) {
 }
 
 void ByteArray::read(void* buf, size_t size, size_t position) const {
-    if (size > getReadSize()) {
+    if (size > (m_size - position)) {
         throw std::out_of_range("not enough len");
     }
 
@@ -445,6 +451,8 @@ void ByteArray::setPosition(size_t v) {
 
 bool ByteArray::writeToFile(const std::string& name) const {
     std::ofstream ofs;
+    // std::ios::trunc 如果文件存在，先删除(覆盖)
+    // std::ios::binary 二进制文件
     ofs.open(name, std::ios::trunc | std::ios::binary);
     if (!ofs) {
         SYLAR_LOG_ERROR(g_logger)
@@ -452,16 +460,21 @@ bool ByteArray::writeToFile(const std::string& name) const {
             << " errstr=" << strerror(errno);
         return false;
     }
-
+    // 获取可读数据大小
     int64_t read_size = getReadSize();
     int64_t pos = m_position;
     Node* cur = m_cur;
 
+    // 如果有数据可以读
     while (read_size > 0) {
+        // 计算当前块的偏移
         int diff = pos % m_baseSize;
+        // 计算能写入的长度
         int64_t len =
             (read_size > (int64_t)m_baseSize ? m_baseSize : read_size) - diff;
+        // 写入
         ofs.write(cur->ptr + diff, len);
+        // 更新到下一个块
         cur = cur->next;
         pos += len;
         read_size -= len;
@@ -499,8 +512,7 @@ void ByteArray::addCapacity(size_t size) {
     }
 
     size = size - old_cap;
-    size_t count =
-        (size / m_baseSize) + (((size % m_baseSize) > old_cap) ? 1 : 0);
+    size_t count = ceil(1.0 * size / m_baseSize);
     Node* tmp = m_root;
     while (tmp->next) {
         tmp = tmp->next;
