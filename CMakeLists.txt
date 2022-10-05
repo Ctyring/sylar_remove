@@ -10,13 +10,20 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # -Wall 开启大部分警告提示
 # -Wno-unused-funtion 不要警告未使用函数
 # -Wno-deprecated 不要警告过时特性
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined ")
 
 include_directories(.)
 include_directories(/yaml-cpp/include)
+include_directories(/usr/local/include)
 link_directories(/yaml-cpp/lib)
+link_directories(/root/cty/sylar/include)
 
 message("***", ${YAMLCPP})
+
+find_package(Protobuf)
+if(Protobuf_FOUND)
+include_directories(${Protobuf_INCLUDE_DIRS})
+endif()
 
 find_package(OpenSSL REQUIRED)
 if(OPENSSL_FOUND)
@@ -65,6 +72,8 @@ ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar
 ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
 
+# protobufmaker(sylar/ns/ns_protobuf.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(sylar) #__FILE__
 
@@ -76,7 +85,9 @@ set(LIBS
 		dl
         pthread
         yaml-cpp
+		${PROTOBUF_LIBRARIES}
 		${OPENSSL_LIBRARIES}
+		libjsoncpp_static.a
 		)
 
 message("***", ${LIBS})

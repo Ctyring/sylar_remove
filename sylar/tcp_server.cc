@@ -36,8 +36,10 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs,
                      std::vector<Address::ptr>& fails,
                      bool ssl) {
     for (auto& addr : addrs) {
+        // 根据地址类型创建不同的socket
         Socket::ptr sock =
             ssl ? SSLSocket::CreateTCP(addr) : Socket::CreateTCP(addr);
+        // 绑定地址
         if (!sock->bind(addr)) {
             SYLAR_LOG_ERROR(g_logger)
                 << "bind fail errno=" << errno << " errstr=" << strerror(errno)
@@ -45,6 +47,7 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs,
             fails.push_back(addr);
             continue;
         }
+        // 监听
         if (!sock->listen()) {
             SYLAR_LOG_ERROR(g_logger) << "listen fail errno=" << errno
                                       << " errstr=" << strerror(errno)
@@ -52,6 +55,7 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs,
             fails.push_back(addr);
             continue;
         }
+        // 加入到监听队列
         m_socks.push_back(sock);
     }
 
@@ -67,6 +71,7 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs,
 }
 
 void TcpServer::startAccept(Socket::ptr sock) {
+    // 对于每个监听的socket，都循环不断等待接收请求
     while (!m_isStop) {
         Socket::ptr client = sock->accept();
         if (client) {

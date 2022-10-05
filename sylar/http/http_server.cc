@@ -1,5 +1,6 @@
 #include "http_server.h"
 #include "sylar/log.h"
+
 namespace sylar {
 namespace http {
 
@@ -35,11 +36,13 @@ void HttpServer::handleClient(Socket::ptr client) {
         rsp->setHeader("Server", getName());
         m_dispatch->handle(req, rsp, session);
         session->sendResponse(rsp);
+
         if (!m_isKeepalive || req->isClose()) {
             break;
         }
     } while (true);
     session->close();
 }
+
 }  // namespace http
 }  // namespace sylar

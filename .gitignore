@@ -10,3 +10,4 @@ bin/*
 !/bin/conf/
 build/
 *.log
+include/
