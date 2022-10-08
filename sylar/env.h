@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __SYLAR_ENV_H__
+#define __SYLAR_ENV_H__
+
 #include <map>
 #include <vector>
 #include "sylar/singleton.h"
@@ -27,18 +29,26 @@ class Env {
     bool setEnv(const std::string& key, const std::string& val);
     std::string getEnv(const std::string& key,
                        const std::string& default_value = "");
+
     std::string getAbsolutePath(const std::string& path) const;
+    std::string getAbsoluteWorkPath(const std::string& path) const;
+    std::string getConfigPath();
 
    private:
     RWMutexType m_mutex;
     std::map<std::string, std::string> m_args;
     std::vector<std::pair<std::string, std::string> > m_helps;
 
+    // 控制台输入的命令地址
     std::string m_program;
+    // 可执行文件的绝对地址
     std::string m_exe;
+    // 可执行文件的绝对地址(不包含文件名)
     std::string m_cwd;
 };
 
 typedef sylar::Singleton<Env> EnvMgr;
 
 }  // namespace sylar
+
+#endif

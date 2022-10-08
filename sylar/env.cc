@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <iomanip>
 #include <iostream>
+#include "config.h"
 #include "sylar/log.h"
 
 namespace sylar {
@@ -13,6 +14,8 @@ static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 bool Env::init(int argc, char** argv) {
     char link[1024] = {0};
     char path[1024] = {0};
+    // 获取当前进程的可执行文件的绝对路径
+    // 通过/proc/$pid/exe目录下exe软链接文件指向的路径来确定
     sprintf(link, "/proc/%d/exe", getpid());
     readlink(link, path, sizeof(path));
     // /path/xxx/exe
@@ -20,10 +23,11 @@ bool Env::init(int argc, char** argv) {
 
     auto pos = m_exe.find_last_of("/");
     m_cwd = m_exe.substr(0, pos) + "/";
-
+    // 获取命令行输入的程序路径
     m_program = argv[0];
     // -config /path/to/config -file xxxx -d
     const char* now_key = nullptr;
+    // 遍历命令行参数
     for (int i = 1; i < argc; ++i) {
         if (argv[i][0] == '-') {
             if (strlen(argv[i]) > 1) {
@@ -122,6 +126,22 @@ std::string Env::getAbsolutePath(const std::string& path) const {
         return path;
     }
     return m_cwd + path;
+}
+
+std::string Env::getAbsoluteWorkPath(const std::string& path) const {
+    if (path.empty()) {
+        return "/";
+    }
+    if (path[0] == '/') {
+        return path;
+    }
+    static sylar::ConfigVar<std::string>::ptr g_server_work_path =
+        sylar::Config::Lookup<std::string>("server.work_path");
+    return g_server_work_path->getValue() + "/" + path;
+}
+
+std::string Env::getConfigPath() {
+    return getAbsolutePath(get("c", "conf"));
 }
 
 }  // namespace sylar
