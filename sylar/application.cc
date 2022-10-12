@@ -182,7 +182,9 @@ int Application::main(int argc, char** argv) {
 }
 
 int Application::run_fiber() {
+    // 根据配置初始化IO管理器集合
     sylar::WorkerMgr::GetInstance()->init();
+    // 根据配置初始化http服务器
     auto http_confs = g_http_servers_conf->getValue();
     for (auto& i : http_confs) {
         SYLAR_LOG_INFO(g_logger)
@@ -190,11 +192,13 @@ int Application::run_fiber() {
         std::vector<Address::ptr> address;
         for (auto& a : i.address) {
             size_t pos = a.find(":");
+            // 如果没有:，说明是unixaddress
             if (pos == std::string::npos) {
                 // SYLAR_LOG_ERROR(g_logger) << "invalid address: " << a;
                 address.push_back(UnixAddress::ptr(new UnixAddress(a)));
                 continue;
             }
+            // 切割出port
             int32_t port = atoi(a.substr(pos + 1).c_str());
             // 127.0.0.1
             auto addr =
@@ -224,6 +228,7 @@ int Application::run_fiber() {
             SYLAR_LOG_ERROR(g_logger) << "invalid address: " << a;
             _exit(0);
         }
+        // 分配接收和处理的IOManager
         IOManager* accept_worker = sylar::IOManager::GetThis();
         IOManager* process_worker = sylar::IOManager::GetThis();
         if (!i.accept_worker.empty()) {
@@ -246,7 +251,7 @@ int Application::run_fiber() {
                 _exit(0);
             }
         }
-
+        // 创建http服务器
         sylar::http::HttpServer::ptr server(new sylar::http::HttpServer(
             i.keepalive, process_worker, accept_worker));
         std::vector<Address::ptr> fails;
@@ -266,7 +271,9 @@ int Application::run_fiber() {
         if (!i.name.empty()) {
             server->setName(i.name);
         }
+        // 启动服务
         server->start();
+        // 加入集合
         m_httpservers.push_back(server);
     }
     return 0;
