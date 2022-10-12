@@ -18,6 +18,8 @@ include_directories(/usr/local/include)
 link_directories(/yaml-cpp/lib)
 link_directories(/root/cty/sylar/include)
 
+option(TEST "ON for complile test" OFF)
+
 message("***", ${YAMLCPP})
 
 find_package(Protobuf)
@@ -66,6 +68,8 @@ set(LIB_SRC
 	sylar/util/time.cc
 	sylar/worker.cc
 	sylar/mutex.cc
+	sylar/module.cc
+	sylar/library.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -91,7 +95,7 @@ set(LIBS
 		)
 
 message("***", ${LIBS})
-
+if(TEST)
 sylar_add_executable(test1 "tests/test.cc" sylar "${LIBS}")
 sylar_add_executable(test_config "tests/test_config.cc" sylar "${LIBS}")
 sylar_add_executable(test_thread "tests/test_thread.cc" sylar "${LIBS}")
@@ -116,6 +120,12 @@ sylar_add_executable(test_env "tests/test_env.cc" sylar "${LIBS}")
 sylar_add_executable(test_ws_server "tests/test_ws_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_ws_client "tests/test_ws_client.cc" sylar "${LIBS}")
 sylar_add_executable(test_application "tests/test_application.cc" sylar "${LIBS}")
+
+add_library(test SHARED tests/test_module.cc)
+endif()
+
+sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")
+set_target_properties(bin_sylar PROPERTIES OUTPUT_NAME "sylar")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
