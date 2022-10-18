@@ -77,7 +77,7 @@ ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar
 ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
 
-protobufmaker(sylar/test.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
+# protobufmaker(sylar/test.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(sylar)
