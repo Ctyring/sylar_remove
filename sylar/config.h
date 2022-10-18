@@ -33,7 +33,6 @@ namespace sylar {
 class ConfigVarBase {
    public:
     typedef std::shared_ptr<ConfigVarBase> ptr;
-
     /**
      * @brief 构造函数
      * @param[in] name 配置参数名称[0-9a-z_.]
@@ -122,7 +121,7 @@ template <class T>
 class LexicalCast<std::vector<T>, std::string> {
    public:
     std::string operator()(const std::vector<T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Sequence);
         for (auto& i : v) {
             node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
         }
@@ -158,7 +157,7 @@ template <class T>
 class LexicalCast<std::list<T>, std::string> {
    public:
     std::string operator()(const std::list<T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Sequence);
         for (auto& i : v) {
             node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
         }
@@ -194,7 +193,7 @@ template <class T>
 class LexicalCast<std::set<T>, std::string> {
    public:
     std::string operator()(const std::set<T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Sequence);
         for (auto& i : v) {
             node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
         }
@@ -230,7 +229,7 @@ template <class T>
 class LexicalCast<std::unordered_set<T>, std::string> {
    public:
     std::string operator()(const std::unordered_set<T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Sequence);
         for (auto& i : v) {
             node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
         }
@@ -267,7 +266,7 @@ template <class T>
 class LexicalCast<std::map<std::string, T>, std::string> {
    public:
     std::string operator()(const std::map<std::string, T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Map);
         for (auto& i : v) {
             node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
         }
@@ -306,7 +305,7 @@ template <class T>
 class LexicalCast<std::unordered_map<std::string, T>, std::string> {
    public:
     std::string operator()(const std::unordered_map<std::string, T>& v) {
-        YAML::Node node;
+        YAML::Node node(YAML::NodeType::Map);
         for (auto& i : v) {
             node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
         }
@@ -355,7 +354,7 @@ class ConfigVar : public ConfigVarBase {
             return ToStr()(m_val);
         } catch (std::exception& e) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
-                << "ConfigVar::toString exception" << e.what()
+                << "ConfigVar::toString exception " << e.what()
                 << " convert: " << typeid(m_val).name() << " to string"
                 << " name=" << m_name;
         }
@@ -368,13 +367,12 @@ class ConfigVar : public ConfigVarBase {
      */
     bool fromString(const std::string& val) override {
         try {
-            // m_val = boost::lexical_cast<T>(val);
             setValue(FromStr()(val));
         } catch (std::exception& e) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
-                << "ConfigVar::toString exception" << e.what()
-                << " convert: string to " << typeid(m_val).name() << " - "
-                << "name=" << m_name << val;
+                << "ConfigVar::fromString exception " << e.what()
+                << " convert: string to " << typeid(m_val).name()
+                << " name=" << m_name << " - " << val;
         }
         return false;
     }
@@ -484,18 +482,13 @@ class Config {
         const std::string& description = "") {
         RWMutexType::WriteLock lock(GetMutex());
         auto it = GetDatas().find(name);
-        // 如果存在
         if (it != GetDatas().end()) {
-            // 看能不能转换成想要的类型
             auto tmp = std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
-            // 如果可以，直接返回
             if (tmp) {
                 SYLAR_LOG_INFO(SYLAR_LOG_ROOT())
                     << "Lookup name=" << name << " exists";
                 return tmp;
-            }
-            // 如果不行，说明类型错误
-            else {
+            } else {
                 SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
                     << "Lookup name=" << name << " exists but type not "
                     << typeid(T).name()
@@ -504,14 +497,13 @@ class Config {
                 return nullptr;
             }
         }
-        // 如果不存在，先判断类型名是否合法
+
         if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678") !=
             std::string::npos) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name invalid " << name;
             throw std::invalid_argument(name);
         }
 
-        // 合法就创建新的配置参数
         typename ConfigVar<T>::ptr v(
             new ConfigVar<T>(name, default_value, description));
         GetDatas()[name] = v;
@@ -574,4 +566,5 @@ class Config {
 };
 
 }  // namespace sylar
+
 #endif

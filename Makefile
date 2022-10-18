@@ -1006,6 +1006,33 @@ sylar/tcp_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/tcp_server.cc.s
 .PHONY : sylar/tcp_server.cc.s
 
+sylar/test.pb.o: sylar/test.pb.cc.o
+
+.PHONY : sylar/test.pb.o
+
+# target to build an object file
+sylar/test.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.o
+.PHONY : sylar/test.pb.cc.o
+
+sylar/test.pb.i: sylar/test.pb.cc.i
+
+.PHONY : sylar/test.pb.i
+
+# target to preprocess a source file
+sylar/test.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.i
+.PHONY : sylar/test.pb.cc.i
+
+sylar/test.pb.s: sylar/test.pb.cc.s
+
+.PHONY : sylar/test.pb.s
+
+# target to generate assembly for a file
+sylar/test.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.s
+.PHONY : sylar/test.pb.cc.s
+
 sylar/thread.o: sylar/thread.cc.o
 
 .PHONY : sylar/thread.o
@@ -1140,6 +1167,33 @@ sylar/util/hash_util.s: sylar/util/hash_util.cc.s
 sylar/util/hash_util.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/hash_util.cc.s
 .PHONY : sylar/util/hash_util.cc.s
+
+sylar/util/json_util.o: sylar/util/json_util.cc.o
+
+.PHONY : sylar/util/json_util.o
+
+# target to build an object file
+sylar/util/json_util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/json_util.cc.o
+.PHONY : sylar/util/json_util.cc.o
+
+sylar/util/json_util.i: sylar/util/json_util.cc.i
+
+.PHONY : sylar/util/json_util.i
+
+# target to preprocess a source file
+sylar/util/json_util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/json_util.cc.i
+.PHONY : sylar/util/json_util.cc.i
+
+sylar/util/json_util.s: sylar/util/json_util.cc.s
+
+.PHONY : sylar/util/json_util.s
+
+# target to generate assembly for a file
+sylar/util/json_util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/json_util.cc.s
+.PHONY : sylar/util/json_util.cc.s
 
 sylar/util/time.o: sylar/util/time.cc.o
 
@@ -1301,6 +1355,9 @@ help:
 	@echo "... sylar/tcp_server.o"
 	@echo "... sylar/tcp_server.i"
 	@echo "... sylar/tcp_server.s"
+	@echo "... sylar/test.pb.o"
+	@echo "... sylar/test.pb.i"
+	@echo "... sylar/test.pb.s"
 	@echo "... sylar/thread.o"
 	@echo "... sylar/thread.i"
 	@echo "... sylar/thread.s"
@@ -1316,6 +1373,9 @@ help:
 	@echo "... sylar/util/hash_util.o"
 	@echo "... sylar/util/hash_util.i"
 	@echo "... sylar/util/hash_util.s"
+	@echo "... sylar/util/json_util.o"
+	@echo "... sylar/util/json_util.i"
+	@echo "... sylar/util/json_util.s"
 	@echo "... sylar/util/time.o"
 	@echo "... sylar/util/time.i"
 	@echo "... sylar/util/time.s"

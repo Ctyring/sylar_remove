@@ -10,7 +10,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # -Wall 开启大部分警告提示
 # -Wno-unused-funtion 不要警告未使用函数
 # -Wno-deprecated 不要警告过时特性
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined ")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 
 include_directories(.)
 include_directories(/yaml-cpp/include)
@@ -70,16 +70,17 @@ set(LIB_SRC
 	sylar/mutex.cc
 	sylar/module.cc
 	sylar/library.cc
+	sylar/util/json_util.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
 
-# protobufmaker(sylar/ns/ns_protobuf.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
+protobufmaker(sylar/test.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(sylar SHARED ${LIB_SRC})
-force_redefine_file_macro_for_sources(sylar) #__FILE__
+force_redefine_file_macro_for_sources(sylar)
 
 find_library(YAMLCPP yaml-cpp)
 find_library(PTHREAD pthread)

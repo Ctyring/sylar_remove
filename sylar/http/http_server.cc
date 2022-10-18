@@ -11,6 +11,7 @@ HttpServer::HttpServer(bool keepalive,
                        sylar::IOManager* accept_worker)
     : TcpServer(worker, accept_worker), m_isKeepalive(keepalive) {
     m_dispatch.reset(new ServletDispatch);
+    m_type = "http_server";
 }
 
 void HttpServer::setName(const std::string& v) {

@@ -1,6 +1,7 @@
-#!/bin/sh
+#/bin/sh
 
 command_error_exit() {
+    #! 执行命令，如果命令执行失败，则退出脚本
     $*
     if [ $? -ne 0 ]
     then
@@ -23,14 +24,12 @@ command_error_exit git clone https://github.com/sylar-yin/sylar.git
 command_error_exit cp sylar/Makefile .
 command_error_exit cp -rf sylar/template/* .
 command_error_exit cp -rf sylar/template/* .
+# 替换模板中的项目名、命名空间
 command_error_exit mv template ${namespace}
 command_error_exit sed -i "s/project_name/${project_name}/g" CMakeLists.txt
 command_error_exit sed -i "s/template/${namespace}/g" CMakeLists.txt
 command_error_exit sed -i "s/project_name/${project_name}/g" move.sh
 command_error_exit cd ${namespace}
-command_error_exit sed -i "s/name_space/${namespace}/g" `ls .`
-command_error_exit sed -i "s/project_name/${project_name}/g" `ls .`
-command_error_exit cd ../bin/conf
 command_error_exit sed -i "s/name_space/${namespace}/g" `ls .`
 command_error_exit sed -i "s/project_name/${project_name}/g" `ls .`
 
