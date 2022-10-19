@@ -12,4 +12,4 @@ servers:
       name: sylar/2.1
       accept_worker: accept
       process_worker:  io
-      type: ws
+      type: http

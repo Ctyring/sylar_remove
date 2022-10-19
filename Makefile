@@ -142,6 +142,45 @@ sylar/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
 .PHONY : sylar/fast
 
+#=============================================================================
+# Target rules for targets named test_lru
+
+# Build rule for target.
+test_lru: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_lru
+.PHONY : test_lru
+
+# fast build rule for target.
+test_lru/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/build
+.PHONY : test_lru/fast
+
+#=============================================================================
+# Target rules for targets named test_timed_cache
+
+# Build rule for target.
+test_timed_cache: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_cache
+.PHONY : test_timed_cache
+
+# fast build rule for target.
+test_timed_cache/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/build
+.PHONY : test_timed_cache/fast
+
+#=============================================================================
+# Target rules for targets named test_timed_lru_cache
+
+# Build rule for target.
+test_timed_lru_cache: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_lru_cache
+.PHONY : test_timed_lru_cache
+
+# fast build rule for target.
+test_timed_lru_cache/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/build
+.PHONY : test_timed_lru_cache/fast
+
 sylar/address.o: sylar/address.cc.o
 
 .PHONY : sylar/address.o
@@ -1006,33 +1045,6 @@ sylar/tcp_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/tcp_server.cc.s
 .PHONY : sylar/tcp_server.cc.s
 
-sylar/test.pb.o: sylar/test.pb.cc.o
-
-.PHONY : sylar/test.pb.o
-
-# target to build an object file
-sylar/test.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.o
-.PHONY : sylar/test.pb.cc.o
-
-sylar/test.pb.i: sylar/test.pb.cc.i
-
-.PHONY : sylar/test.pb.i
-
-# target to preprocess a source file
-sylar/test.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.i
-.PHONY : sylar/test.pb.cc.i
-
-sylar/test.pb.s: sylar/test.pb.cc.s
-
-.PHONY : sylar/test.pb.s
-
-# target to generate assembly for a file
-sylar/test.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/test.pb.cc.s
-.PHONY : sylar/test.pb.cc.s
-
 sylar/thread.o: sylar/thread.cc.o
 
 .PHONY : sylar/thread.o
@@ -1249,6 +1261,87 @@ sylar/worker.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.s
 .PHONY : sylar/worker.cc.s
 
+tests/test_lru.o: tests/test_lru.cc.o
+
+.PHONY : tests/test_lru.o
+
+# target to build an object file
+tests/test_lru.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/tests/test_lru.cc.o
+.PHONY : tests/test_lru.cc.o
+
+tests/test_lru.i: tests/test_lru.cc.i
+
+.PHONY : tests/test_lru.i
+
+# target to preprocess a source file
+tests/test_lru.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/tests/test_lru.cc.i
+.PHONY : tests/test_lru.cc.i
+
+tests/test_lru.s: tests/test_lru.cc.s
+
+.PHONY : tests/test_lru.s
+
+# target to generate assembly for a file
+tests/test_lru.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/tests/test_lru.cc.s
+.PHONY : tests/test_lru.cc.s
+
+tests/test_timed_cache.o: tests/test_timed_cache.cc.o
+
+.PHONY : tests/test_timed_cache.o
+
+# target to build an object file
+tests/test_timed_cache.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/tests/test_timed_cache.cc.o
+.PHONY : tests/test_timed_cache.cc.o
+
+tests/test_timed_cache.i: tests/test_timed_cache.cc.i
+
+.PHONY : tests/test_timed_cache.i
+
+# target to preprocess a source file
+tests/test_timed_cache.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/tests/test_timed_cache.cc.i
+.PHONY : tests/test_timed_cache.cc.i
+
+tests/test_timed_cache.s: tests/test_timed_cache.cc.s
+
+.PHONY : tests/test_timed_cache.s
+
+# target to generate assembly for a file
+tests/test_timed_cache.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/tests/test_timed_cache.cc.s
+.PHONY : tests/test_timed_cache.cc.s
+
+tests/test_timed_lru_cache.o: tests/test_timed_lru_cache.cc.o
+
+.PHONY : tests/test_timed_lru_cache.o
+
+# target to build an object file
+tests/test_timed_lru_cache.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/tests/test_timed_lru_cache.cc.o
+.PHONY : tests/test_timed_lru_cache.cc.o
+
+tests/test_timed_lru_cache.i: tests/test_timed_lru_cache.cc.i
+
+.PHONY : tests/test_timed_lru_cache.i
+
+# target to preprocess a source file
+tests/test_timed_lru_cache.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/tests/test_timed_lru_cache.cc.i
+.PHONY : tests/test_timed_lru_cache.cc.i
+
+tests/test_timed_lru_cache.s: tests/test_timed_lru_cache.cc.s
+
+.PHONY : tests/test_timed_lru_cache.s
+
+# target to generate assembly for a file
+tests/test_timed_lru_cache.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/tests/test_timed_lru_cache.cc.s
+.PHONY : tests/test_timed_lru_cache.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1259,6 +1352,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... bin_sylar"
 	@echo "... sylar"
+	@echo "... test_lru"
+	@echo "... test_timed_cache"
+	@echo "... test_timed_lru_cache"
 	@echo "... sylar/address.o"
 	@echo "... sylar/address.i"
 	@echo "... sylar/address.s"
@@ -1355,9 +1451,6 @@ help:
 	@echo "... sylar/tcp_server.o"
 	@echo "... sylar/tcp_server.i"
 	@echo "... sylar/tcp_server.s"
-	@echo "... sylar/test.pb.o"
-	@echo "... sylar/test.pb.i"
-	@echo "... sylar/test.pb.s"
 	@echo "... sylar/thread.o"
 	@echo "... sylar/thread.i"
 	@echo "... sylar/thread.s"
@@ -1382,6 +1475,15 @@ help:
 	@echo "... sylar/worker.o"
 	@echo "... sylar/worker.i"
 	@echo "... sylar/worker.s"
+	@echo "... tests/test_lru.o"
+	@echo "... tests/test_lru.i"
+	@echo "... tests/test_lru.s"
+	@echo "... tests/test_timed_cache.o"
+	@echo "... tests/test_timed_cache.i"
+	@echo "... tests/test_timed_cache.s"
+	@echo "... tests/test_timed_lru_cache.o"
+	@echo "... tests/test_timed_lru_cache.i"
+	@echo "... tests/test_timed_lru_cache.s"
 .PHONY : help
 
 
