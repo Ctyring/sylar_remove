@@ -71,6 +71,7 @@ set(LIB_SRC
 	sylar/module.cc
 	sylar/library.cc
 	sylar/util/json_util.cc
+	sylar/streams/zlib_stream.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -113,7 +114,7 @@ sylar_add_executable(test_http_parser "tests/test_http_parser.cc" sylar "${LIBS}
 sylar_add_executable(test_tcp_server "tests/test_tcp_server.cc" sylar "${LIBS}")
 sylar_add_executable(echo_server "examples/echo_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_http_server "tests/test_http_server.cc" sylar "${LIBS}")
-sylar_add_executable(test_http_connection "tests/test_http_connection.cc" sylar "${LIBS}")
+# sylar_add_executable(test_http_connection "tests/test_http_connection.cc" sylar "${LIBS}")
 sylar_add_executable(test_uri "tests/test_uri.cc" sylar "${LIBS}")
 sylar_add_executable(my_http_server "samples/my_http_server.cc" sylar "${LIBS}")
 sylar_add_executable(test_daemon "tests/test_daemon.cc" sylar "${LIBS}")
@@ -125,9 +126,11 @@ sylar_add_executable(test_application "tests/test_application.cc" sylar "${LIBS}
 add_library(test SHARED tests/test_module.cc)
 endif()
 
+sylar_add_executable(test_http_connection "tests/test_http_connection.cc" sylar "${LIBS}")
 sylar_add_executable(test_lru "tests/test_lru.cc" sylar "${LIBS}")
 sylar_add_executable(test_timed_cache "tests/test_timed_cache.cc" sylar "${LIBS}")
 sylar_add_executable(test_timed_lru_cache "tests/test_timed_lru_cache.cc" sylar "${LIBS}")
+sylar_add_executable(test_zlib_stream "tests/test_zlib_stream.cc" sylar "${LIBS}")
 
 sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")
 set_target_properties(bin_sylar PROPERTIES OUTPUT_NAME "sylar")

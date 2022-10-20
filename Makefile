@@ -130,17 +130,30 @@ bin_sylar/fast:
 .PHONY : bin_sylar/fast
 
 #=============================================================================
-# Target rules for targets named sylar
+# Target rules for targets named test_zlib_stream
 
 # Build rule for target.
-sylar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
-.PHONY : sylar
+test_zlib_stream: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_zlib_stream
+.PHONY : test_zlib_stream
 
 # fast build rule for target.
-sylar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
-.PHONY : sylar/fast
+test_zlib_stream/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zlib_stream.dir/build.make CMakeFiles/test_zlib_stream.dir/build
+.PHONY : test_zlib_stream/fast
+
+#=============================================================================
+# Target rules for targets named test_timed_lru_cache
+
+# Build rule for target.
+test_timed_lru_cache: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_lru_cache
+.PHONY : test_timed_lru_cache
+
+# fast build rule for target.
+test_timed_lru_cache/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/build
+.PHONY : test_timed_lru_cache/fast
 
 #=============================================================================
 # Target rules for targets named test_lru
@@ -156,6 +169,32 @@ test_lru/fast:
 .PHONY : test_lru/fast
 
 #=============================================================================
+# Target rules for targets named sylar
+
+# Build rule for target.
+sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
+.PHONY : sylar
+
+# fast build rule for target.
+sylar/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
+.PHONY : sylar/fast
+
+#=============================================================================
+# Target rules for targets named test_http_connection
+
+# Build rule for target.
+test_http_connection: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_connection
+.PHONY : test_http_connection
+
+# fast build rule for target.
+test_http_connection/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/build
+.PHONY : test_http_connection/fast
+
+#=============================================================================
 # Target rules for targets named test_timed_cache
 
 # Build rule for target.
@@ -167,19 +206,6 @@ test_timed_cache: cmake_check_build_system
 test_timed_cache/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/build
 .PHONY : test_timed_cache/fast
-
-#=============================================================================
-# Target rules for targets named test_timed_lru_cache
-
-# Build rule for target.
-test_timed_lru_cache: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_lru_cache
-.PHONY : test_timed_lru_cache
-
-# fast build rule for target.
-test_timed_lru_cache/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/build
-.PHONY : test_timed_lru_cache/fast
 
 sylar/address.o: sylar/address.cc.o
 
@@ -1018,6 +1044,33 @@ sylar/streams/socket_stream.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/socket_stream.cc.s
 .PHONY : sylar/streams/socket_stream.cc.s
 
+sylar/streams/zlib_stream.o: sylar/streams/zlib_stream.cc.o
+
+.PHONY : sylar/streams/zlib_stream.o
+
+# target to build an object file
+sylar/streams/zlib_stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/zlib_stream.cc.o
+.PHONY : sylar/streams/zlib_stream.cc.o
+
+sylar/streams/zlib_stream.i: sylar/streams/zlib_stream.cc.i
+
+.PHONY : sylar/streams/zlib_stream.i
+
+# target to preprocess a source file
+sylar/streams/zlib_stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/zlib_stream.cc.i
+.PHONY : sylar/streams/zlib_stream.cc.i
+
+sylar/streams/zlib_stream.s: sylar/streams/zlib_stream.cc.s
+
+.PHONY : sylar/streams/zlib_stream.s
+
+# target to generate assembly for a file
+sylar/streams/zlib_stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/zlib_stream.cc.s
+.PHONY : sylar/streams/zlib_stream.cc.s
+
 sylar/tcp_server.o: sylar/tcp_server.cc.o
 
 .PHONY : sylar/tcp_server.o
@@ -1261,6 +1314,33 @@ sylar/worker.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.s
 .PHONY : sylar/worker.cc.s
 
+tests/test_http_connection.o: tests/test_http_connection.cc.o
+
+.PHONY : tests/test_http_connection.o
+
+# target to build an object file
+tests/test_http_connection.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.o
+.PHONY : tests/test_http_connection.cc.o
+
+tests/test_http_connection.i: tests/test_http_connection.cc.i
+
+.PHONY : tests/test_http_connection.i
+
+# target to preprocess a source file
+tests/test_http_connection.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.i
+.PHONY : tests/test_http_connection.cc.i
+
+tests/test_http_connection.s: tests/test_http_connection.cc.s
+
+.PHONY : tests/test_http_connection.s
+
+# target to generate assembly for a file
+tests/test_http_connection.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.s
+.PHONY : tests/test_http_connection.cc.s
+
 tests/test_lru.o: tests/test_lru.cc.o
 
 .PHONY : tests/test_lru.o
@@ -1342,6 +1422,33 @@ tests/test_timed_lru_cache.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/tests/test_timed_lru_cache.cc.s
 .PHONY : tests/test_timed_lru_cache.cc.s
 
+tests/test_zlib_stream.o: tests/test_zlib_stream.cc.o
+
+.PHONY : tests/test_zlib_stream.o
+
+# target to build an object file
+tests/test_zlib_stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zlib_stream.dir/build.make CMakeFiles/test_zlib_stream.dir/tests/test_zlib_stream.cc.o
+.PHONY : tests/test_zlib_stream.cc.o
+
+tests/test_zlib_stream.i: tests/test_zlib_stream.cc.i
+
+.PHONY : tests/test_zlib_stream.i
+
+# target to preprocess a source file
+tests/test_zlib_stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zlib_stream.dir/build.make CMakeFiles/test_zlib_stream.dir/tests/test_zlib_stream.cc.i
+.PHONY : tests/test_zlib_stream.cc.i
+
+tests/test_zlib_stream.s: tests/test_zlib_stream.cc.s
+
+.PHONY : tests/test_zlib_stream.s
+
+# target to generate assembly for a file
+tests/test_zlib_stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zlib_stream.dir/build.make CMakeFiles/test_zlib_stream.dir/tests/test_zlib_stream.cc.s
+.PHONY : tests/test_zlib_stream.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1351,10 +1458,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... bin_sylar"
-	@echo "... sylar"
-	@echo "... test_lru"
-	@echo "... test_timed_cache"
+	@echo "... test_zlib_stream"
 	@echo "... test_timed_lru_cache"
+	@echo "... test_lru"
+	@echo "... sylar"
+	@echo "... test_http_connection"
+	@echo "... test_timed_cache"
 	@echo "... sylar/address.o"
 	@echo "... sylar/address.i"
 	@echo "... sylar/address.s"
@@ -1448,6 +1557,9 @@ help:
 	@echo "... sylar/streams/socket_stream.o"
 	@echo "... sylar/streams/socket_stream.i"
 	@echo "... sylar/streams/socket_stream.s"
+	@echo "... sylar/streams/zlib_stream.o"
+	@echo "... sylar/streams/zlib_stream.i"
+	@echo "... sylar/streams/zlib_stream.s"
 	@echo "... sylar/tcp_server.o"
 	@echo "... sylar/tcp_server.i"
 	@echo "... sylar/tcp_server.s"
@@ -1475,6 +1587,9 @@ help:
 	@echo "... sylar/worker.o"
 	@echo "... sylar/worker.i"
 	@echo "... sylar/worker.s"
+	@echo "... tests/test_http_connection.o"
+	@echo "... tests/test_http_connection.i"
+	@echo "... tests/test_http_connection.s"
 	@echo "... tests/test_lru.o"
 	@echo "... tests/test_lru.i"
 	@echo "... tests/test_lru.s"
@@ -1484,6 +1599,9 @@ help:
 	@echo "... tests/test_timed_lru_cache.o"
 	@echo "... tests/test_timed_lru_cache.i"
 	@echo "... tests/test_timed_lru_cache.s"
+	@echo "... tests/test_zlib_stream.o"
+	@echo "... tests/test_zlib_stream.i"
+	@echo "... tests/test_zlib_stream.s"
 .PHONY : help
 
 
