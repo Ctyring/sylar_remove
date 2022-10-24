@@ -1,5 +1,5 @@
 #include "sylar/protocol.h"
-
+#include "sylar/util.h"
 namespace sylar {
 
 ByteArray::ptr Message::toByteArray() {

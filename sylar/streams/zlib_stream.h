@@ -101,6 +101,7 @@ class ZlibStream : public Stream {
     std::vector<iovec>& getBuffers() { return m_buffs; }
 
     std::string getResult() const;
+    sylar::ByteArray::ptr getByteArray();
 
    private:
     int init(Type type = DEFLATE,

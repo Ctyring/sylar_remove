@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named bin_sylar
-
-# Build rule for target.
-bin_sylar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_sylar
-.PHONY : bin_sylar
-
-# fast build rule for target.
-bin_sylar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_sylar.dir/build.make CMakeFiles/bin_sylar.dir/build
-.PHONY : bin_sylar/fast
-
-#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -141,6 +128,32 @@ sylar: cmake_check_build_system
 sylar/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
 .PHONY : sylar/fast
+
+#=============================================================================
+# Target rules for targets named test_crypto
+
+# Build rule for target.
+test_crypto: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_crypto
+.PHONY : test_crypto
+
+# fast build rule for target.
+test_crypto/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/build
+.PHONY : test_crypto/fast
+
+#=============================================================================
+# Target rules for targets named bin_sylar
+
+# Build rule for target.
+bin_sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_sylar
+.PHONY : bin_sylar
+
+# fast build rule for target.
+bin_sylar/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_sylar.dir/build.make CMakeFiles/bin_sylar.dir/build
+.PHONY : bin_sylar/fast
 
 sylar/address.o: sylar/address.cc.o
 
@@ -898,6 +911,33 @@ sylar/protocol.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/protocol.cc.s
 .PHONY : sylar/protocol.cc.s
 
+sylar/rock/rock_protocol.o: sylar/rock/rock_protocol.cc.o
+
+.PHONY : sylar/rock/rock_protocol.o
+
+# target to build an object file
+sylar/rock/rock_protocol.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_protocol.cc.o
+.PHONY : sylar/rock/rock_protocol.cc.o
+
+sylar/rock/rock_protocol.i: sylar/rock/rock_protocol.cc.i
+
+.PHONY : sylar/rock/rock_protocol.i
+
+# target to preprocess a source file
+sylar/rock/rock_protocol.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_protocol.cc.i
+.PHONY : sylar/rock/rock_protocol.cc.i
+
+sylar/rock/rock_protocol.s: sylar/rock/rock_protocol.cc.s
+
+.PHONY : sylar/rock/rock_protocol.s
+
+# target to generate assembly for a file
+sylar/rock/rock_protocol.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_protocol.cc.s
+.PHONY : sylar/rock/rock_protocol.cc.s
+
 sylar/scheduler.o: sylar/scheduler.cc.o
 
 .PHONY : sylar/scheduler.o
@@ -1195,6 +1235,33 @@ sylar/util.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util.cc.s
 .PHONY : sylar/util.cc.s
 
+sylar/util/crypto_util.o: sylar/util/crypto_util.cc.o
+
+.PHONY : sylar/util/crypto_util.o
+
+# target to build an object file
+sylar/util/crypto_util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/crypto_util.cc.o
+.PHONY : sylar/util/crypto_util.cc.o
+
+sylar/util/crypto_util.i: sylar/util/crypto_util.cc.i
+
+.PHONY : sylar/util/crypto_util.i
+
+# target to preprocess a source file
+sylar/util/crypto_util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/crypto_util.cc.i
+.PHONY : sylar/util/crypto_util.cc.i
+
+sylar/util/crypto_util.s: sylar/util/crypto_util.cc.s
+
+.PHONY : sylar/util/crypto_util.s
+
+# target to generate assembly for a file
+sylar/util/crypto_util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/util/crypto_util.cc.s
+.PHONY : sylar/util/crypto_util.cc.s
+
 sylar/util/hash_util.o: sylar/util/hash_util.cc.o
 
 .PHONY : sylar/util/hash_util.o
@@ -1303,6 +1370,33 @@ sylar/worker.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.s
 .PHONY : sylar/worker.cc.s
 
+tests/test_crypto.o: tests/test_crypto.cc.o
+
+.PHONY : tests/test_crypto.o
+
+# target to build an object file
+tests/test_crypto.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.o
+.PHONY : tests/test_crypto.cc.o
+
+tests/test_crypto.i: tests/test_crypto.cc.i
+
+.PHONY : tests/test_crypto.i
+
+# target to preprocess a source file
+tests/test_crypto.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.i
+.PHONY : tests/test_crypto.cc.i
+
+tests/test_crypto.s: tests/test_crypto.cc.s
+
+.PHONY : tests/test_crypto.s
+
+# target to generate assembly for a file
+tests/test_crypto.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.s
+.PHONY : tests/test_crypto.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1310,9 +1404,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... bin_sylar"
 	@echo "... sylar"
+	@echo "... test_crypto"
+	@echo "... bin_sylar"
+	@echo "... edit_cache"
 	@echo "... sylar/address.o"
 	@echo "... sylar/address.i"
 	@echo "... sylar/address.s"
@@ -1397,6 +1492,9 @@ help:
 	@echo "... sylar/protocol.o"
 	@echo "... sylar/protocol.i"
 	@echo "... sylar/protocol.s"
+	@echo "... sylar/rock/rock_protocol.o"
+	@echo "... sylar/rock/rock_protocol.i"
+	@echo "... sylar/rock/rock_protocol.s"
 	@echo "... sylar/scheduler.o"
 	@echo "... sylar/scheduler.i"
 	@echo "... sylar/scheduler.s"
@@ -1430,6 +1528,9 @@ help:
 	@echo "... sylar/util.o"
 	@echo "... sylar/util.i"
 	@echo "... sylar/util.s"
+	@echo "... sylar/util/crypto_util.o"
+	@echo "... sylar/util/crypto_util.i"
+	@echo "... sylar/util/crypto_util.s"
 	@echo "... sylar/util/hash_util.o"
 	@echo "... sylar/util/hash_util.i"
 	@echo "... sylar/util/hash_util.s"
@@ -1442,6 +1543,9 @@ help:
 	@echo "... sylar/worker.o"
 	@echo "... sylar/worker.i"
 	@echo "... sylar/worker.s"
+	@echo "... tests/test_crypto.o"
+	@echo "... tests/test_crypto.i"
+	@echo "... tests/test_crypto.s"
 .PHONY : help
 
 

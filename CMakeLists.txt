@@ -80,6 +80,8 @@ set(LIB_SRC
 	sylar/streams/zlib_stream.cc
 	sylar/streams/async_socket_stream.cc
 	sylar/protocol.cc
+    sylar/rock/rock_protocol.cc
+	sylar/util/crypto_util.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -140,7 +142,7 @@ sylar_add_executable(test_timed_cache "tests/test_timed_cache.cc" sylar "${LIBS}
 sylar_add_executable(test_timed_lru_cache "tests/test_timed_lru_cache.cc" sylar "${LIBS}")
 sylar_add_executable(test_zlib_stream "tests/test_zlib_stream.cc" sylar "${LIBS}")
 endif()
-
+sylar_add_executable(test_crypto "tests/test_crypto.cc" sylar "${LIBS}")
 sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")
 set_target_properties(bin_sylar PROPERTIES OUTPUT_NAME "sylar")
 
