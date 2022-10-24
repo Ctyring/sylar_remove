@@ -70,9 +70,7 @@ class ZlibStream : public Stream {
 
                                   Type type = DEFLATE,
                                   int level = DEFAULT_COMPRESSION,
-                                  int window_bits = 15
-
-                                  ,
+                                  int window_bits = 15,
                                   int memlevel = 8,
                                   Strategy strategy = DEFAULT);
 

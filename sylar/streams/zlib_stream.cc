@@ -84,16 +84,21 @@ int ZlibStream::init(Type type,
                      int window_bits,
                      int memlevel,
                      Strategy strategy) {
+    // 压缩等级
     SYLAR_ASSERT((level >= 0 && level <= 9) || level == DEFAULT_COMPRESSION);
+    // 选择模式
     SYLAR_ASSERT((window_bits >= 8 && window_bits <= 15));
+    // 运行过程中的内存限制
     SYLAR_ASSERT((memlevel >= 1 && memlevel <= 9));
 
     memset(&m_zstream, 0, sizeof(m_zstream));
 
+    // 将z_stream结构体中的zalloc和zfree成员设置为Z_NULL，表示使用默认的内存分配函数
     m_zstream.zalloc = Z_NULL;
     m_zstream.zfree = Z_NULL;
     m_zstream.opaque = Z_NULL;
 
+    // window_bits 的值真正决定了压缩的方式
     switch (type) {
         case DEFLATE:
             window_bits = -window_bits;
@@ -118,11 +123,12 @@ int ZlibStream::encode(const iovec* v, const uint64_t& size, bool finish) {
     int ret = 0;
     int flush = 0;
     for (uint64_t i = 0; i < size; ++i) {
+        // 设置输入缓冲区
         m_zstream.avail_in = v[i].iov_len;
         m_zstream.next_in = (Bytef*)v[i].iov_base;
-
+        // 判断是否要flush
         flush = finish ? (i == size - 1 ? Z_FINISH : Z_NO_FLUSH) : Z_NO_FLUSH;
-
+        // 数据指针
         iovec* ivc = nullptr;
         do {
             if (!m_buffs.empty() && m_buffs.back().iov_len != m_buffSize) {
@@ -146,6 +152,7 @@ int ZlibStream::encode(const iovec* v, const uint64_t& size, bool finish) {
         } while (m_zstream.avail_out == 0);
     }
     if (flush == Z_FINISH) {
+        // 释放内存
         deflateEnd(&m_zstream);
     }
     return Z_OK;
@@ -155,35 +162,43 @@ int ZlibStream::decode(const iovec* v, const uint64_t& size, bool finish) {
     int ret = 0;
     int flush = 0;
     for (uint64_t i = 0; i < size; ++i) {
+        // 设置输入缓冲区
         m_zstream.avail_in = v[i].iov_len;
         m_zstream.next_in = (Bytef*)v[i].iov_base;
-
+        // 判断是否是最后一次读取
         flush = finish ? (i == size - 1 ? Z_FINISH : Z_NO_FLUSH) : Z_NO_FLUSH;
-
+        // 数据指针
         iovec* ivc = nullptr;
         do {
+            // 如果buffs不为空，且最后一个buff的长度不等于buffSize
             if (!m_buffs.empty() && m_buffs.back().iov_len != m_buffSize) {
+                // 获取最后一个buff
                 ivc = &m_buffs.back();
             } else {
+                // 否则创建一个新的buff
                 iovec vc;
                 vc.iov_base = malloc(m_buffSize);
                 vc.iov_len = 0;
                 m_buffs.push_back(vc);
                 ivc = &m_buffs.back();
             }
-
+            // 设置输出缓冲区
             m_zstream.avail_out = m_buffSize - ivc->iov_len;
             m_zstream.next_out = (Bytef*)ivc->iov_base + ivc->iov_len;
 
+            // 解压缩
             ret = inflate(&m_zstream, flush);
             if (ret == Z_STREAM_ERROR) {
                 return ret;
             }
+            // 更新buff的长度
             ivc->iov_len = m_buffSize - m_zstream.avail_out;
+            // 如果是最后一次读取，解压缩完成
         } while (m_zstream.avail_out == 0);
     }
 
     if (flush == Z_FINISH) {
+        // 释放内存
         inflateEnd(&m_zstream);
     }
     return Z_OK;

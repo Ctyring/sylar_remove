@@ -57,7 +57,6 @@ HttpResponse::ptr HttpConnection::recvResponse() {
     std::string body;
     // 判断是否分块
     if (client_parser.chunked) {
-        std::string body;
         int len = offset;
         do {
             bool begin = true;
@@ -115,7 +114,6 @@ HttpResponse::ptr HttpConnection::recvResponse() {
     else {
         int64_t length = parser->getContentLength();
         if (length > 0) {
-            std::string body;
             body.resize(length);
 
             int len = 0;
