@@ -72,6 +72,7 @@ set(LIB_SRC
 	sylar/library.cc
 	sylar/util/json_util.cc
 	sylar/streams/zlib_stream.cc
+	sylar/streams/async_socket_stream.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)

@@ -1,6 +1,6 @@
 #include "socket_stream.h"
+#include "sylar/iomanager.h"
 #include "sylar/util.h"
-
 namespace sylar {
 
 SocketStream::SocketStream(Socket::ptr sock, bool owner)
