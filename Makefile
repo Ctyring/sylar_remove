@@ -155,6 +155,19 @@ bin_sylar/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_sylar.dir/build.make CMakeFiles/bin_sylar.dir/build
 .PHONY : bin_sylar/fast
 
+#=============================================================================
+# Target rules for targets named test_sqlite3
+
+# Build rule for target.
+test_sqlite3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_sqlite3
+.PHONY : test_sqlite3
+
+# fast build rule for target.
+test_sqlite3/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/build
+.PHONY : test_sqlite3/fast
+
 sylar/address.o: sylar/address.cc.o
 
 .PHONY : sylar/address.o
@@ -289,6 +302,33 @@ sylar/daemon.s: sylar/daemon.cc.s
 sylar/daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/daemon.cc.s
 .PHONY : sylar/daemon.cc.s
+
+sylar/db/sqlite3.o: sylar/db/sqlite3.cc.o
+
+.PHONY : sylar/db/sqlite3.o
+
+# target to build an object file
+sylar/db/sqlite3.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/sqlite3.cc.o
+.PHONY : sylar/db/sqlite3.cc.o
+
+sylar/db/sqlite3.i: sylar/db/sqlite3.cc.i
+
+.PHONY : sylar/db/sqlite3.i
+
+# target to preprocess a source file
+sylar/db/sqlite3.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/sqlite3.cc.i
+.PHONY : sylar/db/sqlite3.cc.i
+
+sylar/db/sqlite3.s: sylar/db/sqlite3.cc.s
+
+.PHONY : sylar/db/sqlite3.s
+
+# target to generate assembly for a file
+sylar/db/sqlite3.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/sqlite3.cc.s
+.PHONY : sylar/db/sqlite3.cc.s
 
 sylar/env.o: sylar/env.cc.o
 
@@ -1424,6 +1464,33 @@ tests/test_crypto.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.s
 .PHONY : tests/test_crypto.cc.s
 
+tests/test_sqlite3.o: tests/test_sqlite3.cc.o
+
+.PHONY : tests/test_sqlite3.o
+
+# target to build an object file
+tests/test_sqlite3.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/tests/test_sqlite3.cc.o
+.PHONY : tests/test_sqlite3.cc.o
+
+tests/test_sqlite3.i: tests/test_sqlite3.cc.i
+
+.PHONY : tests/test_sqlite3.i
+
+# target to preprocess a source file
+tests/test_sqlite3.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/tests/test_sqlite3.cc.i
+.PHONY : tests/test_sqlite3.cc.i
+
+tests/test_sqlite3.s: tests/test_sqlite3.cc.s
+
+.PHONY : tests/test_sqlite3.s
+
+# target to generate assembly for a file
+tests/test_sqlite3.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/tests/test_sqlite3.cc.s
+.PHONY : tests/test_sqlite3.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1433,8 +1500,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... sylar"
 	@echo "... test_crypto"
-	@echo "... bin_sylar"
 	@echo "... edit_cache"
+	@echo "... bin_sylar"
+	@echo "... test_sqlite3"
 	@echo "... sylar/address.o"
 	@echo "... sylar/address.i"
 	@echo "... sylar/address.s"
@@ -1450,6 +1518,9 @@ help:
 	@echo "... sylar/daemon.o"
 	@echo "... sylar/daemon.i"
 	@echo "... sylar/daemon.s"
+	@echo "... sylar/db/sqlite3.o"
+	@echo "... sylar/db/sqlite3.i"
+	@echo "... sylar/db/sqlite3.s"
 	@echo "... sylar/env.o"
 	@echo "... sylar/env.i"
 	@echo "... sylar/env.s"
@@ -1576,6 +1647,9 @@ help:
 	@echo "... tests/test_crypto.o"
 	@echo "... tests/test_crypto.i"
 	@echo "... tests/test_crypto.s"
+	@echo "... tests/test_sqlite3.o"
+	@echo "... tests/test_sqlite3.i"
+	@echo "... tests/test_sqlite3.s"
 .PHONY : help
 
 

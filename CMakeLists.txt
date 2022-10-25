@@ -83,6 +83,7 @@ set(LIB_SRC
     sylar/rock/rock_protocol.cc
 	sylar/util/crypto_util.cc
 	sylar/rock/rock_server.cc
+	sylar/db/sqlite3.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -106,6 +107,7 @@ set(LIBS
 		${OPENSSL_LIBRARIES}
 		libjsoncpp_static.a
 		${ZLIB_LIBRARIES}
+		sqlite3
 		)
 
 message("***", ${LIBS})
@@ -145,6 +147,7 @@ sylar_add_executable(test_zlib_stream "tests/test_zlib_stream.cc" sylar "${LIBS}
 endif()
 sylar_add_executable(test_crypto "tests/test_crypto.cc" sylar "${LIBS}")
 sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")
+sylar_add_executable(test_sqlite3 "tests/test_sqlite3.cc" sylar "${LIBS}")
 set_target_properties(bin_sylar PROPERTIES OUTPUT_NAME "sylar")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
