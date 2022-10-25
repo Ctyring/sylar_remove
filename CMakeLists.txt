@@ -82,6 +82,7 @@ set(LIB_SRC
 	sylar/protocol.cc
     sylar/rock/rock_protocol.cc
 	sylar/util/crypto_util.cc
+	sylar/rock/rock_server.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)

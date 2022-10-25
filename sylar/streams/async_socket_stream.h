@@ -24,7 +24,17 @@ class AsyncSocketStream
 
    public:
     enum Error { OK = 0, TIMEOUT = -1, IO_ERROR = -2, NOT_CONNECT = -3 };
-    struct Ctx {
+
+   protected:
+    struct SendCtx {
+       public:
+        typedef std::shared_ptr<SendCtx> ptr;
+        virtual ~SendCtx() {}
+
+        virtual bool doSend(AsyncSocketStream::ptr stream) = 0;
+    };
+
+    struct Ctx : public SendCtx {
        public:
         typedef std::shared_ptr<Ctx> ptr;
         virtual ~Ctx() {}
@@ -43,6 +53,7 @@ class AsyncSocketStream
         virtual bool doSend(AsyncSocketStream::ptr stream) = 0;
     };
 
+   public:
     bool isAutoConnect() const { return m_autoConnect; }
     void setAutoConnect(bool v) { m_autoConnect = v; }
 
@@ -95,7 +106,7 @@ class AsyncSocketStream
     }
 
     bool addCtx(Ctx::ptr ctx);
-    bool enqueue(Ctx::ptr ctx);
+    bool enqueue(SendCtx::ptr ctx);
 
     bool innerClose();
     bool waitFiber();
@@ -104,7 +115,7 @@ class AsyncSocketStream
     sylar::FiberSemaphore m_sem;
     sylar::FiberSemaphore m_waitSem;
     RWMutexType m_queueMutex;
-    std::list<Ctx::ptr> m_queue;
+    std::list<SendCtx::ptr> m_queue;
     RWMutexType m_mutex;
     std::unordered_map<uint32_t, Ctx::ptr> m_ctxs;
 

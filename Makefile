@@ -938,6 +938,33 @@ sylar/rock/rock_protocol.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_protocol.cc.s
 .PHONY : sylar/rock/rock_protocol.cc.s
 
+sylar/rock/rock_server.o: sylar/rock/rock_server.cc.o
+
+.PHONY : sylar/rock/rock_server.o
+
+# target to build an object file
+sylar/rock/rock_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_server.cc.o
+.PHONY : sylar/rock/rock_server.cc.o
+
+sylar/rock/rock_server.i: sylar/rock/rock_server.cc.i
+
+.PHONY : sylar/rock/rock_server.i
+
+# target to preprocess a source file
+sylar/rock/rock_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_server.cc.i
+.PHONY : sylar/rock/rock_server.cc.i
+
+sylar/rock/rock_server.s: sylar/rock/rock_server.cc.s
+
+.PHONY : sylar/rock/rock_server.s
+
+# target to generate assembly for a file
+sylar/rock/rock_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_server.cc.s
+.PHONY : sylar/rock/rock_server.cc.s
+
 sylar/scheduler.o: sylar/scheduler.cc.o
 
 .PHONY : sylar/scheduler.o
@@ -1495,6 +1522,9 @@ help:
 	@echo "... sylar/rock/rock_protocol.o"
 	@echo "... sylar/rock/rock_protocol.i"
 	@echo "... sylar/rock/rock_protocol.s"
+	@echo "... sylar/rock/rock_server.o"
+	@echo "... sylar/rock/rock_server.i"
+	@echo "... sylar/rock/rock_server.s"
 	@echo "... sylar/scheduler.o"
 	@echo "... sylar/scheduler.i"
 	@echo "... sylar/scheduler.s"

@@ -25,7 +25,8 @@ bool Request::parseFromByteArray(ByteArray::ptr bytearray) {
     return true;
 }
 
-Response::Response() : m_sn(0), m_cmd(0), m_result(0), m_resultStr() {}
+Response::Response()
+    : m_sn(0), m_cmd(0), m_result(404), m_resultStr("unhandle") {}
 
 bool Response::serializeToByteArray(ByteArray::ptr bytearray) {
     bytearray->writeFuint8(getType());
