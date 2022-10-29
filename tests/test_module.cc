@@ -1,6 +1,9 @@
 #include <iostream>
+#include "sylar/log.h"
 #include "sylar/module.h"
 #include "sylar/singleton.h"
+
+static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
 class A {
    public:
@@ -9,9 +12,9 @@ class A {
     ~A() { std::cout << "A::~A " << this << std::endl; }
 };
 
-class MyModule : public sylar::Module {
+class MyModule : public sylar::RockModule {
    public:
-    MyModule() : Module("hello", "1.0", "") {
+    MyModule() : RockModule("hello", "1.0", "") {
         // sylar::Singleton<A>::GetInstance();
     }
 
@@ -24,6 +27,22 @@ class MyModule : public sylar::Module {
     bool onUnload() override {
         sylar::Singleton<A>::GetInstance();
         std::cout << "-----------onUnload------------" << std::endl;
+        return true;
+    }
+
+    bool handleRockRequest(sylar::RockRequest::ptr request,
+                           sylar::RockResponse::ptr response,
+                           sylar::RockStream::ptr stream) {
+        SYLAR_LOG_INFO(g_logger) << "handleRockRequest " << request->toString();
+        response->setResult(0);
+        response->setResultStr("ok");
+        response->setBody("echo: " + request->getBody());
+        return true;
+    }
+
+    bool handleRockNotify(sylar::RockNotify::ptr notify,
+                          sylar::RockStream::ptr stream) {
+        SYLAR_LOG_INFO(g_logger) << "handleRockNotify " << notify->toString();
         return true;
     }
 };

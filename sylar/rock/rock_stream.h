@@ -3,14 +3,15 @@
 
 #include "rock_protocol.h"
 #include "sylar/streams/async_socket_stream.h"
+#include "sylar/streams/load_balance.h"
 
 namespace sylar {
 
 struct RockResult {
     typedef std::shared_ptr<RockResult> ptr;
-    RockResult(uint32_t _result, RockResponse::ptr rsp)
+    RockResult(int32_t _result, RockResponse::ptr rsp)
         : result(_result), response(rsp) {}
-    uint32_t result;
+    int32_t result;
     RockResponse::ptr response;
 };
 
@@ -25,6 +26,7 @@ class RockStream : public sylar::AsyncSocketStream {
         notify_handler;
 
     RockStream(Socket::ptr sock);
+    ~RockStream();
 
     int32_t sendMessage(Message::ptr msg);
     RockResult::ptr request(RockRequest::ptr req, uint32_t timeout_ms);
@@ -73,6 +75,15 @@ class RockConnection : public RockStream {
     typedef std::shared_ptr<RockConnection> ptr;
     RockConnection();
     bool connect(sylar::Address::ptr addr);
+};
+
+class RockFairLoadBalance : public FairLoadBalance {
+   public:
+    typedef std::shared_ptr<RockFairLoadBalance> ptr;
+    RockResult::ptr request(RockRequest::ptr req, uint32_t timeout_ms);
+
+   private:
+    uint64_t m_lastInitTime = 0;
 };
 
 }  // namespace sylar

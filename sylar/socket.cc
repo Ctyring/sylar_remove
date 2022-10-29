@@ -688,6 +688,12 @@ std::ostream& SSLSocket::dump(std::ostream& os) const {
     return os;
 }
 
+std::string Socket::toString() const {
+    std::stringstream ss;
+    dump(ss);
+    return ss.str();
+}
+
 std::ostream& operator<<(std::ostream& os, const Socket& sock) {
     return sock.dump(os);
 }

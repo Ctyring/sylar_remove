@@ -8,6 +8,7 @@
 #include "sylar/http/ws_server.h"
 #include "sylar/log.h"
 #include "sylar/module.h"
+#include "sylar/rock/rock_server.h"
 #include "sylar/tcp_server.h"
 #include "sylar/worker.h"
 
@@ -230,11 +231,16 @@ int Application::run_fiber() {
         } else if (i.type == "ws") {
             server.reset(
                 new sylar::http::WSServer(process_worker, accept_worker));
+        } else if (i.type == "rock") {
+            server.reset(new sylar::RockServer(process_worker, accept_worker));
         } else {
             SYLAR_LOG_ERROR(g_logger)
                 << "invalid server type=" << i.type
                 << LexicalCast<TcpServerConf, std::string>()(i);
             _exit(0);
+        }
+        if (!i.name.empty()) {
+            server->setName(i.name);
         }
         std::vector<Address::ptr> fails;
         if (!server->bind(address, fails, i.ssl)) {
@@ -250,9 +256,7 @@ int Application::run_fiber() {
                     << " key_file=" << i.key_file;
             }
         }
-        if (!i.name.empty()) {
-            server->setName(i.name);
-        }
+
         server->setConf(i);
         server->start();
         m_servers[i.type].push_back(server);
