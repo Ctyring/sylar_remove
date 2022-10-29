@@ -345,8 +345,6 @@ class Socket : public std::enable_shared_from_this<Socket>, Noncopyable {
      */
     virtual std::ostream& dump(std::ostream& os) const;
 
-    virtual std::string toString() const;
-
     /**
      * @brief 返回socket句柄
      */

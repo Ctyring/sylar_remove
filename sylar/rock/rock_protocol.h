@@ -46,7 +46,6 @@ class RockResponse;
 class RockRequest : public Request, public RockBody {
    public:
     typedef std::shared_ptr<RockRequest> ptr;
-
     std::shared_ptr<RockResponse> createResponse();
 
     virtual std::string toString() const override;

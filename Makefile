@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_module
-
-# Build rule for target.
-test_module: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_module
-.PHONY : test_module
-
-# fast build rule for target.
-test_module/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/build
-.PHONY : test_module/fast
-
-#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -141,19 +128,6 @@ sylar: cmake_check_build_system
 sylar/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
 .PHONY : sylar/fast
-
-#=============================================================================
-# Target rules for targets named test_rock
-
-# Build rule for target.
-test_rock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_rock
-.PHONY : test_rock
-
-# fast build rule for target.
-test_rock/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/build
-.PHONY : test_rock/fast
 
 #=============================================================================
 # Target rules for targets named test_crypto
@@ -1031,33 +1005,6 @@ sylar/rock/rock_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_server.cc.s
 .PHONY : sylar/rock/rock_server.cc.s
 
-sylar/rock/rock_stream.o: sylar/rock/rock_stream.cc.o
-
-.PHONY : sylar/rock/rock_stream.o
-
-# target to build an object file
-sylar/rock/rock_stream.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_stream.cc.o
-.PHONY : sylar/rock/rock_stream.cc.o
-
-sylar/rock/rock_stream.i: sylar/rock/rock_stream.cc.i
-
-.PHONY : sylar/rock/rock_stream.i
-
-# target to preprocess a source file
-sylar/rock/rock_stream.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_stream.cc.i
-.PHONY : sylar/rock/rock_stream.cc.i
-
-sylar/rock/rock_stream.s: sylar/rock/rock_stream.cc.s
-
-.PHONY : sylar/rock/rock_stream.s
-
-# target to generate assembly for a file
-sylar/rock/rock_stream.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/rock/rock_stream.cc.s
-.PHONY : sylar/rock/rock_stream.cc.s
-
 sylar/scheduler.o: sylar/scheduler.cc.o
 
 .PHONY : sylar/scheduler.o
@@ -1165,33 +1112,6 @@ sylar/streams/async_socket_stream.s: sylar/streams/async_socket_stream.cc.s
 sylar/streams/async_socket_stream.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/async_socket_stream.cc.s
 .PHONY : sylar/streams/async_socket_stream.cc.s
-
-sylar/streams/load_balance.o: sylar/streams/load_balance.cc.o
-
-.PHONY : sylar/streams/load_balance.o
-
-# target to build an object file
-sylar/streams/load_balance.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/load_balance.cc.o
-.PHONY : sylar/streams/load_balance.cc.o
-
-sylar/streams/load_balance.i: sylar/streams/load_balance.cc.i
-
-.PHONY : sylar/streams/load_balance.i
-
-# target to preprocess a source file
-sylar/streams/load_balance.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/load_balance.cc.i
-.PHONY : sylar/streams/load_balance.cc.i
-
-sylar/streams/load_balance.s: sylar/streams/load_balance.cc.s
-
-.PHONY : sylar/streams/load_balance.s
-
-# target to generate assembly for a file
-sylar/streams/load_balance.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/load_balance.cc.s
-.PHONY : sylar/streams/load_balance.cc.s
 
 sylar/streams/socket_stream.o: sylar/streams/socket_stream.cc.o
 
@@ -1544,60 +1464,6 @@ tests/test_crypto.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.s
 .PHONY : tests/test_crypto.cc.s
 
-tests/test_module.o: tests/test_module.cc.o
-
-.PHONY : tests/test_module.o
-
-# target to build an object file
-tests/test_module.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/tests/test_module.cc.o
-.PHONY : tests/test_module.cc.o
-
-tests/test_module.i: tests/test_module.cc.i
-
-.PHONY : tests/test_module.i
-
-# target to preprocess a source file
-tests/test_module.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/tests/test_module.cc.i
-.PHONY : tests/test_module.cc.i
-
-tests/test_module.s: tests/test_module.cc.s
-
-.PHONY : tests/test_module.s
-
-# target to generate assembly for a file
-tests/test_module.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/tests/test_module.cc.s
-.PHONY : tests/test_module.cc.s
-
-tests/test_rock.o: tests/test_rock.cc.o
-
-.PHONY : tests/test_rock.o
-
-# target to build an object file
-tests/test_rock.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/tests/test_rock.cc.o
-.PHONY : tests/test_rock.cc.o
-
-tests/test_rock.i: tests/test_rock.cc.i
-
-.PHONY : tests/test_rock.i
-
-# target to preprocess a source file
-tests/test_rock.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/tests/test_rock.cc.i
-.PHONY : tests/test_rock.cc.i
-
-tests/test_rock.s: tests/test_rock.cc.s
-
-.PHONY : tests/test_rock.s
-
-# target to generate assembly for a file
-tests/test_rock.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/tests/test_rock.cc.s
-.PHONY : tests/test_rock.cc.s
-
 tests/test_sqlite3.o: tests/test_sqlite3.cc.o
 
 .PHONY : tests/test_sqlite3.o
@@ -1632,9 +1498,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... test_module"
 	@echo "... sylar"
-	@echo "... test_rock"
 	@echo "... test_crypto"
 	@echo "... edit_cache"
 	@echo "... bin_sylar"
@@ -1732,9 +1596,6 @@ help:
 	@echo "... sylar/rock/rock_server.o"
 	@echo "... sylar/rock/rock_server.i"
 	@echo "... sylar/rock/rock_server.s"
-	@echo "... sylar/rock/rock_stream.o"
-	@echo "... sylar/rock/rock_stream.i"
-	@echo "... sylar/rock/rock_stream.s"
 	@echo "... sylar/scheduler.o"
 	@echo "... sylar/scheduler.i"
 	@echo "... sylar/scheduler.s"
@@ -1747,9 +1608,6 @@ help:
 	@echo "... sylar/streams/async_socket_stream.o"
 	@echo "... sylar/streams/async_socket_stream.i"
 	@echo "... sylar/streams/async_socket_stream.s"
-	@echo "... sylar/streams/load_balance.o"
-	@echo "... sylar/streams/load_balance.i"
-	@echo "... sylar/streams/load_balance.s"
 	@echo "... sylar/streams/socket_stream.o"
 	@echo "... sylar/streams/socket_stream.i"
 	@echo "... sylar/streams/socket_stream.s"
@@ -1789,12 +1647,6 @@ help:
 	@echo "... tests/test_crypto.o"
 	@echo "... tests/test_crypto.i"
 	@echo "... tests/test_crypto.s"
-	@echo "... tests/test_module.o"
-	@echo "... tests/test_module.i"
-	@echo "... tests/test_module.s"
-	@echo "... tests/test_rock.o"
-	@echo "... tests/test_rock.i"
-	@echo "... tests/test_rock.s"
 	@echo "... tests/test_sqlite3.o"
 	@echo "... tests/test_sqlite3.i"
 	@echo "... tests/test_sqlite3.s"

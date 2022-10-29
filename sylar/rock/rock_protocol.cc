@@ -194,9 +194,9 @@ Message::ptr RockMessageDecoder::parseFrom(Stream::ptr stream) {
             return nullptr;
         }
 
-        ba->setPosition(0);
         if (header.flag & 0x1) {  // gizp
             auto zstream = sylar::ZlibStream::CreateGzip(false);
+            ba->setPosition(0);
             if (zstream->write(ba, -1) != Z_OK) {
                 SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder ungzip error";
                 return nullptr;
@@ -233,10 +233,8 @@ Message::ptr RockMessageDecoder::parseFrom(Stream::ptr stream) {
             return nullptr;
         }
         return msg;
-    } catch (std::exception& e) {
-        SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder except:" << e.what();
     } catch (...) {
-        SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder except";
+        SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder exceept";
     }
     return nullptr;
 }
@@ -270,7 +268,7 @@ int32_t RockMessageDecoder::serializeTo(Stream::ptr stream, Message::ptr msg) {
             << "RockMessageDecoder serializeTo write header fail";
         return -3;
     }
-    if (stream->writeFixSize(ba, ba->getReadSize()) <= 0) {
+    if (stream->writeFixSize(ba, -1) <= 0) {
         SYLAR_LOG_ERROR(g_logger)
             << "RockMessageDecoder serializeTo write body fail";
         return -4;
