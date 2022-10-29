@@ -1,7 +1,10 @@
 #include "async_socket_stream.h"
+#include "sylar/log.h"
 #include "sylar/util.h"
 
 namespace sylar {
+
+static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
 AsyncSocketStream::Ctx::Ctx()
     : sn(0), timeout(0), result(0), timed(false), scheduler(nullptr) {}
@@ -93,10 +96,14 @@ void AsyncSocketStream::doRead() {
         // TODO log
     }
 
+    SYLAR_LOG_DEBUG(g_logger) << "doRead out " << this;
     innerClose();
     m_waitSem.notify();
 
-    // TODO auto start
+    if (m_autoConnect) {
+        m_iomanager->addTimer(
+            10, std::bind(&AsyncSocketStream::start, shared_from_this()));
+    }
 }
 
 void AsyncSocketStream::doWrite() {
@@ -119,6 +126,7 @@ void AsyncSocketStream::doWrite() {
     } catch (...) {
         // TODO log
     }
+    SYLAR_LOG_DEBUG(g_logger) << "doWrite out " << this;
     {
         RWMutexType::WriteLock lock(m_queueMutex);
         m_queue.clear();
