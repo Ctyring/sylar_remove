@@ -30,9 +30,12 @@ LoadBalanceItem::ptr RoundRobinLoadBalance::get() {
     if (m_items.empty()) {
         return nullptr;
     }
+    // 随机起点
     uint32_t r = rand() % m_items.size();
+    // 轮询
     for (size_t i = 0; i < m_items.size(); ++i) {
         auto& h = m_items[(r + i) % m_items.size()];
+        // 判断状态
         if (h->isValid()) {
             return h;
         }
@@ -57,16 +60,19 @@ LoadBalanceItem::ptr WeightLoadBalance::get() {
     return nullptr;
 }
 
+// 初始化权重信息
 int32_t WeightLoadBalance::initWeight() {
     int32_t total = 0;
     m_weights.resize(m_items.size());
     for (size_t i = 0; i < m_items.size(); ++i) {
+        // 累加权重
         total += m_items[i]->getWeight();
         m_weights[i] = total;
     }
     return total;
 }
 
+// 选择节点
 int32_t WeightLoadBalance::getIdx() {
     if (m_weights.empty()) {
         return -1;

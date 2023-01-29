@@ -46,6 +46,7 @@ class LoadBalance {
     std::vector<LoadBalanceItem::ptr> m_items;
 };
 
+// 使用轮询算法的复杂均衡实现
 class RoundRobinLoadBalance : public LoadBalance {
    public:
     typedef std::shared_ptr<RoundRobinLoadBalance> ptr;
@@ -57,9 +58,11 @@ class WeightLoadBalance : public LoadBalance {
     typedef std::shared_ptr<WeightLoadBalance> ptr;
     virtual LoadBalanceItem::ptr get() override;
 
+    // 初始化权重
     int32_t initWeight();
 
    private:
+    // 随机获取合适的服务id
     int32_t getIdx();
 
    private:
