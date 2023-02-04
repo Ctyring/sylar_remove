@@ -86,6 +86,8 @@ set(LIB_SRC
 	sylar/db/sqlite3.cc
 	sylar/streams/load_balance.cc
 	sylar/rock/rock_stream.cc
+	sylar/email/email.cc
+	sylar/email/smtp.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -149,6 +151,7 @@ sylar_add_executable(test_crypto "tests/test_crypto.cc" sylar "${LIBS}")
 
 sylar_add_executable(test_sqlite3 "tests/test_sqlite3.cc" sylar "${LIBS}")
 sylar_add_executable(test_rock "tests/test_rock.cc" sylar "${LIBS}")
+sylar_add_executable(test_email "tests/test_email.cc" sylar "${LIBS}")
 
 add_library(test_module SHARED tests/test_module.cc)
 sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")

@@ -130,6 +130,19 @@ test_module/fast:
 .PHONY : test_module/fast
 
 #=============================================================================
+# Target rules for targets named test_email
+
+# Build rule for target.
+test_email: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_email
+.PHONY : test_email
+
+# fast build rule for target.
+test_email/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/build
+.PHONY : test_email/fast
+
+#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -355,6 +368,60 @@ sylar/db/sqlite3.s: sylar/db/sqlite3.cc.s
 sylar/db/sqlite3.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/sqlite3.cc.s
 .PHONY : sylar/db/sqlite3.cc.s
+
+sylar/email/email.o: sylar/email/email.cc.o
+
+.PHONY : sylar/email/email.o
+
+# target to build an object file
+sylar/email/email.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/email.cc.o
+.PHONY : sylar/email/email.cc.o
+
+sylar/email/email.i: sylar/email/email.cc.i
+
+.PHONY : sylar/email/email.i
+
+# target to preprocess a source file
+sylar/email/email.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/email.cc.i
+.PHONY : sylar/email/email.cc.i
+
+sylar/email/email.s: sylar/email/email.cc.s
+
+.PHONY : sylar/email/email.s
+
+# target to generate assembly for a file
+sylar/email/email.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/email.cc.s
+.PHONY : sylar/email/email.cc.s
+
+sylar/email/smtp.o: sylar/email/smtp.cc.o
+
+.PHONY : sylar/email/smtp.o
+
+# target to build an object file
+sylar/email/smtp.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/smtp.cc.o
+.PHONY : sylar/email/smtp.cc.o
+
+sylar/email/smtp.i: sylar/email/smtp.cc.i
+
+.PHONY : sylar/email/smtp.i
+
+# target to preprocess a source file
+sylar/email/smtp.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/smtp.cc.i
+.PHONY : sylar/email/smtp.cc.i
+
+sylar/email/smtp.s: sylar/email/smtp.cc.s
+
+.PHONY : sylar/email/smtp.s
+
+# target to generate assembly for a file
+sylar/email/smtp.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/email/smtp.cc.s
+.PHONY : sylar/email/smtp.cc.s
 
 sylar/env.o: sylar/env.cc.o
 
@@ -1544,6 +1611,33 @@ tests/test_crypto.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/tests/test_crypto.cc.s
 .PHONY : tests/test_crypto.cc.s
 
+tests/test_email.o: tests/test_email.cc.o
+
+.PHONY : tests/test_email.o
+
+# target to build an object file
+tests/test_email.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/tests/test_email.cc.o
+.PHONY : tests/test_email.cc.o
+
+tests/test_email.i: tests/test_email.cc.i
+
+.PHONY : tests/test_email.i
+
+# target to preprocess a source file
+tests/test_email.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/tests/test_email.cc.i
+.PHONY : tests/test_email.cc.i
+
+tests/test_email.s: tests/test_email.cc.s
+
+.PHONY : tests/test_email.s
+
+# target to generate assembly for a file
+tests/test_email.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/tests/test_email.cc.s
+.PHONY : tests/test_email.cc.s
+
 tests/test_module.o: tests/test_module.cc.o
 
 .PHONY : tests/test_module.o
@@ -1631,8 +1725,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... test_module"
+	@echo "... rebuild_cache"
+	@echo "... test_email"
 	@echo "... sylar"
 	@echo "... test_rock"
 	@echo "... test_crypto"
@@ -1657,6 +1752,12 @@ help:
 	@echo "... sylar/db/sqlite3.o"
 	@echo "... sylar/db/sqlite3.i"
 	@echo "... sylar/db/sqlite3.s"
+	@echo "... sylar/email/email.o"
+	@echo "... sylar/email/email.i"
+	@echo "... sylar/email/email.s"
+	@echo "... sylar/email/smtp.o"
+	@echo "... sylar/email/smtp.i"
+	@echo "... sylar/email/smtp.s"
 	@echo "... sylar/env.o"
 	@echo "... sylar/env.i"
 	@echo "... sylar/env.s"
@@ -1789,6 +1890,9 @@ help:
 	@echo "... tests/test_crypto.o"
 	@echo "... tests/test_crypto.i"
 	@echo "... tests/test_crypto.s"
+	@echo "... tests/test_email.o"
+	@echo "... tests/test_email.i"
+	@echo "... tests/test_email.s"
 	@echo "... tests/test_module.o"
 	@echo "... tests/test_module.i"
 	@echo "... tests/test_module.s"
