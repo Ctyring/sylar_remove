@@ -2,9 +2,9 @@
 #include "sylar/email/smtp.h"
 
 void test() {
-    sylar::EMail::ptr email = sylar::EMail::Create(
-        "caotiyuan@163.com", "NWXPVTZHHOFQJDQX", "hello world",
-        "<B>hi </B>hello world", {"173479693@qq.com"});
+    sylar::EMail::ptr email =
+        sylar::EMail::Create("caotiyuan@163.com", "password", "hello world",
+                             "<B>hi </B>hello world", {"173479693@qq.com"});
     sylar::EMailEntity::ptr entity =
         sylar::EMailEntity::CreateAttach("sylar/sylar.h");
     if (entity) {
