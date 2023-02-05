@@ -78,21 +78,28 @@ SmtpResult::ptr SmtpClient::send(EMail::ptr email, bool debug) {
     }
 
     SmtpResult::ptr result;
+    // 发送HELO命令标识发件人自己的身份 HELO smtp.163.com 服务端会返回 250 OK
     std::string cmd = "HELO " + m_host + "\r\n";
     DO_CMD();
     if (!m_authed && !email->getFromEMailAddress().empty()) {
+        // 发送AUTH LOGIN命令，表示开始进行登录验证 服务端会返回 334
+        // dXNlcm5hbWU6
         cmd = "AUTH LOGIN\r\n";
         DO_CMD();
+        // 发送用户名信息的base64编码 服务端会返回 334 UGFzc3dvcmQ6
         auto pos = email->getFromEMailAddress().find('@');
         cmd = sylar::base64encode(email->getFromEMailAddress().substr(0, pos)) +
               "\r\n";
+
         DO_CMD();
+        // 发送密码信息的base64编码 服务端会返回 235 Authentication successful
         cmd = sylar::base64encode(email->getFromEMailPasswd()) + "\r\n";
         DO_CMD();
 
         m_authed = true;
     }
-
+    // 发送MAIL FROM命令，表示发件人的邮箱地址 MAIL FROM: <发件人邮箱地址>
+    // 服务端会返回 250 Mail OK
     cmd = "MAIL FROM: <" + email->getFromEMailAddress() + ">\r\n";
     DO_CMD();
     std::set<std::string> targets;
@@ -104,17 +111,25 @@ SmtpResult::ptr SmtpClient::send(EMail::ptr email, bool debug) {
     XX(getCcEMailAddress);
     XX(getBccEMailAddress);
 #undef XX
+    // 发送RCPT TO命令，表示收件人的邮箱地址 RCPT TO: <收件人邮箱地址>
+    // 服务端会返回 250 Mail OK 可以有多个收件人
     for (auto& i : targets) {
         cmd = "RCPT TO: <" + i + ">\r\n";
         DO_CMD();
     }
 
+    // 发送DATA命令，表示开始发送邮件内容 DATA 服务端会返回 354 End data with
+    // <CR><LF>.<CR><LF>
+    // 表示当我们希望结束邮件内容的输入时，需要在一行单独输入一个 .
+    // 并且以回车换行结束 即 \r\n. \r\n
     cmd = "DATA\r\n";
     DO_CMD();
 
     auto& entitys = email->getEntitys();
-
+    // 接下来拼接邮件内容
     std::stringstream ss;
+    // 邮件头 格式为 From: <发件人邮箱地址> To: <收件人邮箱地址> Subject:
+    // 邮件标题
     ss << "From: <" << email->getFromEMailAddress() << ">\r\n"
        << "To: ";
 #define XX(fun)                                 \
@@ -137,17 +152,21 @@ SmtpResult::ptr SmtpClient::send(EMail::ptr email, bool debug) {
     }
     ss << "Subject: " << email->getTitle() << "\r\n";
     std::string boundary;
+    // 如果有附件就需要生成一个boundary 用于分隔邮件内容的每个部分
     if (!entitys.empty()) {
         boundary = sylar::random_string(16);
         ss << "Content-Type: multipart/mixed;boundary=" << boundary << "\r\n";
     }
     ss << "MIME-Version: 1.0\r\n";
+    // 分隔符
     if (!boundary.empty()) {
         ss << "\r\n--" << boundary << "\r\n";
     }
+    // 文本信息
     ss << "Content-Type: text/html;charset=\"utf-8\"\r\n"
        << "\r\n"
        << email->getBody() << "\r\n";
+    // 附件信息
     for (auto& i : entitys) {
         ss << "\r\n--" << boundary << "\r\n";
         ss << i->toString();

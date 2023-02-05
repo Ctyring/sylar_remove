@@ -11,6 +11,7 @@ namespace sylar {
 class EMailEntity {
    public:
     typedef std::shared_ptr<EMailEntity> ptr;
+    // 添加附件
     static EMailEntity::ptr CreateAttach(const std::string& filename);
 
     void addHeader(const std::string& key, const std::string& val);
