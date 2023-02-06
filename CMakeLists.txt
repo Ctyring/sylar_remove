@@ -112,6 +112,7 @@ set(LIBS
 		libjsoncpp_static.a
 		${ZLIB_LIBRARIES}
 		sqlite3
+		tinyxml2
 		)
 
 message("***", ${LIBS})
@@ -153,9 +154,24 @@ sylar_add_executable(test_sqlite3 "tests/test_sqlite3.cc" sylar "${LIBS}")
 sylar_add_executable(test_rock "tests/test_rock.cc" sylar "${LIBS}")
 sylar_add_executable(test_email "tests/test_email.cc" sylar "${LIBS}")
 
+set(ORM_SRCS
+    sylar/orm/table.cc
+    sylar/orm/column.cc
+    sylar/orm/index.cc
+    sylar/orm/orm.cc
+    sylar/orm/util.cc
+    )
+sylar_add_executable(orm "${ORM_SRCS}" sylar "${LIBS}")
+
 add_library(test_module SHARED tests/test_module.cc)
+
 sylar_add_executable(bin_sylar "sylar/main.cc" sylar "${LIBS}")
 set_target_properties(bin_sylar PROPERTIES OUTPUT_NAME "sylar")
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/orm_out)
+set(OLIBS ${LIBS})
+set(OLIBS ${OLIBS} orm_data)
+sylar_add_executable(test_orm "tests/test_orm.cc" orm_data "${OLIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

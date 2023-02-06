@@ -11,3 +11,5 @@ bin/*
 build/
 *.log
 include/
+orm_out/
+.db

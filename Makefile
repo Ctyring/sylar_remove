@@ -117,69 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_module
+# Target rules for targets named test_sqlite3
 
 # Build rule for target.
-test_module: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_module
-.PHONY : test_module
+test_sqlite3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_sqlite3
+.PHONY : test_sqlite3
 
 # fast build rule for target.
-test_module/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/build
-.PHONY : test_module/fast
-
-#=============================================================================
-# Target rules for targets named test_email
-
-# Build rule for target.
-test_email: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_email
-.PHONY : test_email
-
-# fast build rule for target.
-test_email/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/build
-.PHONY : test_email/fast
-
-#=============================================================================
-# Target rules for targets named sylar
-
-# Build rule for target.
-sylar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
-.PHONY : sylar
-
-# fast build rule for target.
-sylar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
-.PHONY : sylar/fast
-
-#=============================================================================
-# Target rules for targets named test_rock
-
-# Build rule for target.
-test_rock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_rock
-.PHONY : test_rock
-
-# fast build rule for target.
-test_rock/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/build
-.PHONY : test_rock/fast
-
-#=============================================================================
-# Target rules for targets named test_crypto
-
-# Build rule for target.
-test_crypto: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_crypto
-.PHONY : test_crypto
-
-# fast build rule for target.
-test_crypto/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/build
-.PHONY : test_crypto/fast
+test_sqlite3/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/build
+.PHONY : test_sqlite3/fast
 
 #=============================================================================
 # Target rules for targets named bin_sylar
@@ -195,17 +143,108 @@ bin_sylar/fast:
 .PHONY : bin_sylar/fast
 
 #=============================================================================
-# Target rules for targets named test_sqlite3
+# Target rules for targets named test_rock
 
 # Build rule for target.
-test_sqlite3: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_sqlite3
-.PHONY : test_sqlite3
+test_rock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_rock
+.PHONY : test_rock
 
 # fast build rule for target.
-test_sqlite3/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sqlite3.dir/build.make CMakeFiles/test_sqlite3.dir/build
-.PHONY : test_sqlite3/fast
+test_rock/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/build
+.PHONY : test_rock/fast
+
+#=============================================================================
+# Target rules for targets named sylar
+
+# Build rule for target.
+sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
+.PHONY : sylar
+
+# fast build rule for target.
+sylar/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
+.PHONY : sylar/fast
+
+#=============================================================================
+# Target rules for targets named test_email
+
+# Build rule for target.
+test_email: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_email
+.PHONY : test_email
+
+# fast build rule for target.
+test_email/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/build
+.PHONY : test_email/fast
+
+#=============================================================================
+# Target rules for targets named test_orm
+
+# Build rule for target.
+test_orm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_orm
+.PHONY : test_orm
+
+# fast build rule for target.
+test_orm/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/build
+.PHONY : test_orm/fast
+
+#=============================================================================
+# Target rules for targets named orm
+
+# Build rule for target.
+orm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 orm
+.PHONY : orm
+
+# fast build rule for target.
+orm/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/build
+.PHONY : orm/fast
+
+#=============================================================================
+# Target rules for targets named test_crypto
+
+# Build rule for target.
+test_crypto: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_crypto
+.PHONY : test_crypto
+
+# fast build rule for target.
+test_crypto/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/build
+.PHONY : test_crypto/fast
+
+#=============================================================================
+# Target rules for targets named test_module
+
+# Build rule for target.
+test_module: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_module
+.PHONY : test_module
+
+# fast build rule for target.
+test_module/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/build
+.PHONY : test_module/fast
+
+#=============================================================================
+# Target rules for targets named orm_data
+
+# Build rule for target.
+orm_data: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 orm_data
+.PHONY : orm_data
+
+# fast build rule for target.
+orm_data/fast:
+	$(MAKE) $(MAKESILENT) -f orm_out/CMakeFiles/orm_data.dir/build.make orm_out/CMakeFiles/orm_data.dir/build
+.PHONY : orm_data/fast
 
 sylar/address.o: sylar/address.cc.o
 
@@ -1017,6 +1056,141 @@ sylar/mutex.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/mutex.cc.s
 .PHONY : sylar/mutex.cc.s
 
+sylar/orm/column.o: sylar/orm/column.cc.o
+
+.PHONY : sylar/orm/column.o
+
+# target to build an object file
+sylar/orm/column.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/column.cc.o
+.PHONY : sylar/orm/column.cc.o
+
+sylar/orm/column.i: sylar/orm/column.cc.i
+
+.PHONY : sylar/orm/column.i
+
+# target to preprocess a source file
+sylar/orm/column.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/column.cc.i
+.PHONY : sylar/orm/column.cc.i
+
+sylar/orm/column.s: sylar/orm/column.cc.s
+
+.PHONY : sylar/orm/column.s
+
+# target to generate assembly for a file
+sylar/orm/column.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/column.cc.s
+.PHONY : sylar/orm/column.cc.s
+
+sylar/orm/index.o: sylar/orm/index.cc.o
+
+.PHONY : sylar/orm/index.o
+
+# target to build an object file
+sylar/orm/index.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/index.cc.o
+.PHONY : sylar/orm/index.cc.o
+
+sylar/orm/index.i: sylar/orm/index.cc.i
+
+.PHONY : sylar/orm/index.i
+
+# target to preprocess a source file
+sylar/orm/index.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/index.cc.i
+.PHONY : sylar/orm/index.cc.i
+
+sylar/orm/index.s: sylar/orm/index.cc.s
+
+.PHONY : sylar/orm/index.s
+
+# target to generate assembly for a file
+sylar/orm/index.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/index.cc.s
+.PHONY : sylar/orm/index.cc.s
+
+sylar/orm/orm.o: sylar/orm/orm.cc.o
+
+.PHONY : sylar/orm/orm.o
+
+# target to build an object file
+sylar/orm/orm.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/orm.cc.o
+.PHONY : sylar/orm/orm.cc.o
+
+sylar/orm/orm.i: sylar/orm/orm.cc.i
+
+.PHONY : sylar/orm/orm.i
+
+# target to preprocess a source file
+sylar/orm/orm.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/orm.cc.i
+.PHONY : sylar/orm/orm.cc.i
+
+sylar/orm/orm.s: sylar/orm/orm.cc.s
+
+.PHONY : sylar/orm/orm.s
+
+# target to generate assembly for a file
+sylar/orm/orm.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/orm.cc.s
+.PHONY : sylar/orm/orm.cc.s
+
+sylar/orm/table.o: sylar/orm/table.cc.o
+
+.PHONY : sylar/orm/table.o
+
+# target to build an object file
+sylar/orm/table.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/table.cc.o
+.PHONY : sylar/orm/table.cc.o
+
+sylar/orm/table.i: sylar/orm/table.cc.i
+
+.PHONY : sylar/orm/table.i
+
+# target to preprocess a source file
+sylar/orm/table.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/table.cc.i
+.PHONY : sylar/orm/table.cc.i
+
+sylar/orm/table.s: sylar/orm/table.cc.s
+
+.PHONY : sylar/orm/table.s
+
+# target to generate assembly for a file
+sylar/orm/table.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/table.cc.s
+.PHONY : sylar/orm/table.cc.s
+
+sylar/orm/util.o: sylar/orm/util.cc.o
+
+.PHONY : sylar/orm/util.o
+
+# target to build an object file
+sylar/orm/util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/util.cc.o
+.PHONY : sylar/orm/util.cc.o
+
+sylar/orm/util.i: sylar/orm/util.cc.i
+
+.PHONY : sylar/orm/util.i
+
+# target to preprocess a source file
+sylar/orm/util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/util.cc.i
+.PHONY : sylar/orm/util.cc.i
+
+sylar/orm/util.s: sylar/orm/util.cc.s
+
+.PHONY : sylar/orm/util.s
+
+# target to generate assembly for a file
+sylar/orm/util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/sylar/orm/util.cc.s
+.PHONY : sylar/orm/util.cc.s
+
 sylar/protocol.o: sylar/protocol.cc.o
 
 .PHONY : sylar/protocol.o
@@ -1665,6 +1839,33 @@ tests/test_module.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/tests/test_module.cc.s
 .PHONY : tests/test_module.cc.s
 
+tests/test_orm.o: tests/test_orm.cc.o
+
+.PHONY : tests/test_orm.o
+
+# target to build an object file
+tests/test_orm.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/tests/test_orm.cc.o
+.PHONY : tests/test_orm.cc.o
+
+tests/test_orm.i: tests/test_orm.cc.i
+
+.PHONY : tests/test_orm.i
+
+# target to preprocess a source file
+tests/test_orm.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/tests/test_orm.cc.i
+.PHONY : tests/test_orm.cc.i
+
+tests/test_orm.s: tests/test_orm.cc.s
+
+.PHONY : tests/test_orm.s
+
+# target to generate assembly for a file
+tests/test_orm.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/tests/test_orm.cc.s
+.PHONY : tests/test_orm.cc.s
+
 tests/test_rock.o: tests/test_rock.cc.o
 
 .PHONY : tests/test_rock.o
@@ -1725,15 +1926,18 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... test_module"
 	@echo "... rebuild_cache"
-	@echo "... test_email"
-	@echo "... sylar"
-	@echo "... test_rock"
-	@echo "... test_crypto"
-	@echo "... edit_cache"
-	@echo "... bin_sylar"
 	@echo "... test_sqlite3"
+	@echo "... bin_sylar"
+	@echo "... edit_cache"
+	@echo "... test_rock"
+	@echo "... sylar"
+	@echo "... test_email"
+	@echo "... test_orm"
+	@echo "... orm"
+	@echo "... test_crypto"
+	@echo "... test_module"
+	@echo "... orm_data"
 	@echo "... sylar/address.o"
 	@echo "... sylar/address.i"
 	@echo "... sylar/address.s"
@@ -1824,6 +2028,21 @@ help:
 	@echo "... sylar/mutex.o"
 	@echo "... sylar/mutex.i"
 	@echo "... sylar/mutex.s"
+	@echo "... sylar/orm/column.o"
+	@echo "... sylar/orm/column.i"
+	@echo "... sylar/orm/column.s"
+	@echo "... sylar/orm/index.o"
+	@echo "... sylar/orm/index.i"
+	@echo "... sylar/orm/index.s"
+	@echo "... sylar/orm/orm.o"
+	@echo "... sylar/orm/orm.i"
+	@echo "... sylar/orm/orm.s"
+	@echo "... sylar/orm/table.o"
+	@echo "... sylar/orm/table.i"
+	@echo "... sylar/orm/table.s"
+	@echo "... sylar/orm/util.o"
+	@echo "... sylar/orm/util.i"
+	@echo "... sylar/orm/util.s"
 	@echo "... sylar/protocol.o"
 	@echo "... sylar/protocol.i"
 	@echo "... sylar/protocol.s"
@@ -1896,6 +2115,9 @@ help:
 	@echo "... tests/test_module.o"
 	@echo "... tests/test_module.i"
 	@echo "... tests/test_module.s"
+	@echo "... tests/test_orm.o"
+	@echo "... tests/test_orm.i"
+	@echo "... tests/test_orm.s"
 	@echo "... tests/test_rock.o"
 	@echo "... tests/test_rock.i"
 	@echo "... tests/test_rock.s"
