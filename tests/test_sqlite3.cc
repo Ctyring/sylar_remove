@@ -40,7 +40,8 @@ int main(int argc, char** argv) {
 #define XX(...) #__VA_ARGS__
         int rt = db->execute(XX(create table user(
             id integer primary key autoincrement,
-            name varchar(50) not null default "", age int not null default 0)));
+            name varchar(50) not null default "", age int not null default 0,
+            create_time datetime)));
 #undef XX
 
         if (rt != SQLITE_OK) {
@@ -61,7 +62,7 @@ int main(int argc, char** argv) {
     }
 
     sylar::SQLite3Stmt::ptr stmt = sylar::SQLite3Stmt::Create(
-        db, "insert into user(name, age) values(?, ?)");
+        db, "insert into user(name, age, create_time) values(?, ?, ?)");
     if (!stmt) {
         SYLAR_LOG_ERROR(g_logger)
             << "create statement error " << db->getErrorCode() << " - "
@@ -69,9 +70,12 @@ int main(int argc, char** argv) {
         return 0;
     }
 
+    int64_t now = time(0);
     for (int i = 0; i < 10; ++i) {
         stmt->bind(1, "stmt_" + std::to_string(i));
         stmt->bind(2, i);
+        stmt->bind(3, now + rand() % 100);
+        // stmt->bind(3, sylar::Time2Str(now + rand() % 100));
         // stmt->bind(3, "stmt_" + std::to_string(i + 1));
         // stmt->bind(4, i + 1);
 
@@ -112,7 +116,8 @@ int main(int argc, char** argv) {
         SYLAR_LOG_INFO(g_logger)
             << "ds.data_count=" << dd->getDataCount()
             << " ds.column_count=" << dd->getColumnCount()
-            << " 0=" << dd->getInt(0) << " 1=" << dd->getText(1);
+            << " 0=" << dd->getInt(0) << " 1=" << dd->getText(1)
+            << " 2=" << dd->getText(2) << " 3=" << dd->getText(3);
     } while (dd->next());
 
     test_batch(db);
