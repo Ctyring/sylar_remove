@@ -662,32 +662,35 @@ static const char xdigit_chars[256] = {
 
 #define CHAR_IS_UNRESERVED(c) (uri_chars[(unsigned char)(c)])
 
+// URL编码
 //-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~
 std::string StringUtil::UrlEncode(const std::string& str, bool space_as_plus) {
     static const char* hexdigits = "0123456789ABCDEF";
     std::string* ss = nullptr;
     const char* end = str.c_str() + str.length();
     for (const char* c = str.c_str(); c < end; ++c) {
+        // 判断是否是预留字符
         if (!CHAR_IS_UNRESERVED(*c)) {
-            if (!ss) {
+            if (!ss) {  // 第一次发现需要编码的字符
                 ss = new std::string;
                 ss->reserve(str.size() * 1.2);
                 ss->append(str.c_str(), c - str.c_str());
             }
-            if (*c == ' ' && space_as_plus) {
+            if (*c == ' ' && space_as_plus) {  // 空格转换为+
                 ss->append(1, '+');
-            } else {
+            } else {  // 其他字符转换为%XX
                 ss->append(1, '%');
                 ss->append(1, hexdigits[(uint8_t)*c >> 4]);
                 ss->append(1, hexdigits[*c & 0xf]);
             }
-        } else if (ss) {
+        } else if (
+            ss) {  // 如果是预留字符，且已经发现需要编码的字符，则直接追加
             ss->append(1, *c);
         }
     }
-    if (!ss) {
+    if (!ss) {  // 如果没有发现需要编码的字符，则直接返回
         return str;
-    } else {
+    } else {  // 否则返回编码后的字符串
         std::string rt = *ss;
         delete ss;
         return rt;
@@ -698,14 +701,14 @@ std::string StringUtil::UrlDecode(const std::string& str, bool space_as_plus) {
     std::string* ss = nullptr;
     const char* end = str.c_str() + str.length();
     for (const char* c = str.c_str(); c < end; ++c) {
-        if (*c == '+' && space_as_plus) {
+        if (*c == '+' && space_as_plus) {  // +转换为空格
             if (!ss) {
                 ss = new std::string;
                 ss->append(str.c_str(), c - str.c_str());
             }
             ss->append(1, ' ');
         } else if (*c == '%' && (c + 2) < end && isxdigit(*(c + 1)) &&
-                   isxdigit(*(c + 2))) {
+                   isxdigit(*(c + 2))) {  // %XX转换为字符
             if (!ss) {
                 ss = new std::string;
                 ss->append(str.c_str(), c - str.c_str());
@@ -713,13 +716,14 @@ std::string StringUtil::UrlDecode(const std::string& str, bool space_as_plus) {
             ss->append(1, (char)(xdigit_chars[(int)*(c + 1)] << 4 |
                                  xdigit_chars[(int)*(c + 2)]));
             c += 2;
-        } else if (ss) {
+        } else if (
+            ss) {  // 如果是预留字符，且已经发现需要解码的字符，则直接追加
             ss->append(1, *c);
         }
     }
-    if (!ss) {
+    if (!ss) {  // 如果没有发现需要解码的字符，则直接返回
         return str;
-    } else {
+    } else {  // 否则返回解码后的字符串
         std::string rt = *ss;
         delete ss;
         return rt;

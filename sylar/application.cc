@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 
+#include <signal.h>
 #include "sylar/config.h"
 #include "sylar/daemon.h"
 #include "sylar/env.h"
@@ -115,6 +116,14 @@ bool Application::run() {
 }
 
 int Application::main(int argc, char** argv) {
+    // SIGPIPE是一个信号，当在一个已经关闭的套接字上写数据时，内核会向进程发送该信号。
+    // 默认情况下，这会导致程序终止。
+
+    // SIG_IGN是一个特殊的信号处理程序，它表示忽略该信号。
+
+    // 因此，代码"signal(SIGPIPE,SIG_IGN)"实际上是在告诉系统，在遇到SIGPIPE信号时，应该忽略它，
+    // 而不是终止程序。这对于防止程序意外终止很有用，特别是在写入一个网络套接字时，有时该套接字可能已经关闭，但程序并不知道。
+    signal(SIGPIPE, SIG_IGN);
     SYLAR_LOG_INFO(g_logger) << "main";
     std::string conf_path = sylar::EnvMgr::GetInstance()->getConfigPath();
     sylar::Config::LoadFromConfDir(conf_path, true);

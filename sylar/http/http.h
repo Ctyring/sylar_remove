@@ -217,10 +217,8 @@ class HttpRequest {
 
     std::string getHeader(const std::string& key,
                           const std::string& def = "") const;
-    std::string getParam(const std::string& key,
-                         const std::string& def = "") const;
-    std::string getCookie(const std::string& key,
-                          const std::string& def = "") const;
+    std::string getParam(const std::string& key, const std::string& def = "");
+    std::string getCookie(const std::string& key, const std::string& def = "");
 
     void setHeader(const std::string& key, const std::string& val);
     void setParam(const std::string& key, const std::string& val);
@@ -267,6 +265,12 @@ class HttpRequest {
     std::ostream& dump(std::ostream& os) const;
     std::string toString() const;
 
+    void init();
+    void initParam();
+    void initQueryParam();
+    void initBodyParam();
+    void initCookies();
+
    private:
    private:
     HttpMethod m_method;
@@ -274,6 +278,7 @@ class HttpRequest {
     bool m_close;
     /// 是否为websocket
     bool m_websocket;
+    uint8_t m_parserParamFlag;
     std::string m_path;
     std::string m_query;
     std::string m_fragment;

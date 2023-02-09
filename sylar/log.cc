@@ -591,8 +591,8 @@ void LogFormatter::init() {
                     // 把大括号之前的部分切割
                     str = m_pattern.substr(i + 1, n - i - 1);
                     // std::cout << "*" << str << std::endl;
-                    fmt_status = 1;  //解析格式
-                                     // 大括号开始
+                    fmt_status = 1;  // 解析格式
+                                     //  大括号开始
                     fmt_begin = n;
                     ++n;
                     continue;
@@ -852,7 +852,7 @@ class LexicalCast<LogDefine, std::string> {
         if (i.level != LogLevel::UNKNOW) {
             n["level"] = LogLevel::ToString(i.level);
         }
-        if (i.formatter.empty()) {
+        if (!i.formatter.empty()) {
             n["formatter"] = i.formatter;
         }
         for (auto& a : i.appenders) {
@@ -899,11 +899,11 @@ struct LogIniter {
                 auto it = old_value.find(i);
                 sylar::Logger::ptr logger;
                 if (it == old_value.end()) {
-                    //新增logger
+                    // 新增logger
                     logger = SYLAR_LOG_NAME(i.name);
                 } else {
                     if (!(i == *it)) {
-                        //修改的logger
+                        // 修改的logger
                         logger = SYLAR_LOG_NAME(i.name);
                     }
                 }
@@ -947,7 +947,7 @@ struct LogIniter {
             for (auto& i : old_value) {
                 auto it = new_value.find(i);
                 if (it == new_value.end()) {
-                    //删除logger
+                    // 删除logger
                     auto logger = SYLAR_LOG_NAME(i.name);
                     logger->setLevel((LogLevel::Level)0);
                     logger->clearAppenders();
