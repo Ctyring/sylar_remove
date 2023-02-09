@@ -102,9 +102,9 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    do {
+    while (ds->next()) {
         // SYLAR_LOG_INFO(g_logger) << "query ";
-    } while (ds->next());
+    };
 
     // const char v[] = "hello ' world";
     const std::string v = "hello ' world";
@@ -112,13 +112,13 @@ int main(int argc, char** argv) {
 
     auto dd = std::dynamic_pointer_cast<sylar::SQLite3Data>(
         db->queryStmt("select * from user"));
-    do {
+    while (dd->next()) {
         SYLAR_LOG_INFO(g_logger)
             << "ds.data_count=" << dd->getDataCount()
             << " ds.column_count=" << dd->getColumnCount()
             << " 0=" << dd->getInt(0) << " 1=" << dd->getText(1)
             << " 2=" << dd->getText(2) << " 3=" << dd->getText(3);
-    } while (dd->next());
+    }
 
     test_batch(db);
     return 0;

@@ -686,7 +686,7 @@ void Table::gen_dao_src(std::ofstream& ofs) {
     ofs << "    if(!rt) {" << std::endl;
     ofs << "        return 0;" << std::endl;
     ofs << "    }" << std::endl;
-    ofs << "    do {" << std::endl;
+    ofs << " while (rt->next()) {" << std::endl;
     ofs << "        " << GetAsClassName(class_name) << "::ptr v(new "
         << GetAsClassName(class_name) << ");" << std::endl;
 #define PARSE_OBJECT(prefix)                                                   \
@@ -718,7 +718,7 @@ void Table::gen_dao_src(std::ofstream& ofs) {
 
     PARSE_OBJECT("        ");
     ofs << "        results.push_back(v);" << std::endl;
-    ofs << "    } while (rt->next());" << std::endl;
+    ofs << " };" << std::endl;
     ofs << "    return 0;" << std::endl;
     ofs << "}" << std::endl << std::endl;
 
@@ -755,6 +755,9 @@ void Table::gen_dao_src(std::ofstream& ofs) {
     }
     ofs << ");" << std::endl;
     ofs << "    if(!rt) {" << std::endl;
+    ofs << "        return nullptr;" << std::endl;
+    ofs << "    }" << std::endl;
+    ofs << "    if(!rt->next()) {" << std::endl;
     ofs << "        return nullptr;" << std::endl;
     ofs << "    }" << std::endl;
     ofs << "    " << GetAsClassName(class_name) << "::ptr v(new "
@@ -804,6 +807,9 @@ void Table::gen_dao_src(std::ofstream& ofs) {
             }
             ofs << ");" << std::endl;
             ofs << "    if(!rt) {" << std::endl;
+            ofs << "        return nullptr;" << std::endl;
+            ofs << "    }" << std::endl;
+            ofs << "    if(!rt->next()) {" << std::endl;
             ofs << "        return nullptr;" << std::endl;
             ofs << "    }" << std::endl;
             ofs << "    " << GetAsClassName(class_name) << "::ptr v(new "
@@ -869,12 +875,12 @@ void Table::gen_dao_src(std::ofstream& ofs) {
             ofs << "    if(!rt) {" << std::endl;
             ofs << "        return 0;" << std::endl;
             ofs << "    }" << std::endl;
-            ofs << "    do {" << std::endl;
+            ofs << " while (rt->next()) {" << std::endl;
             ofs << "        " << GetAsClassName(class_name) << "::ptr v(new "
                 << GetAsClassName(class_name) << ");" << std::endl;
             PARSE_OBJECT(" ");
             ofs << "        results.push_back(v);" << std::endl;
-            ofs << "    } while (rt->next());" << std::endl;
+            ofs << " };" << std::endl;
             ofs << "    return 0;" << std::endl;
             ofs << "}" << std::endl << std::endl;
         }

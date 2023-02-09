@@ -11,7 +11,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # -Wall 开启大部分警告提示
 # -Wno-unused-funtion 不要警告未使用函数
 # -Wno-deprecated 不要警告过时特性
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -fPIC -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 
 include_directories(.)
 include_directories(/yaml-cpp/include)
