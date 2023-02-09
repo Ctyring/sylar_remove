@@ -790,6 +790,9 @@ class LexicalCast<std::string, LogDefine> {
                     }
                 } else if (type == "StdoutLogAppender") {
                     lad.type = 2;
+                    if (a["formatter"].IsDefined()) {
+                        lad.formatter = a["formatter"].as<std::string>();
+                    }
                 } else if (type == "TimeSlicingFileLogAppender") {
                     lad.type = 3;
                     if (!a["path"].IsDefined()) {
