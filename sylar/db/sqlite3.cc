@@ -51,6 +51,10 @@ int SQLite3::execute(const char* format, ...) {
     return sqlite3_exec(m_db, sql.get(), 0, 0, 0);
 }
 
+int SQLite3::execute(const std::string& sql) {
+    return sqlite3_exec(m_db, sql.c_str(), 0, 0, 0);
+}
+
 ISQLData::ptr SQLite3::query(const char* format, ...) {
     va_list ap;
     va_start(ap, format);
@@ -69,10 +73,6 @@ ISQLData::ptr SQLite3::query(const std::string& sql) {
         return nullptr;
     }
     return stmt->query();
-}
-
-int SQLite3::execute(const std::string& sql) {
-    return sqlite3_exec(m_db, sql.c_str(), 0, 0, 0);
 }
 
 int64_t SQLite3::getLastInsertId() {

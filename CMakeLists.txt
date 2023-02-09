@@ -1,6 +1,7 @@
 cmake_miniMum_required(VERSION 3.0)
 
 project(sylar)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include (cmake/utils.cmake)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -30,6 +31,11 @@ endif()
 find_package(OpenSSL REQUIRED)
 if(OPENSSL_FOUND)
     include_directories(${OPENSSL_INCLUDE_DIR})
+endif()
+
+find_package(MySQL REQUIRED)
+if(MYSQL_FOUND)
+    include_directories(${MYSQL_INCLUDE_DIR})
 endif()
 
 find_package(ZLIB REQUIRED)
@@ -88,6 +94,7 @@ set(LIB_SRC
 	sylar/rock/rock_stream.cc
 	sylar/email/email.cc
 	sylar/email/smtp.cc
+	sylar/db/mysql.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -113,6 +120,7 @@ set(LIBS
 		${ZLIB_LIBRARIES}
 		sqlite3
 		tinyxml2
+		mysqlclient
 		)
 
 message("***", ${LIBS})

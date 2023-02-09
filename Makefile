@@ -381,6 +381,33 @@ sylar/daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/daemon.cc.s
 .PHONY : sylar/daemon.cc.s
 
+sylar/db/mysql.o: sylar/db/mysql.cc.o
+
+.PHONY : sylar/db/mysql.o
+
+# target to build an object file
+sylar/db/mysql.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/mysql.cc.o
+.PHONY : sylar/db/mysql.cc.o
+
+sylar/db/mysql.i: sylar/db/mysql.cc.i
+
+.PHONY : sylar/db/mysql.i
+
+# target to preprocess a source file
+sylar/db/mysql.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/mysql.cc.i
+.PHONY : sylar/db/mysql.cc.i
+
+sylar/db/mysql.s: sylar/db/mysql.cc.s
+
+.PHONY : sylar/db/mysql.s
+
+# target to generate assembly for a file
+sylar/db/mysql.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/mysql.cc.s
+.PHONY : sylar/db/mysql.cc.s
+
 sylar/db/sqlite3.o: sylar/db/sqlite3.cc.o
 
 .PHONY : sylar/db/sqlite3.o
@@ -1953,6 +1980,9 @@ help:
 	@echo "... sylar/daemon.o"
 	@echo "... sylar/daemon.i"
 	@echo "... sylar/daemon.s"
+	@echo "... sylar/db/mysql.o"
+	@echo "... sylar/db/mysql.i"
+	@echo "... sylar/db/mysql.s"
 	@echo "... sylar/db/sqlite3.o"
 	@echo "... sylar/db/sqlite3.i"
 	@echo "... sylar/db/sqlite3.s"

@@ -29,6 +29,7 @@ bool Table::init(const tinyxml2::XMLElement& node) {
         m_desc = node.Attribute("desc");
     }
 
+    // 获取columns
     const tinyxml2::XMLElement* cols = node.FirstChildElement("columns");
     if (!cols) {
         SYLAR_LOG_ERROR(g_logger)
@@ -36,6 +37,7 @@ bool Table::init(const tinyxml2::XMLElement& node) {
         return false;
     }
 
+    // 获取第一个column
     const tinyxml2::XMLElement* col = cols->FirstChildElement("column");
     if (!col) {
         SYLAR_LOG_ERROR(g_logger)

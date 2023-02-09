@@ -19,12 +19,15 @@ class Table {
     const std::vector<Index::ptr>& getIdxs() const { return m_idxs; }
     bool init(const tinyxml2::XMLElement& node);
 
+    // 生成orm文件
     void gen(const std::string& path);
 
     std::string getFilename() const;
 
    private:
+    // 生成头文件
     void gen_inc(const std::string& path);
+    // 生成源文件
     void gen_src(const std::string& path);
     std::string genToStringInc();
     std::string genToStringSrc(const std::string& class_name);

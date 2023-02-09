@@ -30,7 +30,6 @@ std::string Index::TypeToString(Type v) {
 #undef XX
     return "";
 }
-
 bool Index::init(const tinyxml2::XMLElement& node) {
     if (!node.Attribute("name")) {
         SYLAR_LOG_ERROR(g_logger) << "index name not exists";
