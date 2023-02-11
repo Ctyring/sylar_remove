@@ -195,6 +195,19 @@ test_orm/fast:
 .PHONY : test_orm/fast
 
 #=============================================================================
+# Target rules for targets named test_mysql
+
+# Build rule for target.
+test_mysql: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_mysql
+.PHONY : test_mysql
+
+# fast build rule for target.
+test_mysql/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/build
+.PHONY : test_mysql/fast
+
+#=============================================================================
 # Target rules for targets named orm
 
 # Build rule for target.
@@ -1866,6 +1879,33 @@ tests/test_module.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/tests/test_module.cc.s
 .PHONY : tests/test_module.cc.s
 
+tests/test_mysql.o: tests/test_mysql.cc.o
+
+.PHONY : tests/test_mysql.o
+
+# target to build an object file
+tests/test_mysql.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/tests/test_mysql.cc.o
+.PHONY : tests/test_mysql.cc.o
+
+tests/test_mysql.i: tests/test_mysql.cc.i
+
+.PHONY : tests/test_mysql.i
+
+# target to preprocess a source file
+tests/test_mysql.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/tests/test_mysql.cc.i
+.PHONY : tests/test_mysql.cc.i
+
+tests/test_mysql.s: tests/test_mysql.cc.s
+
+.PHONY : tests/test_mysql.s
+
+# target to generate assembly for a file
+tests/test_mysql.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/tests/test_mysql.cc.s
+.PHONY : tests/test_mysql.cc.s
+
 tests/test_orm.o: tests/test_orm.cc.o
 
 .PHONY : tests/test_orm.o
@@ -1955,12 +1995,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... test_sqlite3"
-	@echo "... bin_sylar"
 	@echo "... edit_cache"
+	@echo "... bin_sylar"
 	@echo "... test_rock"
 	@echo "... sylar"
 	@echo "... test_email"
 	@echo "... test_orm"
+	@echo "... test_mysql"
 	@echo "... orm"
 	@echo "... test_crypto"
 	@echo "... test_module"
@@ -2145,6 +2186,9 @@ help:
 	@echo "... tests/test_module.o"
 	@echo "... tests/test_module.i"
 	@echo "... tests/test_module.s"
+	@echo "... tests/test_mysql.o"
+	@echo "... tests/test_mysql.i"
+	@echo "... tests/test_mysql.s"
 	@echo "... tests/test_orm.o"
 	@echo "... tests/test_orm.i"
 	@echo "... tests/test_orm.s"

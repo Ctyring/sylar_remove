@@ -161,6 +161,7 @@ sylar_add_executable(test_crypto "tests/test_crypto.cc" sylar "${LIBS}")
 sylar_add_executable(test_sqlite3 "tests/test_sqlite3.cc" sylar "${LIBS}")
 sylar_add_executable(test_rock "tests/test_rock.cc" sylar "${LIBS}")
 sylar_add_executable(test_email "tests/test_email.cc" sylar "${LIBS}")
+sylar_add_executable(test_mysql "tests/test_mysql.cc" sylar "${LIBS}")
 
 set(ORM_SRCS
     sylar/orm/table.cc
