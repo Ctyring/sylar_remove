@@ -37,6 +37,15 @@ class ISQLData {
     virtual bool next() = 0;
 };
 
+class ITransaction : public ISQLUpdate {
+   public:
+    typedef std::shared_ptr<ITransaction> ptr;
+    virtual ~ITransaction(){};
+    virtual bool begin() = 0;
+    virtual bool commit() = 0;
+    virtual bool rollback() = 0;
+};
+
 class ISQLUpdate {
    public:
     virtual ~ISQLUpdate() {}
@@ -56,21 +65,21 @@ class IStmt {
    public:
     typedef std::shared_ptr<IStmt> ptr;
     virtual ~IStmt() {}
-    virtual int bindInt8(int idx, int8_t& value) = 0;
-    virtual int bindUint8(int idx, uint8_t& value) = 0;
-    virtual int bindInt16(int idx, int16_t& value) = 0;
-    virtual int bindUint16(int idx, uint16_t& value) = 0;
-    virtual int bindInt32(int idx, int32_t& value) = 0;
-    virtual int bindUint32(int idx, uint32_t& value) = 0;
-    virtual int bindInt64(int idx, int64_t& value) = 0;
-    virtual int bindUint64(int idx, uint64_t& value) = 0;
-    virtual int bindFloat(int idx, float& value) = 0;
-    virtual int bindDouble(int idx, double& value) = 0;
-    virtual int bindString(int idx, char* value) = 0;
-    virtual int bindString(int idx, std::string& value) = 0;
-    virtual int bindBlob(int idx, void* value, int64_t size) = 0;
-    virtual int bindBlob(int idx, std::string& value) = 0;
-    virtual int bindTime(int idx, time_t value) = 0;
+    virtual int bindInt8(int idx, const int8_t& value) = 0;
+    virtual int bindUint8(int idx, const uint8_t& value) = 0;
+    virtual int bindInt16(int idx, const int16_t& value) = 0;
+    virtual int bindUint16(int idx, const uint16_t& value) = 0;
+    virtual int bindInt32(int idx, const int32_t& value) = 0;
+    virtual int bindUint32(int idx, const uint32_t& value) = 0;
+    virtual int bindInt64(int idx, const int64_t& value) = 0;
+    virtual int bindUint64(int idx, const uint64_t& value) = 0;
+    virtual int bindFloat(int idx, const float& value) = 0;
+    virtual int bindDouble(int idx, const double& value) = 0;
+    virtual int bindString(int idx, const char* value) = 0;
+    virtual int bindString(int idx, const std::string& value) = 0;
+    virtual int bindBlob(int idx, const void* value, int64_t size) = 0;
+    virtual int bindBlob(int idx, const std::string& value) = 0;
+    virtual int bindTime(int idx, const time_t& value) = 0;
     virtual int bindNull(int idx) = 0;
 
     virtual int execute() = 0;
@@ -89,6 +98,7 @@ class IDB : public ISQLUpdate, public ISQLQuery {
     virtual IStmt::ptr prepare(const std::string& stmt) = 0;
     virtual int getErrno() = 0;
     virtual std::string getErrStr() = 0;
+    virtual ITransaction::ptr openTransaction(bool auto_commit = false) = 0;
 };
 
 }  // namespace sylar
