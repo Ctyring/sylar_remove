@@ -37,6 +37,14 @@ class ISQLData {
     virtual bool next() = 0;
 };
 
+class ISQLUpdate {
+   public:
+    virtual ~ISQLUpdate() {}
+    virtual int execute(const char* format, ...) = 0;
+    virtual int execute(const std::string& sql) = 0;
+    virtual int64_t getLastInsertId() = 0;
+};
+
 class ITransaction : public ISQLUpdate {
    public:
     typedef std::shared_ptr<ITransaction> ptr;
@@ -44,14 +52,6 @@ class ITransaction : public ISQLUpdate {
     virtual bool begin() = 0;
     virtual bool commit() = 0;
     virtual bool rollback() = 0;
-};
-
-class ISQLUpdate {
-   public:
-    virtual ~ISQLUpdate() {}
-    virtual int execute(const char* format, ...) = 0;
-    virtual int execute(const std::string& sql) = 0;
-    virtual int64_t getLastInsertId() = 0;
 };
 
 class ISQLQuery {

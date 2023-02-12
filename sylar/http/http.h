@@ -272,7 +272,6 @@ class HttpRequest {
     void initCookies();
 
    private:
-   private:
     HttpMethod m_method;
     uint8_t m_version;
     bool m_close;
@@ -336,6 +335,14 @@ class HttpResponse {
     std::ostream& dump(std::ostream& os) const;
     std::string toString() const;
 
+    void setRedirect(const std::string& uri);
+    void setCookie(const std::string& key,
+                   const std::string& val,
+                   time_t expired = 0,
+                   const std::string& domain = "",
+                   const std::string& path = "",
+                   bool secure = false);
+
    private:
     HttpStatus m_status;
     uint8_t m_version;
@@ -345,6 +352,7 @@ class HttpResponse {
     std::string m_body;
     std::string m_reason;
     MapType m_headers;
+    std::vector<std::string> m_cookies;
 };
 std::ostream& operator<<(std::ostream& os, const HttpRequest& req);
 std::ostream& operator<<(std::ostream& os, const HttpResponse& rsp);
