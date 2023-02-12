@@ -826,6 +826,33 @@ sylar/http/servlet.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlet.cc.s
 .PHONY : sylar/http/servlet.cc.s
 
+sylar/http/session_data.o: sylar/http/session_data.cc.o
+
+.PHONY : sylar/http/session_data.o
+
+# target to build an object file
+sylar/http/session_data.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/session_data.cc.o
+.PHONY : sylar/http/session_data.cc.o
+
+sylar/http/session_data.i: sylar/http/session_data.cc.i
+
+.PHONY : sylar/http/session_data.i
+
+# target to preprocess a source file
+sylar/http/session_data.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/session_data.cc.i
+.PHONY : sylar/http/session_data.cc.i
+
+sylar/http/session_data.s: sylar/http/session_data.cc.s
+
+.PHONY : sylar/http/session_data.s
+
+# target to generate assembly for a file
+sylar/http/session_data.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/session_data.cc.s
+.PHONY : sylar/http/session_data.cc.s
+
 sylar/http/ws_connection.o: sylar/http/ws_connection.cc.o
 
 .PHONY : sylar/http/ws_connection.o
@@ -2069,6 +2096,9 @@ help:
 	@echo "... sylar/http/servlet.o"
 	@echo "... sylar/http/servlet.i"
 	@echo "... sylar/http/servlet.s"
+	@echo "... sylar/http/session_data.o"
+	@echo "... sylar/http/session_data.i"
+	@echo "... sylar/http/session_data.s"
 	@echo "... sylar/http/ws_connection.o"
 	@echo "... sylar/http/ws_connection.i"
 	@echo "... sylar/http/ws_connection.s"
