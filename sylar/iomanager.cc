@@ -149,7 +149,7 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
     FdContext::EventContext& event_ctx = fd_ctx->getContext(event);
     SYLAR_ASSERT(!event_ctx.scheduler && !event_ctx.fiber && !event_ctx.cb);
 
-    //设置参数
+    // 设置参数
     event_ctx.scheduler = Scheduler::GetThis();
     if (cb) {
         event_ctx.cb.swap(cb);
@@ -319,11 +319,12 @@ void IOManager::idle() {
             } else {
                 next_timeout = MAX_TIMEOUT;
             }
-            // 等待事件，参数events里标注了不阻塞，所以这里会让出CPU
+            // 等待事件，如果没有事件到来，在next_timeout时间之前会将整个进程陷入睡眠
             rt = epoll_wait(m_epfd, events, MAX_EVNETS, (int)next_timeout);
             if (rt < 0 && errno == EINTR) {
+                // 如果是被信号中断，说明需要继续等待。
             } else {
-                // 如果有事件，就跳循环
+                // 如果有事件或者到了超时时间(定时器需要触发)，就跳循环
                 break;
             }
         } while (true);

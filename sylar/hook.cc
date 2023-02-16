@@ -114,7 +114,7 @@ retry:
     while (n == -1 && errno == EINTR) {
         n = fun(fd, std::forward<Args>(args)...);
     }
-    // 失败原因是当前没有数据
+    // 失败原因是当前无法立即完成，但在稍后的某个时间可能会成功完成
     if (n == -1 && errno == EAGAIN) {
         sylar::IOManager* iom = sylar::IOManager::GetThis();
         sylar::Timer::ptr timer;
@@ -133,7 +133,7 @@ retry:
                 },
                 winfo);
         }
-        
+
         int rt = iom->addEvent(fd, (sylar::IOManager::Event)(event));
         if (SYLAR_UNLIKELY(rt)) {
             SYLAR_LOG_ERROR(g_logger)

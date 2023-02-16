@@ -56,7 +56,7 @@ void test1() {
 }
 sylar::Timer::ptr s_timer;
 void test_timer() {
-    sylar::IOManager iom(2);
+    sylar::IOManager iom(5);
     s_timer = iom.addTimer(
         1000,
         []() {
