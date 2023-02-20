@@ -953,12 +953,17 @@ MySQLManager::MySQLManager() : m_maxConn(10) {
 
 MySQLManager::~MySQLManager() {
     mysql_library_end();
+    for (auto& i : m_conns) {
+        for (auto& n : i.second) {
+            delete n;
+        }
+    }
 }
 
 MySQL::ptr MySQLManager::get(const std::string& name) {
     MutexType::Lock lock(m_mutex);
     auto it = m_conns.find(name);
-    if (it == m_conns.end()) {
+    if (it != m_conns.end()) {
         if (!it->second.empty()) {
             MySQL* rt = it->second.front();
             it->second.pop_front();
@@ -1016,17 +1021,22 @@ void MySQLManager::registerMySQL(
 
 void MySQLManager::checkConnection(int sec) {
     time_t now = time(0);
+    std::vector<MySQL*> conns;
     MutexType::Lock lock(m_mutex);
     for (auto& i : m_conns) {
         for (auto it = i.second.begin(); it != i.second.end();) {
             if ((int)(now - (*it)->m_lastUsedTime) >= sec) {
                 auto tmp = *it;
                 i.second.erase(it++);
-                delete tmp;
+                conns.push_back(tmp);
             } else {
                 ++it;
             }
         }
+    }
+    lock.unlock();
+    for (auto& i : conns) {
+        delete i;
     }
 }
 
@@ -1043,8 +1053,8 @@ int MySQLManager::execute(const std::string& name,
                           va_list ap) {
     auto conn = get(name);
     if (!conn) {
-        SYLAR_LOG_ERROR(g_logger)
-            << "MySQLManager::cmd, get(" << name << ") fail, format=" << format;
+        SYLAR_LOG_ERROR(g_logger) << "MySQLManager::execute, get(" << name
+                                  << ") fail, format=" << format;
         return -1;
     }
     return conn->execute(format, ap);
@@ -1054,7 +1064,7 @@ int MySQLManager::execute(const std::string& name, const std::string& sql) {
     auto conn = get(name);
     if (!conn) {
         SYLAR_LOG_ERROR(g_logger)
-            << "MySQLManager::cmd, get(" << name << ") fail, sql=" << sql;
+            << "MySQLManager::execute, get(" << name << ") fail, sql=" << sql;
         return -1;
     }
     return conn->execute(sql);

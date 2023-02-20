@@ -19,7 +19,7 @@ include_directories(/usr/local/include)
 link_directories(/yaml-cpp/lib)
 link_directories(/root/cty/sylar/include)
 
-option(TEST "ON for complile test" ON)
+option(TEST "ON for complile test" OFF)
 
 message("***", ${YAMLCPP})
 
@@ -126,7 +126,7 @@ set(LIBS
 		)
 
 message("***", ${LIBS})
-# if(TEST)
+if(TEST)
 sylar_add_executable(test1 "tests/test.cc" sylar "${LIBS}")
 sylar_add_executable(test_config "tests/test_config.cc" sylar "${LIBS}")
 sylar_add_executable(test_thread "tests/test_thread.cc" sylar "${LIBS}")
@@ -138,6 +138,7 @@ sylar_add_executable(test_hook "tests/test_hook.cc" sylar "${LIBS}")
 sylar_add_executable(test_address "tests/test_address.cc" sylar "${LIBS}")
 sylar_add_executable(test_socket "tests/test_socket.cc" sylar "${LIBS}")
 sylar_add_executable(test_bytearray "tests/test_bytearray.cc" sylar "${LIBS}")
+endif()
 sylar_add_executable(test_http "tests/test_http.cc" sylar "${LIBS}")
 sylar_add_executable(test_http_parser "tests/test_http_parser.cc" sylar "${LIBS}")
 sylar_add_executable(test_tcp_server "tests/test_tcp_server.cc" sylar "${LIBS}")
@@ -157,7 +158,7 @@ sylar_add_executable(test_lru "tests/test_lru.cc" sylar "${LIBS}")
 sylar_add_executable(test_timed_cache "tests/test_timed_cache.cc" sylar "${LIBS}")
 sylar_add_executable(test_timed_lru_cache "tests/test_timed_lru_cache.cc" sylar "${LIBS}")
 sylar_add_executable(test_zlib_stream "tests/test_zlib_stream.cc" sylar "${LIBS}")
-# endif()
+
 sylar_add_executable(test_crypto "tests/test_crypto.cc" sylar "${LIBS}")
 
 sylar_add_executable(test_sqlite3 "tests/test_sqlite3.cc" sylar "${LIBS}")
