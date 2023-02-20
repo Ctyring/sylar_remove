@@ -283,8 +283,8 @@ void HttpResponse::setRedirect(const std::string& uri) {
 void HttpResponse::setCookie(const std::string& key,
                              const std::string& val,
                              time_t expired,
-                             const std::string& domain,
                              const std::string& path,
+                             const std::string& domain,
                              bool secure) {
     std::stringstream ss;
     ss << key << "=" << val;

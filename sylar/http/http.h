@@ -5,7 +5,7 @@
 #include <memory>
 #include <sstream>
 #include <string>
-
+#include <vector>
 #include "http11_parser.h"
 #include "httpclient_parser.h"
 
@@ -246,20 +246,20 @@ class HttpRequest {
     bool checkGetParamAs(const std::string& key, T& val, const T& def = T()) {
         initQueryParam();
         initBodyParam();
-        return checkGetAs(m_headers, key, val, def);
+        return checkGetAs(m_params, key, val, def);
     }
 
     template <class T>
     T getParamAs(const std::string& key, const T& def = T()) {
         initQueryParam();
         initBodyParam();
-        return getAs(m_headers, key, def);
+        return getAs(m_params, key, def);
     }
 
     template <class T>
     bool checkGetCookieAs(const std::string& key, T& val, const T& def = T()) {
         initCookies();
-        return checkGetAs(m_headers, key, val, def);
+        return checkGetAs(m_cookies, key, val, def);
     }
 
     template <class T>
@@ -345,8 +345,8 @@ class HttpResponse {
     void setCookie(const std::string& key,
                    const std::string& val,
                    time_t expired = 0,
-                   const std::string& domain = "",
                    const std::string& path = "",
+                   const std::string& domain = "",
                    bool secure = false);
 
    private:
