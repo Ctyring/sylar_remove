@@ -52,6 +52,8 @@ class Table {
     std::string m_subfix = "_info";
     DBType m_type = TYPE_SQLITE3;
     std::string m_dbclass = "sylar::IDB";
+    std::string m_queryclass = "sylar::IDB";
+    std::string m_updateclass = "sylar::IDB";
     std::vector<Column::ptr> m_cols;
     std::vector<Index::ptr> m_idxs;
 };
