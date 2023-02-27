@@ -221,6 +221,19 @@ test_http_connection/fast:
 .PHONY : test_http_connection/fast
 
 #=============================================================================
+# Target rules for targets named test_bitmap
+
+# Build rule for target.
+test_bitmap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_bitmap
+.PHONY : test_bitmap
+
+# fast build rule for target.
+test_bitmap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/build
+.PHONY : test_bitmap/fast
+
+#=============================================================================
 # Target rules for targets named test_daemon
 
 # Build rule for target.
@@ -735,6 +748,33 @@ sylar/db/sqlite3.s: sylar/db/sqlite3.cc.s
 sylar/db/sqlite3.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/sqlite3.cc.s
 .PHONY : sylar/db/sqlite3.cc.s
+
+sylar/ds/bitmap.o: sylar/ds/bitmap.cc.o
+
+.PHONY : sylar/ds/bitmap.o
+
+# target to build an object file
+sylar/ds/bitmap.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/bitmap.cc.o
+.PHONY : sylar/ds/bitmap.cc.o
+
+sylar/ds/bitmap.i: sylar/ds/bitmap.cc.i
+
+.PHONY : sylar/ds/bitmap.i
+
+# target to preprocess a source file
+sylar/ds/bitmap.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/bitmap.cc.i
+.PHONY : sylar/ds/bitmap.cc.i
+
+sylar/ds/bitmap.s: sylar/ds/bitmap.cc.s
+
+.PHONY : sylar/ds/bitmap.s
+
+# target to generate assembly for a file
+sylar/ds/bitmap.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/bitmap.cc.s
+.PHONY : sylar/ds/bitmap.cc.s
 
 sylar/email/email.o: sylar/email/email.cc.o
 
@@ -2302,6 +2342,33 @@ tests/test_application.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/tests/test_application.cc.s
 .PHONY : tests/test_application.cc.s
 
+tests/test_bitmap.o: tests/test_bitmap.cc.o
+
+.PHONY : tests/test_bitmap.o
+
+# target to build an object file
+tests/test_bitmap.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/tests/test_bitmap.cc.o
+.PHONY : tests/test_bitmap.cc.o
+
+tests/test_bitmap.i: tests/test_bitmap.cc.i
+
+.PHONY : tests/test_bitmap.i
+
+# target to preprocess a source file
+tests/test_bitmap.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/tests/test_bitmap.cc.i
+.PHONY : tests/test_bitmap.cc.i
+
+tests/test_bitmap.s: tests/test_bitmap.cc.s
+
+.PHONY : tests/test_bitmap.s
+
+# target to generate assembly for a file
+tests/test_bitmap.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/tests/test_bitmap.cc.s
+.PHONY : tests/test_bitmap.cc.s
+
 tests/test_crypto.o: tests/test_crypto.cc.o
 
 .PHONY : tests/test_crypto.o
@@ -2910,6 +2977,7 @@ help:
 	@echo "... test_orm"
 	@echo "... test_ws_client"
 	@echo "... test_http_connection"
+	@echo "... test_bitmap"
 	@echo "... test_daemon"
 	@echo "... test_timed_lru_cache"
 	@echo "... echo_server"
@@ -2960,6 +3028,9 @@ help:
 	@echo "... sylar/db/sqlite3.o"
 	@echo "... sylar/db/sqlite3.i"
 	@echo "... sylar/db/sqlite3.s"
+	@echo "... sylar/ds/bitmap.o"
+	@echo "... sylar/ds/bitmap.i"
+	@echo "... sylar/ds/bitmap.s"
 	@echo "... sylar/email/email.o"
 	@echo "... sylar/email/email.i"
 	@echo "... sylar/email/email.s"
@@ -3134,6 +3205,9 @@ help:
 	@echo "... tests/test_application.o"
 	@echo "... tests/test_application.i"
 	@echo "... tests/test_application.s"
+	@echo "... tests/test_bitmap.o"
+	@echo "... tests/test_bitmap.i"
+	@echo "... tests/test_bitmap.s"
 	@echo "... tests/test_crypto.o"
 	@echo "... tests/test_crypto.i"
 	@echo "... tests/test_crypto.s"
