@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_zookeeper
+
+# Build rule for target.
+test_zookeeper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_zookeeper
+.PHONY : test_zookeeper
+
+# fast build rule for target.
+test_zookeeper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/build
+.PHONY : test_zookeeper/fast
+
+#=============================================================================
 # Target rules for targets named test_nameserver
 
 # Build rule for target.
@@ -2315,6 +2328,33 @@ sylar/worker.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/worker.cc.s
 .PHONY : sylar/worker.cc.s
 
+sylar/zk_client.o: sylar/zk_client.cc.o
+
+.PHONY : sylar/zk_client.o
+
+# target to build an object file
+sylar/zk_client.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/zk_client.cc.o
+.PHONY : sylar/zk_client.cc.o
+
+sylar/zk_client.i: sylar/zk_client.cc.i
+
+.PHONY : sylar/zk_client.i
+
+# target to preprocess a source file
+sylar/zk_client.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/zk_client.cc.i
+.PHONY : sylar/zk_client.cc.i
+
+sylar/zk_client.s: sylar/zk_client.cc.s
+
+.PHONY : sylar/zk_client.s
+
+# target to generate assembly for a file
+sylar/zk_client.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/zk_client.cc.s
+.PHONY : sylar/zk_client.cc.s
+
 tests/test_application.o: tests/test_application.cc.o
 
 .PHONY : tests/test_application.o
@@ -2963,12 +3003,40 @@ tests/test_zlib_stream.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zlib_stream.dir/build.make CMakeFiles/test_zlib_stream.dir/tests/test_zlib_stream.cc.s
 .PHONY : tests/test_zlib_stream.cc.s
 
+tests/test_zookeeper.o: tests/test_zookeeper.cc.o
+
+.PHONY : tests/test_zookeeper.o
+
+# target to build an object file
+tests/test_zookeeper.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/tests/test_zookeeper.cc.o
+.PHONY : tests/test_zookeeper.cc.o
+
+tests/test_zookeeper.i: tests/test_zookeeper.cc.i
+
+.PHONY : tests/test_zookeeper.i
+
+# target to preprocess a source file
+tests/test_zookeeper.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/tests/test_zookeeper.cc.i
+.PHONY : tests/test_zookeeper.cc.i
+
+tests/test_zookeeper.s: tests/test_zookeeper.cc.s
+
+.PHONY : tests/test_zookeeper.s
+
+# target to generate assembly for a file
+tests/test_zookeeper.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/tests/test_zookeeper.cc.s
+.PHONY : tests/test_zookeeper.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_zookeeper"
 	@echo "... test_nameserver"
 	@echo "... bin_sylar"
 	@echo "... my_http_server"
@@ -3202,6 +3270,9 @@ help:
 	@echo "... sylar/worker.o"
 	@echo "... sylar/worker.i"
 	@echo "... sylar/worker.s"
+	@echo "... sylar/zk_client.o"
+	@echo "... sylar/zk_client.i"
+	@echo "... sylar/zk_client.s"
 	@echo "... tests/test_application.o"
 	@echo "... tests/test_application.i"
 	@echo "... tests/test_application.s"
@@ -3274,6 +3345,9 @@ help:
 	@echo "... tests/test_zlib_stream.o"
 	@echo "... tests/test_zlib_stream.i"
 	@echo "... tests/test_zlib_stream.s"
+	@echo "... tests/test_zookeeper.o"
+	@echo "... tests/test_zookeeper.i"
+	@echo "... tests/test_zookeeper.s"
 .PHONY : help
 
 
