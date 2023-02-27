@@ -227,7 +227,6 @@ void test_op(size_t size, std::set<uint32_t> v1, std::set<uint32_t> v2) {
 }
 
 int main(int argc, char** argv) {
-    SYLAR_LOG_INFO(g_logger) << "test begin";
     srand(time(0));
     { sylar::ds::Bitmap::ptr b(new sylar::ds::Bitmap(504)); }
     // init(64,
