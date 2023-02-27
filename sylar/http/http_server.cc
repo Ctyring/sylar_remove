@@ -1,4 +1,6 @@
 #include "http_server.h"
+#include "sylar/http/servlets/config_servlet.h"
+#include "sylar/http/servlets/status_servlet.h"
 #include "sylar/log.h"
 
 namespace sylar {
@@ -11,7 +13,10 @@ HttpServer::HttpServer(bool keepalive,
                        sylar::IOManager* accept_worker)
     : TcpServer(worker, accept_worker), m_isKeepalive(keepalive) {
     m_dispatch.reset(new ServletDispatch);
-    m_type = "http_server";
+    m_type = "http";
+
+    m_dispatch->addServlet("/_/status", Servlet::ptr(new StatusServlet));
+    m_dispatch->addServlet("/_/config", Servlet::ptr(new ConfigServlet));
 }
 
 void HttpServer::setName(const std::string& v) {

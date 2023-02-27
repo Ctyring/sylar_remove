@@ -156,19 +156,6 @@ test_env/fast:
 .PHONY : test_env/fast
 
 #=============================================================================
-# Target rules for targets named test_num
-
-# Build rule for target.
-test_num: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_num
-.PHONY : test_num
-
-# fast build rule for target.
-test_num/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_num.dir/build.make CMakeFiles/test_num.dir/build
-.PHONY : test_num/fast
-
-#=============================================================================
 # Target rules for targets named test_ws_server
 
 # Build rule for target.
@@ -1113,6 +1100,60 @@ sylar/http/servlet.s: sylar/http/servlet.cc.s
 sylar/http/servlet.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlet.cc.s
 .PHONY : sylar/http/servlet.cc.s
+
+sylar/http/servlets/config_servlet.o: sylar/http/servlets/config_servlet.cc.o
+
+.PHONY : sylar/http/servlets/config_servlet.o
+
+# target to build an object file
+sylar/http/servlets/config_servlet.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/config_servlet.cc.o
+.PHONY : sylar/http/servlets/config_servlet.cc.o
+
+sylar/http/servlets/config_servlet.i: sylar/http/servlets/config_servlet.cc.i
+
+.PHONY : sylar/http/servlets/config_servlet.i
+
+# target to preprocess a source file
+sylar/http/servlets/config_servlet.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/config_servlet.cc.i
+.PHONY : sylar/http/servlets/config_servlet.cc.i
+
+sylar/http/servlets/config_servlet.s: sylar/http/servlets/config_servlet.cc.s
+
+.PHONY : sylar/http/servlets/config_servlet.s
+
+# target to generate assembly for a file
+sylar/http/servlets/config_servlet.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/config_servlet.cc.s
+.PHONY : sylar/http/servlets/config_servlet.cc.s
+
+sylar/http/servlets/status_servlet.o: sylar/http/servlets/status_servlet.cc.o
+
+.PHONY : sylar/http/servlets/status_servlet.o
+
+# target to build an object file
+sylar/http/servlets/status_servlet.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/status_servlet.cc.o
+.PHONY : sylar/http/servlets/status_servlet.cc.o
+
+sylar/http/servlets/status_servlet.i: sylar/http/servlets/status_servlet.cc.i
+
+.PHONY : sylar/http/servlets/status_servlet.i
+
+# target to preprocess a source file
+sylar/http/servlets/status_servlet.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/status_servlet.cc.i
+.PHONY : sylar/http/servlets/status_servlet.cc.i
+
+sylar/http/servlets/status_servlet.s: sylar/http/servlets/status_servlet.cc.s
+
+.PHONY : sylar/http/servlets/status_servlet.s
+
+# target to generate assembly for a file
+sylar/http/servlets/status_servlet.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/http/servlets/status_servlet.cc.s
+.PHONY : sylar/http/servlets/status_servlet.cc.s
 
 sylar/http/session_data.o: sylar/http/session_data.cc.o
 
@@ -2437,33 +2478,6 @@ tests/test_mysql.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/tests/test_mysql.cc.s
 .PHONY : tests/test_mysql.cc.s
 
-tests/test_num.o: tests/test_num.cc.o
-
-.PHONY : tests/test_num.o
-
-# target to build an object file
-tests/test_num.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_num.dir/build.make CMakeFiles/test_num.dir/tests/test_num.cc.o
-.PHONY : tests/test_num.cc.o
-
-tests/test_num.i: tests/test_num.cc.i
-
-.PHONY : tests/test_num.i
-
-# target to preprocess a source file
-tests/test_num.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_num.dir/build.make CMakeFiles/test_num.dir/tests/test_num.cc.i
-.PHONY : tests/test_num.cc.i
-
-tests/test_num.s: tests/test_num.cc.s
-
-.PHONY : tests/test_num.s
-
-# target to generate assembly for a file
-tests/test_num.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_num.dir/build.make CMakeFiles/test_num.dir/tests/test_num.cc.s
-.PHONY : tests/test_num.cc.s
-
 tests/test_orm.o: tests/test_orm.cc.o
 
 .PHONY : tests/test_orm.o
@@ -2743,7 +2757,6 @@ help:
 	@echo "... bin_sylar"
 	@echo "... my_http_server"
 	@echo "... test_env"
-	@echo "... test_num"
 	@echo "... test_ws_server"
 	@echo "... test_orm"
 	@echo "... test_ws_client"
@@ -2840,6 +2853,12 @@ help:
 	@echo "... sylar/http/servlet.o"
 	@echo "... sylar/http/servlet.i"
 	@echo "... sylar/http/servlet.s"
+	@echo "... sylar/http/servlets/config_servlet.o"
+	@echo "... sylar/http/servlets/config_servlet.i"
+	@echo "... sylar/http/servlets/config_servlet.s"
+	@echo "... sylar/http/servlets/status_servlet.o"
+	@echo "... sylar/http/servlets/status_servlet.i"
+	@echo "... sylar/http/servlets/status_servlet.s"
 	@echo "... sylar/http/session_data.o"
 	@echo "... sylar/http/session_data.i"
 	@echo "... sylar/http/session_data.s"
@@ -2987,9 +3006,6 @@ help:
 	@echo "... tests/test_mysql.o"
 	@echo "... tests/test_mysql.i"
 	@echo "... tests/test_mysql.s"
-	@echo "... tests/test_num.o"
-	@echo "... tests/test_num.i"
-	@echo "... tests/test_num.s"
 	@echo "... tests/test_orm.o"
 	@echo "... tests/test_orm.i"
 	@echo "... tests/test_orm.s"

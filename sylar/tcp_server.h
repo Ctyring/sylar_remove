@@ -180,6 +180,8 @@ class TcpServer : public std::enable_shared_from_this<TcpServer>, Noncopyable {
     void setConf(TcpServerConf::ptr v) { m_conf = v; }
     void setConf(const TcpServerConf& v);
 
+    virtual std::string toString(const std::string& prefix = "");
+
    protected:
     /**
      * @brief 处理新连接的Socket类

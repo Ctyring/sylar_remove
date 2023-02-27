@@ -96,6 +96,8 @@ set(LIB_SRC
 	sylar/email/smtp.cc
 	sylar/db/mysql.cc
 	sylar/http/session_data.cc
+	sylar/http/servlets/config_servlet.cc
+    sylar/http/servlets/status_servlet.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)

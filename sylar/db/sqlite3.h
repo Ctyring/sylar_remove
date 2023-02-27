@@ -10,10 +10,14 @@
 #define __SYLAR_DB_SQLITE3_H__
 
 #include <sqlite3.h>
+#include <list>
+#include <map>
 #include <memory>
 #include <string>
 #include "db.h"
+#include "sylar/mutex.h"
 #include "sylar/noncopyable.h"
+#include "sylar/singleton.h"
 
 namespace sylar {
 
