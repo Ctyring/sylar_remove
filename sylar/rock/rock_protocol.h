@@ -18,7 +18,7 @@ class RockBody {
     virtual bool parseFromByteArray(ByteArray::ptr bytearray);
 
     template <class T>
-    std::shared_ptr<T> getAsPB() const {
+    std::shared_ptr<T> getAsPB() {
         try {
             std::shared_ptr<T> data(new T);
             if (data->ParseFromString(m_body)) {
@@ -30,7 +30,7 @@ class RockBody {
     }
 
     template <class T>
-    bool setAsPB(const T& v) const {
+    bool setAsPB(const T& v) {
         try {
             return v.SerializeToString(&m_body);
         } catch (...) {

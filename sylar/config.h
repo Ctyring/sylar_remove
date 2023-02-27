@@ -24,6 +24,7 @@
 
 #include "log.h"
 #include "thread.h"
+#include "util.h"
 
 namespace sylar {
 
@@ -355,7 +356,7 @@ class ConfigVar : public ConfigVarBase {
         } catch (std::exception& e) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
                 << "ConfigVar::toString exception " << e.what()
-                << " convert: " << typeid(m_val).name() << " to string"
+                << " convert: " << TypeToName<T>() << " to string"
                 << " name=" << m_name;
         }
         return "";
@@ -371,7 +372,7 @@ class ConfigVar : public ConfigVarBase {
         } catch (std::exception& e) {
             SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
                 << "ConfigVar::fromString exception " << e.what()
-                << " convert: string to " << typeid(m_val).name()
+                << " convert: string to " << TypeToName<T>()
                 << " name=" << m_name << " - " << val;
         }
         return false;
@@ -406,7 +407,7 @@ class ConfigVar : public ConfigVarBase {
     /**
      * @brief 返回参数值的类型名称(typeinfo)
      */
-    std::string getTypeName() const override { return typeid(T).name(); }
+    std::string getTypeName() const override { return TypeToName<T>(); }
 
     /**
      * @brief 添加变化回调函数
@@ -451,7 +452,7 @@ class ConfigVar : public ConfigVarBase {
    private:
     RWMutexType m_mutex;
     T m_val;
-    //变更回调函数组, uint64_t key,要求唯一，一般可以用hash
+    // 变更回调函数组, uint64_t key,要求唯一，一般可以用hash
     std::map<uint64_t, on_change_cb> m_cbs;
 };
 
@@ -491,7 +492,7 @@ class Config {
             } else {
                 SYLAR_LOG_ERROR(SYLAR_LOG_ROOT())
                     << "Lookup name=" << name << " exists but type not "
-                    << typeid(T).name()
+                    << TypeToName<T>()
                     << " real_type=" << it->second->getTypeName() << " "
                     << it->second->toString();
                 return nullptr;

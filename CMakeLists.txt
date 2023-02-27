@@ -98,12 +98,16 @@ set(LIB_SRC
 	sylar/http/session_data.cc
 	sylar/http/servlets/config_servlet.cc
     sylar/http/servlets/status_servlet.cc
+	sylar/ns/name_server_module.cc
+    sylar/ns/ns_client.cc
+    sylar/ns/ns_protocol.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
 ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
 
+protobufmaker(sylar/ns/ns_protobuf.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
 # protobufmaker(sylar/test.proto LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(sylar SHARED ${LIB_SRC})
@@ -186,6 +190,8 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/orm_out)
 set(OLIBS ${LIBS})
 set(OLIBS ${OLIBS} orm_data)
 sylar_add_executable(test_orm "tests/test_orm.cc" orm_data "${OLIBS}")
+
+sylar_add_executable(test_nameserver "tests/test_nameserver.cc" sylar "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

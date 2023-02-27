@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_nameserver
+
+# Build rule for target.
+test_nameserver: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_nameserver
+.PHONY : test_nameserver
+
+# fast build rule for target.
+test_nameserver/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/build
+.PHONY : test_nameserver/fast
+
+#=============================================================================
 # Target rules for targets named bin_sylar
 
 # Build rule for target.
@@ -1452,6 +1465,114 @@ sylar/mutex.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/mutex.cc.s
 .PHONY : sylar/mutex.cc.s
 
+sylar/ns/name_server_module.o: sylar/ns/name_server_module.cc.o
+
+.PHONY : sylar/ns/name_server_module.o
+
+# target to build an object file
+sylar/ns/name_server_module.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/name_server_module.cc.o
+.PHONY : sylar/ns/name_server_module.cc.o
+
+sylar/ns/name_server_module.i: sylar/ns/name_server_module.cc.i
+
+.PHONY : sylar/ns/name_server_module.i
+
+# target to preprocess a source file
+sylar/ns/name_server_module.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/name_server_module.cc.i
+.PHONY : sylar/ns/name_server_module.cc.i
+
+sylar/ns/name_server_module.s: sylar/ns/name_server_module.cc.s
+
+.PHONY : sylar/ns/name_server_module.s
+
+# target to generate assembly for a file
+sylar/ns/name_server_module.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/name_server_module.cc.s
+.PHONY : sylar/ns/name_server_module.cc.s
+
+sylar/ns/ns_client.o: sylar/ns/ns_client.cc.o
+
+.PHONY : sylar/ns/ns_client.o
+
+# target to build an object file
+sylar/ns/ns_client.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_client.cc.o
+.PHONY : sylar/ns/ns_client.cc.o
+
+sylar/ns/ns_client.i: sylar/ns/ns_client.cc.i
+
+.PHONY : sylar/ns/ns_client.i
+
+# target to preprocess a source file
+sylar/ns/ns_client.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_client.cc.i
+.PHONY : sylar/ns/ns_client.cc.i
+
+sylar/ns/ns_client.s: sylar/ns/ns_client.cc.s
+
+.PHONY : sylar/ns/ns_client.s
+
+# target to generate assembly for a file
+sylar/ns/ns_client.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_client.cc.s
+.PHONY : sylar/ns/ns_client.cc.s
+
+sylar/ns/ns_protobuf.pb.o: sylar/ns/ns_protobuf.pb.cc.o
+
+.PHONY : sylar/ns/ns_protobuf.pb.o
+
+# target to build an object file
+sylar/ns/ns_protobuf.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protobuf.pb.cc.o
+.PHONY : sylar/ns/ns_protobuf.pb.cc.o
+
+sylar/ns/ns_protobuf.pb.i: sylar/ns/ns_protobuf.pb.cc.i
+
+.PHONY : sylar/ns/ns_protobuf.pb.i
+
+# target to preprocess a source file
+sylar/ns/ns_protobuf.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protobuf.pb.cc.i
+.PHONY : sylar/ns/ns_protobuf.pb.cc.i
+
+sylar/ns/ns_protobuf.pb.s: sylar/ns/ns_protobuf.pb.cc.s
+
+.PHONY : sylar/ns/ns_protobuf.pb.s
+
+# target to generate assembly for a file
+sylar/ns/ns_protobuf.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protobuf.pb.cc.s
+.PHONY : sylar/ns/ns_protobuf.pb.cc.s
+
+sylar/ns/ns_protocol.o: sylar/ns/ns_protocol.cc.o
+
+.PHONY : sylar/ns/ns_protocol.o
+
+# target to build an object file
+sylar/ns/ns_protocol.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protocol.cc.o
+.PHONY : sylar/ns/ns_protocol.cc.o
+
+sylar/ns/ns_protocol.i: sylar/ns/ns_protocol.cc.i
+
+.PHONY : sylar/ns/ns_protocol.i
+
+# target to preprocess a source file
+sylar/ns/ns_protocol.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protocol.cc.i
+.PHONY : sylar/ns/ns_protocol.cc.i
+
+sylar/ns/ns_protocol.s: sylar/ns/ns_protocol.cc.s
+
+.PHONY : sylar/ns/ns_protocol.s
+
+# target to generate assembly for a file
+sylar/ns/ns_protocol.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ns/ns_protocol.cc.s
+.PHONY : sylar/ns/ns_protocol.cc.s
+
 sylar/orm/column.o: sylar/orm/column.cc.o
 
 .PHONY : sylar/orm/column.o
@@ -2478,6 +2599,33 @@ tests/test_mysql.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/tests/test_mysql.cc.s
 .PHONY : tests/test_mysql.cc.s
 
+tests/test_nameserver.o: tests/test_nameserver.cc.o
+
+.PHONY : tests/test_nameserver.o
+
+# target to build an object file
+tests/test_nameserver.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/tests/test_nameserver.cc.o
+.PHONY : tests/test_nameserver.cc.o
+
+tests/test_nameserver.i: tests/test_nameserver.cc.i
+
+.PHONY : tests/test_nameserver.i
+
+# target to preprocess a source file
+tests/test_nameserver.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/tests/test_nameserver.cc.i
+.PHONY : tests/test_nameserver.cc.i
+
+tests/test_nameserver.s: tests/test_nameserver.cc.s
+
+.PHONY : tests/test_nameserver.s
+
+# target to generate assembly for a file
+tests/test_nameserver.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/tests/test_nameserver.cc.s
+.PHONY : tests/test_nameserver.cc.s
+
 tests/test_orm.o: tests/test_orm.cc.o
 
 .PHONY : tests/test_orm.o
@@ -2754,6 +2902,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_nameserver"
 	@echo "... bin_sylar"
 	@echo "... my_http_server"
 	@echo "... test_env"
@@ -2892,6 +3041,18 @@ help:
 	@echo "... sylar/mutex.o"
 	@echo "... sylar/mutex.i"
 	@echo "... sylar/mutex.s"
+	@echo "... sylar/ns/name_server_module.o"
+	@echo "... sylar/ns/name_server_module.i"
+	@echo "... sylar/ns/name_server_module.s"
+	@echo "... sylar/ns/ns_client.o"
+	@echo "... sylar/ns/ns_client.i"
+	@echo "... sylar/ns/ns_client.s"
+	@echo "... sylar/ns/ns_protobuf.pb.o"
+	@echo "... sylar/ns/ns_protobuf.pb.i"
+	@echo "... sylar/ns/ns_protobuf.pb.s"
+	@echo "... sylar/ns/ns_protocol.o"
+	@echo "... sylar/ns/ns_protocol.i"
+	@echo "... sylar/ns/ns_protocol.s"
 	@echo "... sylar/orm/column.o"
 	@echo "... sylar/orm/column.i"
 	@echo "... sylar/orm/column.s"
@@ -3006,6 +3167,9 @@ help:
 	@echo "... tests/test_mysql.o"
 	@echo "... tests/test_mysql.i"
 	@echo "... tests/test_mysql.s"
+	@echo "... tests/test_nameserver.o"
+	@echo "... tests/test_nameserver.i"
+	@echo "... tests/test_nameserver.s"
 	@echo "... tests/test_orm.o"
 	@echo "... tests/test_orm.i"
 	@echo "... tests/test_orm.s"

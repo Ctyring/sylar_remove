@@ -12,6 +12,22 @@ namespace sylar {
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
+enum EpollCtlOp {};
+
+static std::ostream& operator<<(std::ostream& os, const EpollCtlOp& op) {
+    switch ((int)op) {
+#define XX(ctl) \
+    case ctl:   \
+        return os << #ctl;
+        XX(EPOLL_CTL_ADD);
+        XX(EPOLL_CTL_MOD);
+        XX(EPOLL_CTL_DEL);
+        default:
+            return os << (int)op;
+#undef XX
+    }
+}
+
 IOManager::FdContext::EventContext& IOManager::FdContext::getContext(
     IOManager::Event event) {
     switch (event) {
@@ -23,6 +39,36 @@ IOManager::FdContext::EventContext& IOManager::FdContext::getContext(
             SYLAR_ASSERT2(false, "getContext");
     }
     throw std::invalid_argument("getContext invalid event");
+}
+
+static std::ostream& operator<<(std::ostream& os, EPOLL_EVENTS events) {
+    if (!events) {
+        return os << "0";
+    }
+    bool first = true;
+#define XX(E)          \
+    if (events & E) {  \
+        if (!first) {  \
+            os << "|"; \
+        }              \
+        os << #E;      \
+        first = false; \
+    }
+    XX(EPOLLIN);
+    XX(EPOLLPRI);
+    XX(EPOLLOUT);
+    XX(EPOLLRDNORM);
+    XX(EPOLLRDBAND);
+    XX(EPOLLWRNORM);
+    XX(EPOLLWRBAND);
+    XX(EPOLLMSG);
+    XX(EPOLLERR);
+    XX(EPOLLHUP);
+    XX(EPOLLRDHUP);
+    XX(EPOLLONESHOT);
+    XX(EPOLLET);
+#undef XX
+    return os;
 }
 
 void IOManager::FdContext::resetContext(EventContext& ctx) {
@@ -122,8 +168,8 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
     // 判断事件是否存在
     if (fd_ctx->events & event) {
         SYLAR_LOG_ERROR(g_logger)
-            << "addEvent assert fd=" << fd << " event=" << event
-            << " fd_ctx.event=" << fd_ctx->events;
+            << "addEvent assert fd=" << fd << " event=" << (EPOLL_EVENTS)event
+            << " fd_ctx.event=" << (EPOLL_EVENTS)fd_ctx->events;
         SYLAR_ASSERT(!(fd_ctx->events & event));
     }
 
@@ -138,8 +184,10 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
     if (rt) {
         SYLAR_LOG_ERROR(g_logger)
             << "epoll_ctl(" << m_epfd << ", " << op << "," << fd << ","
-            << epevent.events << "):" << rt << " (" << errno << ") ("
-            << strerror(errno) << ")";
+            << (EpollCtlOp)op << ", " << fd << ", "
+            << (EPOLL_EVENTS)epevent.events << "):" << rt << " (" << errno
+            << ") (" << strerror(errno)
+            << ") fd_ctx->events=" << (EPOLL_EVENTS)fd_ctx->events;
         return -1;
     }
     // 构建这个事件的上下文
@@ -183,9 +231,9 @@ bool IOManager::delEvent(int fd, Event event) {
     int rt = epoll_ctl(m_epfd, op, fd, &epevent);
     if (rt) {
         SYLAR_LOG_ERROR(g_logger)
-            << "epoll_ctl(" << m_epfd << ", " << op << "," << fd << ","
-            << epevent.events << "):" << rt << " (" << errno << ") ("
-            << strerror(errno) << ")";
+            << "epoll_ctl(" << m_epfd << ", " << (EpollCtlOp)op << ", " << fd
+            << ", " << (EPOLL_EVENTS)epevent.events << "):" << rt << " ("
+            << errno << ") (" << strerror(errno) << ")";
         return false;
     }
 
@@ -218,9 +266,9 @@ bool IOManager::cancelEvent(int fd, Event event) {
     int rt = epoll_ctl(m_epfd, op, fd, &epevent);
     if (rt) {
         SYLAR_LOG_ERROR(g_logger)
-            << "epoll_ctl(" << m_epfd << ", " << op << "," << fd << ","
-            << epevent.events << "):" << rt << " (" << errno << ") ("
-            << strerror(errno) << ")";
+            << "epoll_ctl(" << m_epfd << ", " << (EPOLL_EVENTS)op << ", " << fd
+            << ", " << (EPOLL_EVENTS)epevent.events << "):" << rt << " ("
+            << errno << ") (" << strerror(errno) << ")";
         return false;
     }
 
@@ -333,7 +381,8 @@ void IOManager::idle() {
         listExpiredCb(cbs);
         // 统一处理
         if (!cbs.empty()) {
-            // SYLAR_LOG_DEBUG(g_logger) << "on timer cbs.size=" << cbs.size();
+            // SYLAR_LOG_DEBUG(g_logger) << "on timer cbs.size=" <<
+            // cbs.size();
             schedule(cbs.begin(), cbs.end());
             cbs.clear();
         }
@@ -351,9 +400,9 @@ void IOManager::idle() {
             // 如果是IO事件，就处理
             FdContext* fd_ctx = (FdContext*)event.data.ptr;
             FdContext::MutexType::Lock lock(fd_ctx->mutex);
-            // 如果出现了错误，就把输入和输出都处理一下
+            // 重新处理一下
             if (event.events & (EPOLLERR | EPOLLHUP)) {
-                event.events |= EPOLLIN | EPOLLOUT;
+                event.events |= (EPOLLIN | EPOLLOUT) & fd_ctx->events;
             }
             int real_events = NONE;
             if (event.events & EPOLLIN) {
@@ -376,17 +425,18 @@ void IOManager::idle() {
             int rt2 = epoll_ctl(m_epfd, op, fd_ctx->fd, &event);
             if (rt2) {
                 SYLAR_LOG_ERROR(g_logger)
-                    << "epoll_ctl(" << m_epfd << ", " << op << "," << fd_ctx->fd
-                    << "," << event.events << "):" << rt2 << " (" << errno
-                    << ") (" << strerror(errno) << ")";
+                    << "epoll_ctl(" << m_epfd << ", " << (EpollCtlOp)op << ", "
+                    << fd_ctx->fd << ", " << (EPOLL_EVENTS)event.events
+                    << "):" << rt2 << " (" << errno << ") (" << strerror(errno)
+                    << ")";
                 continue;
             }
             // 处理事件
-            if (fd_ctx->events & READ) {
+            if (real_events & READ) {
                 fd_ctx->triggerEvent(READ);
                 --m_pendingEventCount;
             }
-            if (fd_ctx->events & WRITE) {
+            if (real_events & WRITE) {
                 fd_ctx->triggerEvent(WRITE);
                 --m_pendingEventCount;
             }

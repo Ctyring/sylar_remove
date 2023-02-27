@@ -11,6 +11,7 @@ class WSServer : public TcpServer {
     typedef std::shared_ptr<WSServer> ptr;
 
     WSServer(sylar::IOManager* worker = sylar::IOManager::GetThis(),
+             sylar::IOManager* io_worker = sylar::IOManager::GetThis(),
              sylar::IOManager* accept_worker = sylar::IOManager::GetThis());
 
     WSServletDispatch::ptr getWSServletDispatch() const { return m_dispatch; }

@@ -17,7 +17,7 @@ static thread_local Fiber::ptr t_threadFiber = nullptr;
 
 static ConfigVar<uint32_t>::ptr g_fiber_stack_size =
     Config::Lookup<uint32_t>("fiber.stack_size",
-                             1024 * 1024,
+                             128 * 1024,
                              "fiber stack size");
 
 class MallocStackAllocator {
@@ -68,7 +68,8 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
         makecontext(&m_ctx, &Fiber::CallerMainFunc, 0);
     }
 
-    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id;
+    SYLAR_LOG_DEBUG(g_logger)
+        << "Fiber::Fiber id=" << m_id << "total=" << s_fiber_count;
 }
 
 Fiber::~Fiber() {
@@ -89,8 +90,8 @@ Fiber::~Fiber() {
     SYLAR_LOG_DEBUG(g_logger) << "Fiber::~Fiber id=" << m_id;
 }
 
-//重置协程函数，并重置状态
-// INIT，TERM
+// 重置协程函数，并重置状态
+//  INIT，TERM
 void Fiber::reset(std::function<void()> cb) {
     SYLAR_ASSERT(m_stack);
     SYLAR_ASSERT(m_state == TERM || m_state == EXCEPT || m_state == INIT);
@@ -116,7 +117,7 @@ void Fiber::call() {
     }
 }
 
-//切换到当前协程执行
+// 切换到当前协程执行
 void Fiber::swapIn() {
     SetThis(this);
 
@@ -135,7 +136,7 @@ void Fiber::back() {
     }
 }
 
-//切换到后台执行
+// 切换到后台执行
 void Fiber::swapOut() {
     SetThis(Scheduler::GetMainFiber());
 
@@ -144,12 +145,12 @@ void Fiber::swapOut() {
     }
 }
 
-//设置当前协程
+// 设置当前协程
 void Fiber::SetThis(Fiber* f) {
     t_fiber = f;
 }
 
-//返回当前协程
+// 返回当前协程
 Fiber::ptr Fiber::GetThis() {
     if (t_fiber) {
         return t_fiber->shared_from_this();
@@ -160,7 +161,7 @@ Fiber::ptr Fiber::GetThis() {
     return t_fiber->shared_from_this();
 }
 
-//协程切换到后台，并且设置为Ready状态
+// 协程切换到后台，并且设置为Ready状态
 void Fiber::YieldToReady() {
     Fiber::ptr cur = GetThis();
     SYLAR_ASSERT(cur->m_state == EXEC);
@@ -168,7 +169,7 @@ void Fiber::YieldToReady() {
     cur->swapOut();
 }
 
-//协程切换到后台，并且设置为Hold状态
+// 协程切换到后台，并且设置为Hold状态
 void Fiber::YieldToHold() {
     Fiber::ptr cur = GetThis();
     SYLAR_ASSERT(cur->m_state == EXEC);
@@ -176,7 +177,7 @@ void Fiber::YieldToHold() {
     cur->swapOut();
 }
 
-//总协程数
+// 总协程数
 uint64_t Fiber::TotalFibers() {
     return s_fiber_count;
 }
