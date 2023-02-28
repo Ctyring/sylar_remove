@@ -117,238 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_service_discovery
+# Target rules for targets named test_uri
 
 # Build rule for target.
-test_service_discovery: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_service_discovery
-.PHONY : test_service_discovery
+test_uri: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_uri
+.PHONY : test_uri
 
 # fast build rule for target.
-test_service_discovery/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/build
-.PHONY : test_service_discovery/fast
-
-#=============================================================================
-# Target rules for targets named test_zookeeper
-
-# Build rule for target.
-test_zookeeper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_zookeeper
-.PHONY : test_zookeeper
-
-# fast build rule for target.
-test_zookeeper/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/build
-.PHONY : test_zookeeper/fast
-
-#=============================================================================
-# Target rules for targets named test_nameserver
-
-# Build rule for target.
-test_nameserver: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_nameserver
-.PHONY : test_nameserver
-
-# fast build rule for target.
-test_nameserver/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/build
-.PHONY : test_nameserver/fast
-
-#=============================================================================
-# Target rules for targets named bin_sylar
-
-# Build rule for target.
-bin_sylar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_sylar
-.PHONY : bin_sylar
-
-# fast build rule for target.
-bin_sylar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_sylar.dir/build.make CMakeFiles/bin_sylar.dir/build
-.PHONY : bin_sylar/fast
-
-#=============================================================================
-# Target rules for targets named my_http_server
-
-# Build rule for target.
-my_http_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_http_server
-.PHONY : my_http_server
-
-# fast build rule for target.
-my_http_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/build
-.PHONY : my_http_server/fast
-
-#=============================================================================
-# Target rules for targets named test_env
-
-# Build rule for target.
-test_env: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_env
-.PHONY : test_env
-
-# fast build rule for target.
-test_env/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/build
-.PHONY : test_env/fast
-
-#=============================================================================
-# Target rules for targets named test_ws_server
-
-# Build rule for target.
-test_ws_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ws_server
-.PHONY : test_ws_server
-
-# fast build rule for target.
-test_ws_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ws_server.dir/build.make CMakeFiles/test_ws_server.dir/build
-.PHONY : test_ws_server/fast
-
-#=============================================================================
-# Target rules for targets named test_orm
-
-# Build rule for target.
-test_orm: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_orm
-.PHONY : test_orm
-
-# fast build rule for target.
-test_orm/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/build
-.PHONY : test_orm/fast
-
-#=============================================================================
-# Target rules for targets named test_ws_client
-
-# Build rule for target.
-test_ws_client: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ws_client
-.PHONY : test_ws_client
-
-# fast build rule for target.
-test_ws_client/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ws_client.dir/build.make CMakeFiles/test_ws_client.dir/build
-.PHONY : test_ws_client/fast
-
-#=============================================================================
-# Target rules for targets named test_http_connection
-
-# Build rule for target.
-test_http_connection: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_connection
-.PHONY : test_http_connection
-
-# fast build rule for target.
-test_http_connection/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/build
-.PHONY : test_http_connection/fast
-
-#=============================================================================
-# Target rules for targets named test_bitmap
-
-# Build rule for target.
-test_bitmap: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_bitmap
-.PHONY : test_bitmap
-
-# fast build rule for target.
-test_bitmap/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/build
-.PHONY : test_bitmap/fast
-
-#=============================================================================
-# Target rules for targets named test_daemon
-
-# Build rule for target.
-test_daemon: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_daemon
-.PHONY : test_daemon
-
-# fast build rule for target.
-test_daemon/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/build
-.PHONY : test_daemon/fast
-
-#=============================================================================
-# Target rules for targets named test_timed_lru_cache
-
-# Build rule for target.
-test_timed_lru_cache: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_lru_cache
-.PHONY : test_timed_lru_cache
-
-# fast build rule for target.
-test_timed_lru_cache/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/build
-.PHONY : test_timed_lru_cache/fast
-
-#=============================================================================
-# Target rules for targets named echo_server
-
-# Build rule for target.
-echo_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 echo_server
-.PHONY : echo_server
-
-# fast build rule for target.
-echo_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/build
-.PHONY : echo_server/fast
-
-#=============================================================================
-# Target rules for targets named sylar
-
-# Build rule for target.
-sylar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
-.PHONY : sylar
-
-# fast build rule for target.
-sylar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
-.PHONY : sylar/fast
-
-#=============================================================================
-# Target rules for targets named test_lru
-
-# Build rule for target.
-test_lru: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_lru
-.PHONY : test_lru
-
-# fast build rule for target.
-test_lru/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/build
-.PHONY : test_lru/fast
-
-#=============================================================================
-# Target rules for targets named test_http_parser
-
-# Build rule for target.
-test_http_parser: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_parser
-.PHONY : test_http_parser
-
-# fast build rule for target.
-test_http_parser/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_parser.dir/build.make CMakeFiles/test_http_parser.dir/build
-.PHONY : test_http_parser/fast
-
-#=============================================================================
-# Target rules for targets named test_http
-
-# Build rule for target.
-test_http: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http
-.PHONY : test_http
-
-# fast build rule for target.
-test_http/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/build
-.PHONY : test_http/fast
+test_uri/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/build
+.PHONY : test_uri/fast
 
 #=============================================================================
 # Target rules for targets named test_tcp_server
@@ -364,56 +143,134 @@ test_tcp_server/fast:
 .PHONY : test_tcp_server/fast
 
 #=============================================================================
-# Target rules for targets named test_module
+# Target rules for targets named test_bytearray
 
 # Build rule for target.
-test_module: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_module
-.PHONY : test_module
+test_bytearray: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_bytearray
+.PHONY : test_bytearray
 
 # fast build rule for target.
-test_module/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/build
-.PHONY : test_module/fast
+test_bytearray/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/build
+.PHONY : test_bytearray/fast
 
 #=============================================================================
-# Target rules for targets named test_timed_cache
+# Target rules for targets named test_ws_server
 
 # Build rule for target.
-test_timed_cache: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_cache
-.PHONY : test_timed_cache
+test_ws_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ws_server
+.PHONY : test_ws_server
 
 # fast build rule for target.
-test_timed_cache/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/build
-.PHONY : test_timed_cache/fast
+test_ws_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ws_server.dir/build.make CMakeFiles/test_ws_server.dir/build
+.PHONY : test_ws_server/fast
 
 #=============================================================================
-# Target rules for targets named test_http_server
+# Target rules for targets named test_iomanager
 
 # Build rule for target.
-test_http_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_server
-.PHONY : test_http_server
+test_iomanager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_iomanager
+.PHONY : test_iomanager
 
 # fast build rule for target.
-test_http_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/build
-.PHONY : test_http_server/fast
+test_iomanager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/build
+.PHONY : test_iomanager/fast
 
 #=============================================================================
-# Target rules for targets named test_application
+# Target rules for targets named test_scheduler
 
 # Build rule for target.
-test_application: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_application
-.PHONY : test_application
+test_scheduler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_scheduler
+.PHONY : test_scheduler
 
 # fast build rule for target.
-test_application/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/build
-.PHONY : test_application/fast
+test_scheduler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/build
+.PHONY : test_scheduler/fast
+
+#=============================================================================
+# Target rules for targets named test_config
+
+# Build rule for target.
+test_config: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_config
+.PHONY : test_config
+
+# fast build rule for target.
+test_config/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
+.PHONY : test_config/fast
+
+#=============================================================================
+# Target rules for targets named test_thread
+
+# Build rule for target.
+test_thread: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_thread
+.PHONY : test_thread
+
+# fast build rule for target.
+test_thread/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/build
+.PHONY : test_thread/fast
+
+#=============================================================================
+# Target rules for targets named test_address
+
+# Build rule for target.
+test_address: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_address
+.PHONY : test_address
+
+# fast build rule for target.
+test_address/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/build
+.PHONY : test_address/fast
+
+#=============================================================================
+# Target rules for targets named test_hashmultimap
+
+# Build rule for target.
+test_hashmultimap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hashmultimap
+.PHONY : test_hashmultimap
+
+# fast build rule for target.
+test_hashmultimap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmultimap.dir/build.make CMakeFiles/test_hashmultimap.dir/build
+.PHONY : test_hashmultimap/fast
+
+#=============================================================================
+# Target rules for targets named test_http_connection
+
+# Build rule for target.
+test_http_connection: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_connection
+.PHONY : test_http_connection
+
+# fast build rule for target.
+test_http_connection/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_connection.dir/build.make CMakeFiles/test_http_connection.dir/build
+.PHONY : test_http_connection/fast
+
+#=============================================================================
+# Target rules for targets named test_hashmap
+
+# Build rule for target.
+test_hashmap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hashmap
+.PHONY : test_hashmap
+
+# fast build rule for target.
+test_hashmap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmap.dir/build.make CMakeFiles/test_hashmap.dir/build
+.PHONY : test_hashmap/fast
 
 #=============================================================================
 # Target rules for targets named test_zlib_stream
@@ -429,19 +286,6 @@ test_zlib_stream/fast:
 .PHONY : test_zlib_stream/fast
 
 #=============================================================================
-# Target rules for targets named test_crypto
-
-# Build rule for target.
-test_crypto: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_crypto
-.PHONY : test_crypto
-
-# fast build rule for target.
-test_crypto/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/build
-.PHONY : test_crypto/fast
-
-#=============================================================================
 # Target rules for targets named orm
 
 # Build rule for target.
@@ -453,6 +297,45 @@ orm: cmake_check_build_system
 orm/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/orm.dir/build.make CMakeFiles/orm.dir/build
 .PHONY : orm/fast
+
+#=============================================================================
+# Target rules for targets named test_dict
+
+# Build rule for target.
+test_dict: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_dict
+.PHONY : test_dict
+
+# fast build rule for target.
+test_dict/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dict.dir/build.make CMakeFiles/test_dict.dir/build
+.PHONY : test_dict/fast
+
+#=============================================================================
+# Target rules for targets named test_application
+
+# Build rule for target.
+test_application: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_application
+.PHONY : test_application
+
+# fast build rule for target.
+test_application/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/build
+.PHONY : test_application/fast
+
+#=============================================================================
+# Target rules for targets named echo_server
+
+# Build rule for target.
+echo_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 echo_server
+.PHONY : echo_server
+
+# fast build rule for target.
+echo_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/echo_server.dir/build.make CMakeFiles/echo_server.dir/build
+.PHONY : echo_server/fast
 
 #=============================================================================
 # Target rules for targets named test_sqlite3
@@ -468,17 +351,277 @@ test_sqlite3/fast:
 .PHONY : test_sqlite3/fast
 
 #=============================================================================
-# Target rules for targets named test_mysql
+# Target rules for targets named test_util
 
 # Build rule for target.
-test_mysql: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_mysql
-.PHONY : test_mysql
+test_util: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_util
+.PHONY : test_util
 
 # fast build rule for target.
-test_mysql/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/build
-.PHONY : test_mysql/fast
+test_util/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
+#=============================================================================
+# Target rules for targets named test_env
+
+# Build rule for target.
+test_env: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_env
+.PHONY : test_env
+
+# fast build rule for target.
+test_env/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/build
+.PHONY : test_env/fast
+
+#=============================================================================
+# Target rules for targets named test_array
+
+# Build rule for target.
+test_array: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_array
+.PHONY : test_array
+
+# fast build rule for target.
+test_array/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/build
+.PHONY : test_array/fast
+
+#=============================================================================
+# Target rules for targets named test1
+
+# Build rule for target.
+test1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test1
+.PHONY : test1
+
+# fast build rule for target.
+test1/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
+.PHONY : test1/fast
+
+#=============================================================================
+# Target rules for targets named test_crypto
+
+# Build rule for target.
+test_crypto: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_crypto
+.PHONY : test_crypto
+
+# fast build rule for target.
+test_crypto/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_crypto.dir/build.make CMakeFiles/test_crypto.dir/build
+.PHONY : test_crypto/fast
+
+#=============================================================================
+# Target rules for targets named sylar
+
+# Build rule for target.
+sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
+.PHONY : sylar
+
+# fast build rule for target.
+sylar/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/build
+.PHONY : sylar/fast
+
+#=============================================================================
+# Target rules for targets named test_fiber
+
+# Build rule for target.
+test_fiber: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_fiber
+.PHONY : test_fiber
+
+# fast build rule for target.
+test_fiber/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/build
+.PHONY : test_fiber/fast
+
+#=============================================================================
+# Target rules for targets named test_socket
+
+# Build rule for target.
+test_socket: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_socket
+.PHONY : test_socket
+
+# fast build rule for target.
+test_socket/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/build
+.PHONY : test_socket/fast
+
+#=============================================================================
+# Target rules for targets named bin_sylar
+
+# Build rule for target.
+bin_sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_sylar
+.PHONY : bin_sylar
+
+# fast build rule for target.
+bin_sylar/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_sylar.dir/build.make CMakeFiles/bin_sylar.dir/build
+.PHONY : bin_sylar/fast
+
+#=============================================================================
+# Target rules for targets named test_daemon
+
+# Build rule for target.
+test_daemon: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_daemon
+.PHONY : test_daemon
+
+# fast build rule for target.
+test_daemon/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/build
+.PHONY : test_daemon/fast
+
+#=============================================================================
+# Target rules for targets named test_bitmap
+
+# Build rule for target.
+test_bitmap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_bitmap
+.PHONY : test_bitmap
+
+# fast build rule for target.
+test_bitmap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/build
+.PHONY : test_bitmap/fast
+
+#=============================================================================
+# Target rules for targets named test_ws_client
+
+# Build rule for target.
+test_ws_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ws_client
+.PHONY : test_ws_client
+
+# fast build rule for target.
+test_ws_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ws_client.dir/build.make CMakeFiles/test_ws_client.dir/build
+.PHONY : test_ws_client/fast
+
+#=============================================================================
+# Target rules for targets named test_orm
+
+# Build rule for target.
+test_orm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_orm
+.PHONY : test_orm
+
+# fast build rule for target.
+test_orm/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_orm.dir/build.make CMakeFiles/test_orm.dir/build
+.PHONY : test_orm/fast
+
+#=============================================================================
+# Target rules for targets named my_http_server
+
+# Build rule for target.
+my_http_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_http_server
+.PHONY : my_http_server
+
+# fast build rule for target.
+my_http_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_http_server.dir/build.make CMakeFiles/my_http_server.dir/build
+.PHONY : my_http_server/fast
+
+#=============================================================================
+# Target rules for targets named test_lru
+
+# Build rule for target.
+test_lru: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_lru
+.PHONY : test_lru
+
+# fast build rule for target.
+test_lru/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lru.dir/build.make CMakeFiles/test_lru.dir/build
+.PHONY : test_lru/fast
+
+#=============================================================================
+# Target rules for targets named test_http_server
+
+# Build rule for target.
+test_http_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_server
+.PHONY : test_http_server
+
+# fast build rule for target.
+test_http_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/build
+.PHONY : test_http_server/fast
+
+#=============================================================================
+# Target rules for targets named test_timed_cache
+
+# Build rule for target.
+test_timed_cache: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_cache
+.PHONY : test_timed_cache
+
+# fast build rule for target.
+test_timed_cache/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_cache.dir/build.make CMakeFiles/test_timed_cache.dir/build
+.PHONY : test_timed_cache/fast
+
+#=============================================================================
+# Target rules for targets named test_email
+
+# Build rule for target.
+test_email: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_email
+.PHONY : test_email
+
+# fast build rule for target.
+test_email/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/build
+.PHONY : test_email/fast
+
+#=============================================================================
+# Target rules for targets named test_http_parser
+
+# Build rule for target.
+test_http_parser: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http_parser
+.PHONY : test_http_parser
+
+# fast build rule for target.
+test_http_parser/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_parser.dir/build.make CMakeFiles/test_http_parser.dir/build
+.PHONY : test_http_parser/fast
+
+#=============================================================================
+# Target rules for targets named test_module
+
+# Build rule for target.
+test_module: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_module
+.PHONY : test_module
+
+# fast build rule for target.
+test_module/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_module.dir/build.make CMakeFiles/test_module.dir/build
+.PHONY : test_module/fast
+
+#=============================================================================
+# Target rules for targets named test_timed_lru_cache
+
+# Build rule for target.
+test_timed_lru_cache: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_timed_lru_cache
+.PHONY : test_timed_lru_cache
+
+# fast build rule for target.
+test_timed_lru_cache/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_timed_lru_cache.dir/build.make CMakeFiles/test_timed_lru_cache.dir/build
+.PHONY : test_timed_lru_cache/fast
 
 #=============================================================================
 # Target rules for targets named test_rock
@@ -494,30 +637,82 @@ test_rock/fast:
 .PHONY : test_rock/fast
 
 #=============================================================================
-# Target rules for targets named test_uri
+# Target rules for targets named test_http
 
 # Build rule for target.
-test_uri: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_uri
-.PHONY : test_uri
+test_http: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_http
+.PHONY : test_http
 
 # fast build rule for target.
-test_uri/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/build
-.PHONY : test_uri/fast
+test_http/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http.dir/build.make CMakeFiles/test_http.dir/build
+.PHONY : test_http/fast
 
 #=============================================================================
-# Target rules for targets named test_email
+# Target rules for targets named test_mysql
 
 # Build rule for target.
-test_email: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_email
-.PHONY : test_email
+test_mysql: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_mysql
+.PHONY : test_mysql
 
 # fast build rule for target.
-test_email/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_email.dir/build.make CMakeFiles/test_email.dir/build
-.PHONY : test_email/fast
+test_mysql/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_mysql.dir/build.make CMakeFiles/test_mysql.dir/build
+.PHONY : test_mysql/fast
+
+#=============================================================================
+# Target rules for targets named test_hook
+
+# Build rule for target.
+test_hook: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hook
+.PHONY : test_hook
+
+# fast build rule for target.
+test_hook/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/build
+.PHONY : test_hook/fast
+
+#=============================================================================
+# Target rules for targets named test_nameserver
+
+# Build rule for target.
+test_nameserver: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_nameserver
+.PHONY : test_nameserver
+
+# fast build rule for target.
+test_nameserver/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_nameserver.dir/build.make CMakeFiles/test_nameserver.dir/build
+.PHONY : test_nameserver/fast
+
+#=============================================================================
+# Target rules for targets named test_zookeeper
+
+# Build rule for target.
+test_zookeeper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_zookeeper
+.PHONY : test_zookeeper
+
+# fast build rule for target.
+test_zookeeper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_zookeeper.dir/build.make CMakeFiles/test_zookeeper.dir/build
+.PHONY : test_zookeeper/fast
+
+#=============================================================================
+# Target rules for targets named test_service_discovery
+
+# Build rule for target.
+test_service_discovery: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_service_discovery
+.PHONY : test_service_discovery
+
+# fast build rule for target.
+test_service_discovery/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/build
+.PHONY : test_service_discovery/fast
 
 #=============================================================================
 # Target rules for targets named orm_data
@@ -2530,6 +2725,60 @@ sylar/zk_client.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/zk_client.cc.s
 .PHONY : sylar/zk_client.cc.s
 
+tests/test.o: tests/test.cc.o
+
+.PHONY : tests/test.o
+
+# target to build an object file
+tests/test.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/tests/test.cc.o
+.PHONY : tests/test.cc.o
+
+tests/test.i: tests/test.cc.i
+
+.PHONY : tests/test.i
+
+# target to preprocess a source file
+tests/test.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/tests/test.cc.i
+.PHONY : tests/test.cc.i
+
+tests/test.s: tests/test.cc.s
+
+.PHONY : tests/test.s
+
+# target to generate assembly for a file
+tests/test.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/tests/test.cc.s
+.PHONY : tests/test.cc.s
+
+tests/test_address.o: tests/test_address.cc.o
+
+.PHONY : tests/test_address.o
+
+# target to build an object file
+tests/test_address.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.o
+.PHONY : tests/test_address.cc.o
+
+tests/test_address.i: tests/test_address.cc.i
+
+.PHONY : tests/test_address.i
+
+# target to preprocess a source file
+tests/test_address.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.i
+.PHONY : tests/test_address.cc.i
+
+tests/test_address.s: tests/test_address.cc.s
+
+.PHONY : tests/test_address.s
+
+# target to generate assembly for a file
+tests/test_address.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_address.dir/build.make CMakeFiles/test_address.dir/tests/test_address.cc.s
+.PHONY : tests/test_address.cc.s
+
 tests/test_application.o: tests/test_application.cc.o
 
 .PHONY : tests/test_application.o
@@ -2557,6 +2806,33 @@ tests/test_application.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_application.dir/build.make CMakeFiles/test_application.dir/tests/test_application.cc.s
 .PHONY : tests/test_application.cc.s
 
+tests/test_array.o: tests/test_array.cc.o
+
+.PHONY : tests/test_array.o
+
+# target to build an object file
+tests/test_array.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cc.o
+.PHONY : tests/test_array.cc.o
+
+tests/test_array.i: tests/test_array.cc.i
+
+.PHONY : tests/test_array.i
+
+# target to preprocess a source file
+tests/test_array.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cc.i
+.PHONY : tests/test_array.cc.i
+
+tests/test_array.s: tests/test_array.cc.s
+
+.PHONY : tests/test_array.s
+
+# target to generate assembly for a file
+tests/test_array.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cc.s
+.PHONY : tests/test_array.cc.s
+
 tests/test_bitmap.o: tests/test_bitmap.cc.o
 
 .PHONY : tests/test_bitmap.o
@@ -2583,6 +2859,60 @@ tests/test_bitmap.s: tests/test_bitmap.cc.s
 tests/test_bitmap.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bitmap.dir/build.make CMakeFiles/test_bitmap.dir/tests/test_bitmap.cc.s
 .PHONY : tests/test_bitmap.cc.s
+
+tests/test_bytearray.o: tests/test_bytearray.cc.o
+
+.PHONY : tests/test_bytearray.o
+
+# target to build an object file
+tests/test_bytearray.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o
+.PHONY : tests/test_bytearray.cc.o
+
+tests/test_bytearray.i: tests/test_bytearray.cc.i
+
+.PHONY : tests/test_bytearray.i
+
+# target to preprocess a source file
+tests/test_bytearray.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.i
+.PHONY : tests/test_bytearray.cc.i
+
+tests/test_bytearray.s: tests/test_bytearray.cc.s
+
+.PHONY : tests/test_bytearray.s
+
+# target to generate assembly for a file
+tests/test_bytearray.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_bytearray.dir/build.make CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.s
+.PHONY : tests/test_bytearray.cc.s
+
+tests/test_config.o: tests/test_config.cc.o
+
+.PHONY : tests/test_config.o
+
+# target to build an object file
+tests/test_config.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.o
+.PHONY : tests/test_config.cc.o
+
+tests/test_config.i: tests/test_config.cc.i
+
+.PHONY : tests/test_config.i
+
+# target to preprocess a source file
+tests/test_config.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.i
+.PHONY : tests/test_config.cc.i
+
+tests/test_config.s: tests/test_config.cc.s
+
+.PHONY : tests/test_config.s
+
+# target to generate assembly for a file
+tests/test_config.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
+.PHONY : tests/test_config.cc.s
 
 tests/test_crypto.o: tests/test_crypto.cc.o
 
@@ -2638,6 +2968,33 @@ tests/test_daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_daemon.dir/build.make CMakeFiles/test_daemon.dir/tests/test_daemon.cc.s
 .PHONY : tests/test_daemon.cc.s
 
+tests/test_dict.o: tests/test_dict.cc.o
+
+.PHONY : tests/test_dict.o
+
+# target to build an object file
+tests/test_dict.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dict.dir/build.make CMakeFiles/test_dict.dir/tests/test_dict.cc.o
+.PHONY : tests/test_dict.cc.o
+
+tests/test_dict.i: tests/test_dict.cc.i
+
+.PHONY : tests/test_dict.i
+
+# target to preprocess a source file
+tests/test_dict.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dict.dir/build.make CMakeFiles/test_dict.dir/tests/test_dict.cc.i
+.PHONY : tests/test_dict.cc.i
+
+tests/test_dict.s: tests/test_dict.cc.s
+
+.PHONY : tests/test_dict.s
+
+# target to generate assembly for a file
+tests/test_dict.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_dict.dir/build.make CMakeFiles/test_dict.dir/tests/test_dict.cc.s
+.PHONY : tests/test_dict.cc.s
+
 tests/test_email.o: tests/test_email.cc.o
 
 .PHONY : tests/test_email.o
@@ -2691,6 +3048,114 @@ tests/test_env.s: tests/test_env.cc.s
 tests/test_env.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_env.dir/build.make CMakeFiles/test_env.dir/tests/test_env.cc.s
 .PHONY : tests/test_env.cc.s
+
+tests/test_fiber.o: tests/test_fiber.cc.o
+
+.PHONY : tests/test_fiber.o
+
+# target to build an object file
+tests/test_fiber.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o
+.PHONY : tests/test_fiber.cc.o
+
+tests/test_fiber.i: tests/test_fiber.cc.i
+
+.PHONY : tests/test_fiber.i
+
+# target to preprocess a source file
+tests/test_fiber.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.i
+.PHONY : tests/test_fiber.cc.i
+
+tests/test_fiber.s: tests/test_fiber.cc.s
+
+.PHONY : tests/test_fiber.s
+
+# target to generate assembly for a file
+tests/test_fiber.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cc.s
+.PHONY : tests/test_fiber.cc.s
+
+tests/test_hashmap.o: tests/test_hashmap.cc.o
+
+.PHONY : tests/test_hashmap.o
+
+# target to build an object file
+tests/test_hashmap.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmap.dir/build.make CMakeFiles/test_hashmap.dir/tests/test_hashmap.cc.o
+.PHONY : tests/test_hashmap.cc.o
+
+tests/test_hashmap.i: tests/test_hashmap.cc.i
+
+.PHONY : tests/test_hashmap.i
+
+# target to preprocess a source file
+tests/test_hashmap.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmap.dir/build.make CMakeFiles/test_hashmap.dir/tests/test_hashmap.cc.i
+.PHONY : tests/test_hashmap.cc.i
+
+tests/test_hashmap.s: tests/test_hashmap.cc.s
+
+.PHONY : tests/test_hashmap.s
+
+# target to generate assembly for a file
+tests/test_hashmap.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmap.dir/build.make CMakeFiles/test_hashmap.dir/tests/test_hashmap.cc.s
+.PHONY : tests/test_hashmap.cc.s
+
+tests/test_hashmultimap.o: tests/test_hashmultimap.cc.o
+
+.PHONY : tests/test_hashmultimap.o
+
+# target to build an object file
+tests/test_hashmultimap.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmultimap.dir/build.make CMakeFiles/test_hashmultimap.dir/tests/test_hashmultimap.cc.o
+.PHONY : tests/test_hashmultimap.cc.o
+
+tests/test_hashmultimap.i: tests/test_hashmultimap.cc.i
+
+.PHONY : tests/test_hashmultimap.i
+
+# target to preprocess a source file
+tests/test_hashmultimap.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmultimap.dir/build.make CMakeFiles/test_hashmultimap.dir/tests/test_hashmultimap.cc.i
+.PHONY : tests/test_hashmultimap.cc.i
+
+tests/test_hashmultimap.s: tests/test_hashmultimap.cc.s
+
+.PHONY : tests/test_hashmultimap.s
+
+# target to generate assembly for a file
+tests/test_hashmultimap.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashmultimap.dir/build.make CMakeFiles/test_hashmultimap.dir/tests/test_hashmultimap.cc.s
+.PHONY : tests/test_hashmultimap.cc.s
+
+tests/test_hook.o: tests/test_hook.cc.o
+
+.PHONY : tests/test_hook.o
+
+# target to build an object file
+tests/test_hook.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.o
+.PHONY : tests/test_hook.cc.o
+
+tests/test_hook.i: tests/test_hook.cc.i
+
+.PHONY : tests/test_hook.i
+
+# target to preprocess a source file
+tests/test_hook.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.i
+.PHONY : tests/test_hook.cc.i
+
+tests/test_hook.s: tests/test_hook.cc.s
+
+.PHONY : tests/test_hook.s
+
+# target to generate assembly for a file
+tests/test_hook.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cc.s
+.PHONY : tests/test_hook.cc.s
 
 tests/test_http.o: tests/test_http.cc.o
 
@@ -2799,6 +3264,33 @@ tests/test_http_server.s: tests/test_http_server.cc.s
 tests/test_http_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_http_server.dir/build.make CMakeFiles/test_http_server.dir/tests/test_http_server.cc.s
 .PHONY : tests/test_http_server.cc.s
+
+tests/test_iomanager.o: tests/test_iomanager.cc.o
+
+.PHONY : tests/test_iomanager.o
+
+# target to build an object file
+tests/test_iomanager.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o
+.PHONY : tests/test_iomanager.cc.o
+
+tests/test_iomanager.i: tests/test_iomanager.cc.i
+
+.PHONY : tests/test_iomanager.i
+
+# target to preprocess a source file
+tests/test_iomanager.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.i
+.PHONY : tests/test_iomanager.cc.i
+
+tests/test_iomanager.s: tests/test_iomanager.cc.s
+
+.PHONY : tests/test_iomanager.s
+
+# target to generate assembly for a file
+tests/test_iomanager.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.s
+.PHONY : tests/test_iomanager.cc.s
 
 tests/test_lru.o: tests/test_lru.cc.o
 
@@ -2962,6 +3454,33 @@ tests/test_rock.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/tests/test_rock.cc.s
 .PHONY : tests/test_rock.cc.s
 
+tests/test_scheduler.o: tests/test_scheduler.cc.o
+
+.PHONY : tests/test_scheduler.o
+
+# target to build an object file
+tests/test_scheduler.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o
+.PHONY : tests/test_scheduler.cc.o
+
+tests/test_scheduler.i: tests/test_scheduler.cc.i
+
+.PHONY : tests/test_scheduler.i
+
+# target to preprocess a source file
+tests/test_scheduler.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.i
+.PHONY : tests/test_scheduler.cc.i
+
+tests/test_scheduler.s: tests/test_scheduler.cc.s
+
+.PHONY : tests/test_scheduler.s
+
+# target to generate assembly for a file
+tests/test_scheduler.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.s
+.PHONY : tests/test_scheduler.cc.s
+
 tests/test_service_discovery.o: tests/test_service_discovery.cc.o
 
 .PHONY : tests/test_service_discovery.o
@@ -2988,6 +3507,33 @@ tests/test_service_discovery.s: tests/test_service_discovery.cc.s
 tests/test_service_discovery.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/tests/test_service_discovery.cc.s
 .PHONY : tests/test_service_discovery.cc.s
+
+tests/test_socket.o: tests/test_socket.cc.o
+
+.PHONY : tests/test_socket.o
+
+# target to build an object file
+tests/test_socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.o
+.PHONY : tests/test_socket.cc.o
+
+tests/test_socket.i: tests/test_socket.cc.i
+
+.PHONY : tests/test_socket.i
+
+# target to preprocess a source file
+tests/test_socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.i
+.PHONY : tests/test_socket.cc.i
+
+tests/test_socket.s: tests/test_socket.cc.s
+
+.PHONY : tests/test_socket.s
+
+# target to generate assembly for a file
+tests/test_socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_socket.dir/build.make CMakeFiles/test_socket.dir/tests/test_socket.cc.s
+.PHONY : tests/test_socket.cc.s
 
 tests/test_sqlite3.o: tests/test_sqlite3.cc.o
 
@@ -3042,6 +3588,33 @@ tests/test_tcp_server.s: tests/test_tcp_server.cc.s
 tests/test_tcp_server.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_tcp_server.dir/build.make CMakeFiles/test_tcp_server.dir/tests/test_tcp_server.cc.s
 .PHONY : tests/test_tcp_server.cc.s
+
+tests/test_thread.o: tests/test_thread.cc.o
+
+.PHONY : tests/test_thread.o
+
+# target to build an object file
+tests/test_thread.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.o
+.PHONY : tests/test_thread.cc.o
+
+tests/test_thread.i: tests/test_thread.cc.i
+
+.PHONY : tests/test_thread.i
+
+# target to preprocess a source file
+tests/test_thread.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.i
+.PHONY : tests/test_thread.cc.i
+
+tests/test_thread.s: tests/test_thread.cc.s
+
+.PHONY : tests/test_thread.s
+
+# target to generate assembly for a file
+tests/test_thread.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/tests/test_thread.cc.s
+.PHONY : tests/test_thread.cc.s
 
 tests/test_timed_cache.o: tests/test_timed_cache.cc.o
 
@@ -3123,6 +3696,33 @@ tests/test_uri.s: tests/test_uri.cc.s
 tests/test_uri.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_uri.dir/build.make CMakeFiles/test_uri.dir/tests/test_uri.cc.s
 .PHONY : tests/test_uri.cc.s
+
+tests/test_util.o: tests/test_util.cc.o
+
+.PHONY : tests/test_util.o
+
+# target to build an object file
+tests/test_util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.o
+.PHONY : tests/test_util.cc.o
+
+tests/test_util.i: tests/test_util.cc.i
+
+.PHONY : tests/test_util.i
+
+# target to preprocess a source file
+tests/test_util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.i
+.PHONY : tests/test_util.cc.i
+
+tests/test_util.s: tests/test_util.cc.s
+
+.PHONY : tests/test_util.s
+
+# target to generate assembly for a file
+tests/test_util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/tests/test_util.cc.s
+.PHONY : tests/test_util.cc.s
 
 tests/test_ws_client.o: tests/test_ws_client.cc.o
 
@@ -3238,39 +3838,54 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... test_service_discovery"
-	@echo "... test_zookeeper"
-	@echo "... test_nameserver"
-	@echo "... bin_sylar"
-	@echo "... my_http_server"
-	@echo "... test_env"
-	@echo "... test_ws_server"
-	@echo "... test_orm"
-	@echo "... test_ws_client"
-	@echo "... test_http_connection"
-	@echo "... test_bitmap"
-	@echo "... test_daemon"
-	@echo "... test_timed_lru_cache"
-	@echo "... echo_server"
 	@echo "... rebuild_cache"
-	@echo "... sylar"
-	@echo "... test_lru"
-	@echo "... test_http_parser"
-	@echo "... test_http"
-	@echo "... test_tcp_server"
-	@echo "... test_module"
-	@echo "... test_timed_cache"
 	@echo "... edit_cache"
-	@echo "... test_http_server"
-	@echo "... test_application"
-	@echo "... test_zlib_stream"
-	@echo "... test_crypto"
-	@echo "... orm"
-	@echo "... test_sqlite3"
-	@echo "... test_mysql"
-	@echo "... test_rock"
 	@echo "... test_uri"
+	@echo "... test_tcp_server"
+	@echo "... test_bytearray"
+	@echo "... test_ws_server"
+	@echo "... test_iomanager"
+	@echo "... test_scheduler"
+	@echo "... test_config"
+	@echo "... test_thread"
+	@echo "... test_address"
+	@echo "... test_hashmultimap"
+	@echo "... test_http_connection"
+	@echo "... test_hashmap"
+	@echo "... test_zlib_stream"
+	@echo "... orm"
+	@echo "... test_dict"
+	@echo "... test_application"
+	@echo "... echo_server"
+	@echo "... test_sqlite3"
+	@echo "... test_util"
+	@echo "... test_env"
+	@echo "... test_array"
+	@echo "... test1"
+	@echo "... test_crypto"
+	@echo "... sylar"
+	@echo "... test_fiber"
+	@echo "... test_socket"
+	@echo "... bin_sylar"
+	@echo "... test_daemon"
+	@echo "... test_bitmap"
+	@echo "... test_ws_client"
+	@echo "... test_orm"
+	@echo "... my_http_server"
+	@echo "... test_lru"
+	@echo "... test_http_server"
+	@echo "... test_timed_cache"
 	@echo "... test_email"
+	@echo "... test_http_parser"
+	@echo "... test_module"
+	@echo "... test_timed_lru_cache"
+	@echo "... test_rock"
+	@echo "... test_http"
+	@echo "... test_mysql"
+	@echo "... test_hook"
+	@echo "... test_nameserver"
+	@echo "... test_zookeeper"
+	@echo "... test_service_discovery"
 	@echo "... orm_data"
 	@echo "... examples/echo_server.o"
 	@echo "... examples/echo_server.i"
@@ -3494,24 +4109,54 @@ help:
 	@echo "... sylar/zk_client.o"
 	@echo "... sylar/zk_client.i"
 	@echo "... sylar/zk_client.s"
+	@echo "... tests/test.o"
+	@echo "... tests/test.i"
+	@echo "... tests/test.s"
+	@echo "... tests/test_address.o"
+	@echo "... tests/test_address.i"
+	@echo "... tests/test_address.s"
 	@echo "... tests/test_application.o"
 	@echo "... tests/test_application.i"
 	@echo "... tests/test_application.s"
+	@echo "... tests/test_array.o"
+	@echo "... tests/test_array.i"
+	@echo "... tests/test_array.s"
 	@echo "... tests/test_bitmap.o"
 	@echo "... tests/test_bitmap.i"
 	@echo "... tests/test_bitmap.s"
+	@echo "... tests/test_bytearray.o"
+	@echo "... tests/test_bytearray.i"
+	@echo "... tests/test_bytearray.s"
+	@echo "... tests/test_config.o"
+	@echo "... tests/test_config.i"
+	@echo "... tests/test_config.s"
 	@echo "... tests/test_crypto.o"
 	@echo "... tests/test_crypto.i"
 	@echo "... tests/test_crypto.s"
 	@echo "... tests/test_daemon.o"
 	@echo "... tests/test_daemon.i"
 	@echo "... tests/test_daemon.s"
+	@echo "... tests/test_dict.o"
+	@echo "... tests/test_dict.i"
+	@echo "... tests/test_dict.s"
 	@echo "... tests/test_email.o"
 	@echo "... tests/test_email.i"
 	@echo "... tests/test_email.s"
 	@echo "... tests/test_env.o"
 	@echo "... tests/test_env.i"
 	@echo "... tests/test_env.s"
+	@echo "... tests/test_fiber.o"
+	@echo "... tests/test_fiber.i"
+	@echo "... tests/test_fiber.s"
+	@echo "... tests/test_hashmap.o"
+	@echo "... tests/test_hashmap.i"
+	@echo "... tests/test_hashmap.s"
+	@echo "... tests/test_hashmultimap.o"
+	@echo "... tests/test_hashmultimap.i"
+	@echo "... tests/test_hashmultimap.s"
+	@echo "... tests/test_hook.o"
+	@echo "... tests/test_hook.i"
+	@echo "... tests/test_hook.s"
 	@echo "... tests/test_http.o"
 	@echo "... tests/test_http.i"
 	@echo "... tests/test_http.s"
@@ -3524,6 +4169,9 @@ help:
 	@echo "... tests/test_http_server.o"
 	@echo "... tests/test_http_server.i"
 	@echo "... tests/test_http_server.s"
+	@echo "... tests/test_iomanager.o"
+	@echo "... tests/test_iomanager.i"
+	@echo "... tests/test_iomanager.s"
 	@echo "... tests/test_lru.o"
 	@echo "... tests/test_lru.i"
 	@echo "... tests/test_lru.s"
@@ -3542,15 +4190,24 @@ help:
 	@echo "... tests/test_rock.o"
 	@echo "... tests/test_rock.i"
 	@echo "... tests/test_rock.s"
+	@echo "... tests/test_scheduler.o"
+	@echo "... tests/test_scheduler.i"
+	@echo "... tests/test_scheduler.s"
 	@echo "... tests/test_service_discovery.o"
 	@echo "... tests/test_service_discovery.i"
 	@echo "... tests/test_service_discovery.s"
+	@echo "... tests/test_socket.o"
+	@echo "... tests/test_socket.i"
+	@echo "... tests/test_socket.s"
 	@echo "... tests/test_sqlite3.o"
 	@echo "... tests/test_sqlite3.i"
 	@echo "... tests/test_sqlite3.s"
 	@echo "... tests/test_tcp_server.o"
 	@echo "... tests/test_tcp_server.i"
 	@echo "... tests/test_tcp_server.s"
+	@echo "... tests/test_thread.o"
+	@echo "... tests/test_thread.i"
+	@echo "... tests/test_thread.s"
 	@echo "... tests/test_timed_cache.o"
 	@echo "... tests/test_timed_cache.i"
 	@echo "... tests/test_timed_cache.s"
@@ -3560,6 +4217,9 @@ help:
 	@echo "... tests/test_uri.o"
 	@echo "... tests/test_uri.i"
 	@echo "... tests/test_uri.s"
+	@echo "... tests/test_util.o"
+	@echo "... tests/test_util.i"
+	@echo "... tests/test_util.s"
 	@echo "... tests/test_ws_client.o"
 	@echo "... tests/test_ws_client.i"
 	@echo "... tests/test_ws_client.s"

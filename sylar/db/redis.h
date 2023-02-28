@@ -35,10 +35,14 @@ class IRedis {
     const std::string& getName() const { return m_name; }
     void setName(const std::string& v) { m_name = v; }
 
+    const std::string& getPasswd() const { return m_passwd; }
+    void setPasswd(const std::string& v) { m_passwd = v; }
+
     Type getType() const { return m_type; }
 
    protected:
     std::string m_name;
+    std::string m_passwd;
     Type m_type;
     bool m_logEnable;
 };
@@ -148,6 +152,9 @@ class FoxRedis : public IRedis {
 
     bool init();
     int getCtxCount() const { return m_ctxCount; }
+
+   private:
+    static void OnAuthCb(redisAsyncContext* c, void* rp, void* priv);
 
    private:
     struct FCtx {
@@ -266,6 +273,7 @@ class FoxRedisCluster : public IRedis {
     virtual void pcmd(FCtx* ctx);
     bool pinit();
     void delayDelete(redisAsyncContext* c);
+    static void OnAuthCb(redisClusterAsyncContext* c, void* rp, void* priv);
 
    private:
     static void ConnectCb(const redisAsyncContext* c, int status);

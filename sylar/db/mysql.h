@@ -190,6 +190,7 @@ class MySQL : public IDB, public std::enable_shared_from_this<MySQL> {
 
     uint64_t m_lastUsedTime;
     bool m_hasError;
+    int32_t m_poolSize;
 };
 
 class MySQLTransaction : public ITransaction {
@@ -320,6 +321,41 @@ class MySQLManager {
     MutexType m_mutex;
     std::map<std::string, std::list<MySQL*> > m_conns;
     std::map<std::string, std::map<std::string, std::string> > m_dbDefines;
+};
+
+class MySQLUtil {
+   public:
+    static ISQLData::ptr Query(const std::string& name,
+                               const char* format,
+                               ...);
+    static ISQLData::ptr Query(const std::string& name,
+                               const char* format,
+                               va_list ap);
+    static ISQLData::ptr Query(const std::string& name, const std::string& sql);
+
+    static ISQLData::ptr TryQuery(const std::string& name,
+                                  uint32_t count,
+                                  const char* format,
+                                  ...);
+    static ISQLData::ptr TryQuery(const std::string& name,
+                                  uint32_t count,
+                                  const std::string& sql);
+
+    static int Execute(const std::string& name, const char* format, ...);
+    static int Execute(const std::string& name, const char* format, va_list ap);
+    static int Execute(const std::string& name, const std::string& sql);
+
+    static int TryExecute(const std::string& name,
+                          uint32_t count,
+                          const char* format,
+                          ...);
+    static int TryExecute(const std::string& name,
+                          uint32_t count,
+                          const char* format,
+                          va_list ap);
+    static int TryExecute(const std::string& name,
+                          uint32_t count,
+                          const std::string& sql);
 };
 
 typedef sylar::Singleton<MySQLManager> MySQLMgr;

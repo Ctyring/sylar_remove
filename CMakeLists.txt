@@ -20,7 +20,7 @@ include_directories(/usr/local/include)
 link_directories(/yaml-cpp/lib)
 link_directories(/root/cty/sylar/include)
 
-option(TEST "ON for complile test" OFF)
+option(TEST "ON for complile test" ON)
 
 message("***", ${YAMLCPP})
 
@@ -145,7 +145,7 @@ set(LIBS
 		)
 
 message("***", ${LIBS})
-if(TEST)
+# if(TEST)
 sylar_add_executable(test1 "tests/test.cc" sylar "${LIBS}")
 sylar_add_executable(test_config "tests/test_config.cc" sylar "${LIBS}")
 sylar_add_executable(test_thread "tests/test_thread.cc" sylar "${LIBS}")
@@ -161,7 +161,7 @@ sylar_add_executable(test_hook "tests/test_hook.cc" sylar "${LIBS}")
 sylar_add_executable(test_address "tests/test_address.cc" sylar "${LIBS}")
 sylar_add_executable(test_socket "tests/test_socket.cc" sylar "${LIBS}")
 sylar_add_executable(test_bytearray "tests/test_bytearray.cc" sylar "${LIBS}")
-endif()
+# endif()
 sylar_add_executable(test_http "tests/test_http.cc" sylar "${LIBS}")
 sylar_add_executable(test_http_parser "tests/test_http_parser.cc" sylar "${LIBS}")
 sylar_add_executable(test_tcp_server "tests/test_tcp_server.cc" sylar "${LIBS}")
