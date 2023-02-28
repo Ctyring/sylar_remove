@@ -856,6 +856,60 @@ sylar/ds/bitmap.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/bitmap.cc.s
 .PHONY : sylar/ds/bitmap.cc.s
 
+sylar/ds/roaring.o: sylar/ds/roaring.c.o
+
+.PHONY : sylar/ds/roaring.o
+
+# target to build an object file
+sylar/ds/roaring.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring.c.o
+.PHONY : sylar/ds/roaring.c.o
+
+sylar/ds/roaring.i: sylar/ds/roaring.c.i
+
+.PHONY : sylar/ds/roaring.i
+
+# target to preprocess a source file
+sylar/ds/roaring.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring.c.i
+.PHONY : sylar/ds/roaring.c.i
+
+sylar/ds/roaring.s: sylar/ds/roaring.c.s
+
+.PHONY : sylar/ds/roaring.s
+
+# target to generate assembly for a file
+sylar/ds/roaring.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring.c.s
+.PHONY : sylar/ds/roaring.c.s
+
+sylar/ds/roaring_bitmap.o: sylar/ds/roaring_bitmap.cc.o
+
+.PHONY : sylar/ds/roaring_bitmap.o
+
+# target to build an object file
+sylar/ds/roaring_bitmap.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring_bitmap.cc.o
+.PHONY : sylar/ds/roaring_bitmap.cc.o
+
+sylar/ds/roaring_bitmap.i: sylar/ds/roaring_bitmap.cc.i
+
+.PHONY : sylar/ds/roaring_bitmap.i
+
+# target to preprocess a source file
+sylar/ds/roaring_bitmap.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring_bitmap.cc.i
+.PHONY : sylar/ds/roaring_bitmap.cc.i
+
+sylar/ds/roaring_bitmap.s: sylar/ds/roaring_bitmap.cc.s
+
+.PHONY : sylar/ds/roaring_bitmap.s
+
+# target to generate assembly for a file
+sylar/ds/roaring_bitmap.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring_bitmap.cc.s
+.PHONY : sylar/ds/roaring_bitmap.cc.s
+
 sylar/email/email.o: sylar/email/email.cc.o
 
 .PHONY : sylar/email/email.o
@@ -3227,6 +3281,12 @@ help:
 	@echo "... sylar/ds/bitmap.o"
 	@echo "... sylar/ds/bitmap.i"
 	@echo "... sylar/ds/bitmap.s"
+	@echo "... sylar/ds/roaring.o"
+	@echo "... sylar/ds/roaring.i"
+	@echo "... sylar/ds/roaring.s"
+	@echo "... sylar/ds/roaring_bitmap.o"
+	@echo "... sylar/ds/roaring_bitmap.i"
+	@echo "... sylar/ds/roaring_bitmap.s"
 	@echo "... sylar/email/email.o"
 	@echo "... sylar/email/email.i"
 	@echo "... sylar/email/email.s"

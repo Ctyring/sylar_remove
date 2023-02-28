@@ -11,7 +11,8 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # -Wall 开启大部分警告提示
 # -Wno-unused-funtion 不要警告未使用函数
 # -Wno-deprecated 不要警告过时特性
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++17 -fPIC -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
+set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 
 include_directories(.)
 include_directories(/yaml-cpp/include)
@@ -106,7 +107,8 @@ set(LIB_SRC
 	sylar/zk_client.cc
 	sylar/streams/service_discovery.cc
 	sylar/db/fox_thread.cc
-	
+	sylar/ds/roaring_bitmap.cc
+    sylar/ds/roaring.c
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -138,6 +140,7 @@ set(LIBS
 		zookeeper_mt
 		event
         hiredis_vip
+		jemalloc
 		)
 
 message("***", ${LIBS})
