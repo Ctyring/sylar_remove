@@ -23,7 +23,12 @@ class AsyncSocketStream
     virtual void close() override;
 
    public:
-    enum Error { OK = 0, TIMEOUT = -1, IO_ERROR = -2, NOT_CONNECT = -3 };
+    enum Error {
+        OK = 0,
+        TIMEOUT = -1,
+        IO_ERROR = -2,
+        NOT_CONNECT = -3,
+    };
 
    protected:
     struct SendCtx {

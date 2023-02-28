@@ -152,7 +152,7 @@ bool Socket::init(int sock) {
 }
 
 bool Socket::bind(const Address::ptr addr) {
-    m_localAddress = addr;
+    // m_localAddress = addr;
     if (!isValid()) {
         newSock();
         if (SYLAR_UNLIKELY(!isValid())) {

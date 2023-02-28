@@ -10,10 +10,17 @@ namespace sylar {
 
 struct RockResult {
     typedef std::shared_ptr<RockResult> ptr;
-    RockResult(int32_t _result, RockResponse::ptr rsp)
-        : result(_result), response(rsp) {}
+    RockResult(int32_t _result,
+               int32_t _used,
+               RockResponse::ptr rsp,
+               RockRequest::ptr req)
+        : result(_result), used(_used), response(rsp), request(req) {}
     int32_t result;
+    int32_t used;
     RockResponse::ptr response;
+    RockRequest::ptr request;
+
+    std::string toString() const;
 };
 
 class RockStream : public sylar::AsyncSocketStream {
@@ -93,13 +100,23 @@ class RockConnection : public RockStream {
     bool connect(sylar::Address::ptr addr);
 };
 
-class RockFairLoadBalance : public FairLoadBalance {
+class RockSDLoadBalance : public SDLoadBalance {
    public:
-    typedef std::shared_ptr<RockFairLoadBalance> ptr;
-    RockResult::ptr request(RockRequest::ptr req, uint32_t timeout_ms);
+    typedef std::shared_ptr<RockSDLoadBalance> ptr;
+    RockSDLoadBalance(IServiceDiscovery::ptr sd);
 
-   private:
-    uint64_t m_lastInitTime = 0;
+    virtual void start();
+    virtual void stop();
+    void start(
+        const std::unordered_map<std::string,
+                                 std::unordered_map<std::string, std::string> >&
+            confs);
+
+    RockResult::ptr request(const std::string& domain,
+                            const std::string& service,
+                            RockRequest::ptr req,
+                            uint32_t timeout_ms,
+                            uint64_t idx = -1);
 };
 
 }  // namespace sylar

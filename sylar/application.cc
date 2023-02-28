@@ -11,6 +11,7 @@
 #include "sylar/module.h"
 #include "sylar/ns/name_server_module.h"
 #include "sylar/rock/rock_server.h"
+#include "sylar/rock/rock_stream.h"
 #include "sylar/tcp_server.h"
 #include "sylar/worker.h"
 
@@ -27,6 +28,11 @@ static sylar::ConfigVar<std::string>::ptr g_server_pid_file =
     sylar::Config::Lookup("server.pid_file",
                           std::string("sylar.pid"),
                           "server pid file");
+
+static sylar::ConfigVar<std::string>::ptr g_service_discovery_zk =
+    sylar::Config::Lookup("service_discovery.zk",
+                          std::string(""),
+                          "service discovery zookeeper");
 
 static sylar::ConfigVar<std::vector<TcpServerConf> >::ptr g_servers_conf =
     sylar::Config::Lookup("servers",
@@ -169,6 +175,7 @@ int Application::run_fiber() {
     }
     sylar::WorkerMgr::GetInstance()->init();
     auto http_confs = g_servers_conf->getValue();
+    std::vector<TcpServer::ptr> svrs;
     for (auto& i : http_confs) {
         SYLAR_LOG_DEBUG(g_logger)
             << std::endl
@@ -283,12 +290,64 @@ int Application::run_fiber() {
         }
 
         server->setConf(i);
-        server->start();
+        // server->start();
         m_servers[i.type].push_back(server);
+    }
+
+    if (!g_service_discovery_zk->getValue().empty()) {
+        m_serviceDiscovery.reset(
+            new ZKServiceDiscovery(g_service_discovery_zk->getValue()));
+        m_rockSDLoadBalance.reset(new RockSDLoadBalance(m_serviceDiscovery));
+
+        std::vector<TcpServer::ptr> svrs;
+        if (!getServer("http", svrs)) {
+            m_serviceDiscovery->setSelfInfo(sylar::GetIPv4() +
+                                            ":0:" + sylar::GetHostName());
+        } else {
+            std::string ip_and_port;
+            for (auto& i : svrs) {
+                auto socks = i->getSocks();
+                for (auto& s : socks) {
+                    auto addr = std::dynamic_pointer_cast<IPv4Address>(
+                        s->getLocalAddress());
+                    if (!addr) {
+                        continue;
+                    }
+                    auto str = addr->toString();
+                    if (str.find("127.0.0.1") == 0) {
+                        continue;
+                    }
+                    if (str.find("0.0.0.0") == 0) {
+                        ip_and_port = sylar::GetIPv4() + ":" +
+                                      std::to_string(addr->getPort());
+                        break;
+                    } else {
+                        ip_and_port = addr->toString();
+                    }
+                }
+                if (!ip_and_port.empty()) {
+                    break;
+                }
+            }
+            m_serviceDiscovery->setSelfInfo(ip_and_port + ":" +
+                                            sylar::GetHostName());
+        }
     }
 
     for (auto& i : modules) {
         i->onServerReady();
+    }
+
+    for (auto& i : svrs) {
+        i->start();
+    }
+
+    if (m_rockSDLoadBalance) {
+        m_rockSDLoadBalance->start();
+    }
+
+    for (auto& i : modules) {
+        i->onServerUp();
     }
     return 0;
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "sylar/http/http_server.h"
+#include "sylar/rock/rock_stream.h"
+#include "sylar/streams/service_discovery.h"
 
 namespace sylar {
 
@@ -14,6 +16,13 @@ class Application {
     void listAllServer(
         std::map<std::string, std::vector<TcpServer::ptr> >& servers);
 
+    ZKServiceDiscovery::ptr getServiceDiscovery() const {
+        return m_serviceDiscovery;
+    }
+    RockSDLoadBalance::ptr getRockSDLoadBalance() const {
+        return m_rockSDLoadBalance;
+    }
+
    private:
     int main(int argc, char** argv);
     int run_fiber();
@@ -25,6 +34,9 @@ class Application {
     std::map<std::string, std::vector<TcpServer::ptr> > m_servers;
     IOManager::ptr m_mainIOManager;
     static Application* s_instance;
+
+    ZKServiceDiscovery::ptr m_serviceDiscovery;
+    RockSDLoadBalance::ptr m_rockSDLoadBalance;
 };
 
 }  // namespace sylar

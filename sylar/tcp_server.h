@@ -186,6 +186,7 @@ class TcpServer : public std::enable_shared_from_this<TcpServer>, Noncopyable {
     void setConf(const TcpServerConf& v);
 
     virtual std::string toString(const std::string& prefix = "");
+    std::vector<Socket::ptr> getSocks() const { return m_socks; }
 
    protected:
     /**

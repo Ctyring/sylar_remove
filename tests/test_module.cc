@@ -30,6 +30,11 @@ class MyModule : public sylar::RockModule {
         return true;
     }
 
+    bool onServerReady() {
+        registerService("rock", "sylar.top", "blog");
+        return true;
+    }
+
     bool handleRockRequest(sylar::RockRequest::ptr request,
                            sylar::RockResponse::ptr response,
                            sylar::RockStream::ptr stream) {
@@ -37,6 +42,22 @@ class MyModule : public sylar::RockModule {
         response->setResult(0);
         response->setResultStr("ok");
         response->setBody("echo: " + request->getBody());
+
+        usleep(100 * 1000);
+        auto addr = stream->getLocalAddressString();
+        if (addr.find("8061") != std::string::npos) {
+            if (rand() % 100 < 50) {
+                usleep(10 * 1000);
+            } else if (rand() % 100 < 10) {
+                response->setResult(-1000);
+            }
+        } else {
+            // if(rand() % 100 < 25) {
+            //     usleep(10 * 1000);
+            // } else if(rand() % 100 < 10) {
+            //     response->setResult(-1000);
+            // }
+        }
         return true;
     }
 

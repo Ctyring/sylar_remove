@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_service_discovery
+
+# Build rule for target.
+test_service_discovery: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_service_discovery
+.PHONY : test_service_discovery
+
+# fast build rule for target.
+test_service_discovery/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/build
+.PHONY : test_service_discovery/fast
+
+#=============================================================================
 # Target rules for targets named test_zookeeper
 
 # Build rule for target.
@@ -2004,6 +2017,33 @@ sylar/streams/load_balance.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/load_balance.cc.s
 .PHONY : sylar/streams/load_balance.cc.s
 
+sylar/streams/service_discovery.o: sylar/streams/service_discovery.cc.o
+
+.PHONY : sylar/streams/service_discovery.o
+
+# target to build an object file
+sylar/streams/service_discovery.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/service_discovery.cc.o
+.PHONY : sylar/streams/service_discovery.cc.o
+
+sylar/streams/service_discovery.i: sylar/streams/service_discovery.cc.i
+
+.PHONY : sylar/streams/service_discovery.i
+
+# target to preprocess a source file
+sylar/streams/service_discovery.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/service_discovery.cc.i
+.PHONY : sylar/streams/service_discovery.cc.i
+
+sylar/streams/service_discovery.s: sylar/streams/service_discovery.cc.s
+
+.PHONY : sylar/streams/service_discovery.s
+
+# target to generate assembly for a file
+sylar/streams/service_discovery.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/streams/service_discovery.cc.s
+.PHONY : sylar/streams/service_discovery.cc.s
+
 sylar/streams/socket_stream.o: sylar/streams/socket_stream.cc.o
 
 .PHONY : sylar/streams/socket_stream.o
@@ -2787,6 +2827,33 @@ tests/test_rock.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_rock.dir/build.make CMakeFiles/test_rock.dir/tests/test_rock.cc.s
 .PHONY : tests/test_rock.cc.s
 
+tests/test_service_discovery.o: tests/test_service_discovery.cc.o
+
+.PHONY : tests/test_service_discovery.o
+
+# target to build an object file
+tests/test_service_discovery.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/tests/test_service_discovery.cc.o
+.PHONY : tests/test_service_discovery.cc.o
+
+tests/test_service_discovery.i: tests/test_service_discovery.cc.i
+
+.PHONY : tests/test_service_discovery.i
+
+# target to preprocess a source file
+tests/test_service_discovery.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/tests/test_service_discovery.cc.i
+.PHONY : tests/test_service_discovery.cc.i
+
+tests/test_service_discovery.s: tests/test_service_discovery.cc.s
+
+.PHONY : tests/test_service_discovery.s
+
+# target to generate assembly for a file
+tests/test_service_discovery.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_service_discovery.dir/build.make CMakeFiles/test_service_discovery.dir/tests/test_service_discovery.cc.s
+.PHONY : tests/test_service_discovery.cc.s
+
 tests/test_sqlite3.o: tests/test_sqlite3.cc.o
 
 .PHONY : tests/test_sqlite3.o
@@ -3036,6 +3103,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_service_discovery"
 	@echo "... test_zookeeper"
 	@echo "... test_nameserver"
 	@echo "... bin_sylar"
@@ -3234,6 +3302,9 @@ help:
 	@echo "... sylar/streams/load_balance.o"
 	@echo "... sylar/streams/load_balance.i"
 	@echo "... sylar/streams/load_balance.s"
+	@echo "... sylar/streams/service_discovery.o"
+	@echo "... sylar/streams/service_discovery.i"
+	@echo "... sylar/streams/service_discovery.s"
 	@echo "... sylar/streams/socket_stream.o"
 	@echo "... sylar/streams/socket_stream.i"
 	@echo "... sylar/streams/socket_stream.s"
@@ -3321,6 +3392,9 @@ help:
 	@echo "... tests/test_rock.o"
 	@echo "... tests/test_rock.i"
 	@echo "... tests/test_rock.s"
+	@echo "... tests/test_service_discovery.o"
+	@echo "... tests/test_service_discovery.i"
+	@echo "... tests/test_service_discovery.s"
 	@echo "... tests/test_sqlite3.o"
 	@echo "... tests/test_sqlite3.i"
 	@echo "... tests/test_sqlite3.s"

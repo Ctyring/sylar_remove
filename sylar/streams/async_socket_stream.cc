@@ -226,6 +226,9 @@ bool AsyncSocketStream::waitFiber() {
 void AsyncSocketStream::close() {
     m_autoConnect = false;
     SchedulerSwitcher ss(m_iomanager);
+    if (m_timer) {
+        m_timer->cancel();
+    }
     SocketStream::close();
 }
 

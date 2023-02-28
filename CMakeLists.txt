@@ -103,6 +103,7 @@ set(LIB_SRC
     sylar/ns/ns_protocol.cc
 	sylar/ds/bitmap.cc
 	sylar/zk_client.cc
+	sylar/streams/service_discovery.cc
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -197,6 +198,7 @@ sylar_add_executable(test_orm "tests/test_orm.cc" orm_data "${OLIBS}")
 sylar_add_executable(test_nameserver "tests/test_nameserver.cc" sylar "${LIBS}")
 sylar_add_executable(test_bitmap "tests/test_bitmap.cc" sylar "${LIBS}")
 sylar_add_executable(test_zookeeper "tests/test_zookeeper.cc" sylar "${LIBS}")
+sylar_add_executable(test_service_discovery "tests/test_service_discovery.cc" sylar "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
