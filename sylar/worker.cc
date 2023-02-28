@@ -12,7 +12,10 @@ static sylar::ConfigVar<
         "worker config");
 
 WorkerGroup::WorkerGroup(uint32_t batch_size, sylar::Scheduler* s)
-    : m_batchSize(batch_size), m_finish(false), m_scheduler(s) {}
+    : m_batchSize(batch_size),
+      m_finish(false),
+      m_scheduler(s),
+      m_sem(batch_size) {}
 
 WorkerGroup::~WorkerGroup() {
     waitAll();

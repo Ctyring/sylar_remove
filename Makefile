@@ -910,6 +910,33 @@ sylar/ds/roaring_bitmap.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/roaring_bitmap.cc.s
 .PHONY : sylar/ds/roaring_bitmap.cc.s
 
+sylar/ds/util.o: sylar/ds/util.cc.o
+
+.PHONY : sylar/ds/util.o
+
+# target to build an object file
+sylar/ds/util.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/util.cc.o
+.PHONY : sylar/ds/util.cc.o
+
+sylar/ds/util.i: sylar/ds/util.cc.i
+
+.PHONY : sylar/ds/util.i
+
+# target to preprocess a source file
+sylar/ds/util.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/util.cc.i
+.PHONY : sylar/ds/util.cc.i
+
+sylar/ds/util.s: sylar/ds/util.cc.s
+
+.PHONY : sylar/ds/util.s
+
+# target to generate assembly for a file
+sylar/ds/util.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/ds/util.cc.s
+.PHONY : sylar/ds/util.cc.s
+
 sylar/email/email.o: sylar/email/email.cc.o
 
 .PHONY : sylar/email/email.o
@@ -3287,6 +3314,9 @@ help:
 	@echo "... sylar/ds/roaring_bitmap.o"
 	@echo "... sylar/ds/roaring_bitmap.i"
 	@echo "... sylar/ds/roaring_bitmap.s"
+	@echo "... sylar/ds/util.o"
+	@echo "... sylar/ds/util.i"
+	@echo "... sylar/ds/util.s"
 	@echo "... sylar/email/email.o"
 	@echo "... sylar/email/email.i"
 	@echo "... sylar/email/email.s"
