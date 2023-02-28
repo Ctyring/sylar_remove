@@ -721,6 +721,33 @@ sylar/daemon.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/daemon.cc.s
 .PHONY : sylar/daemon.cc.s
 
+sylar/db/fox_thread.o: sylar/db/fox_thread.cc.o
+
+.PHONY : sylar/db/fox_thread.o
+
+# target to build an object file
+sylar/db/fox_thread.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/fox_thread.cc.o
+.PHONY : sylar/db/fox_thread.cc.o
+
+sylar/db/fox_thread.i: sylar/db/fox_thread.cc.i
+
+.PHONY : sylar/db/fox_thread.i
+
+# target to preprocess a source file
+sylar/db/fox_thread.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/fox_thread.cc.i
+.PHONY : sylar/db/fox_thread.cc.i
+
+sylar/db/fox_thread.s: sylar/db/fox_thread.cc.s
+
+.PHONY : sylar/db/fox_thread.s
+
+# target to generate assembly for a file
+sylar/db/fox_thread.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/fox_thread.cc.s
+.PHONY : sylar/db/fox_thread.cc.s
+
 sylar/db/mysql.o: sylar/db/mysql.cc.o
 
 .PHONY : sylar/db/mysql.o
@@ -747,6 +774,33 @@ sylar/db/mysql.s: sylar/db/mysql.cc.s
 sylar/db/mysql.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/mysql.cc.s
 .PHONY : sylar/db/mysql.cc.s
+
+sylar/db/redis.o: sylar/db/redis.cc.o
+
+.PHONY : sylar/db/redis.o
+
+# target to build an object file
+sylar/db/redis.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/redis.cc.o
+.PHONY : sylar/db/redis.cc.o
+
+sylar/db/redis.i: sylar/db/redis.cc.i
+
+.PHONY : sylar/db/redis.i
+
+# target to preprocess a source file
+sylar/db/redis.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/redis.cc.i
+.PHONY : sylar/db/redis.cc.i
+
+sylar/db/redis.s: sylar/db/redis.cc.s
+
+.PHONY : sylar/db/redis.s
+
+# target to generate assembly for a file
+sylar/db/redis.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/db/redis.cc.s
+.PHONY : sylar/db/redis.cc.s
 
 sylar/db/sqlite3.o: sylar/db/sqlite3.cc.o
 
@@ -3158,9 +3212,15 @@ help:
 	@echo "... sylar/daemon.o"
 	@echo "... sylar/daemon.i"
 	@echo "... sylar/daemon.s"
+	@echo "... sylar/db/fox_thread.o"
+	@echo "... sylar/db/fox_thread.i"
+	@echo "... sylar/db/fox_thread.s"
 	@echo "... sylar/db/mysql.o"
 	@echo "... sylar/db/mysql.i"
 	@echo "... sylar/db/mysql.s"
+	@echo "... sylar/db/redis.o"
+	@echo "... sylar/db/redis.i"
+	@echo "... sylar/db/redis.s"
 	@echo "... sylar/db/sqlite3.o"
 	@echo "... sylar/db/sqlite3.i"
 	@echo "... sylar/db/sqlite3.s"

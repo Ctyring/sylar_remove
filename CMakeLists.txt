@@ -76,6 +76,7 @@ set(LIB_SRC
     sylar/http/ws_server.cc
     sylar/http/ws_servlet.cc
 	sylar/util/hash_util.cc
+	sylar/db/redis.cc
 	sylar/application.cc
 	sylar/util/time.cc
 	sylar/worker.cc
@@ -104,6 +105,8 @@ set(LIB_SRC
 	sylar/ds/bitmap.cc
 	sylar/zk_client.cc
 	sylar/streams/service_discovery.cc
+	sylar/db/fox_thread.cc
+	
 	)
 
 ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
@@ -133,6 +136,8 @@ set(LIBS
 		mysqlclient
 		mysqlclient_r
 		zookeeper_mt
+		event
+        hiredis_vip
 		)
 
 message("***", ${LIBS})

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "sylar/db/redis.h"
 #include "sylar/log.h"
 #include "sylar/module.h"
 #include "sylar/singleton.h"
@@ -32,6 +33,13 @@ class MyModule : public sylar::RockModule {
 
     bool onServerReady() {
         registerService("rock", "sylar.top", "blog");
+        auto rpy = sylar::RedisUtil::Cmd("local", "get abc");
+        if (!rpy) {
+            SYLAR_LOG_ERROR(g_logger) << "redis cmd get abc error";
+        } else {
+            SYLAR_LOG_ERROR(g_logger)
+                << "redis get abc: " << (rpy->str ? rpy->str : "(null)");
+        }
         return true;
     }
 
