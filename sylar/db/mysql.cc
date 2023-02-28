@@ -466,13 +466,13 @@ int MySQLStmt::bindBlob(int idx, const std::string& value) {
 // }
 
 int MySQLStmt::bindTime(int idx, const time_t& value) {
-    idx -= 1;
-    m_binds[idx].buffer_type = MYSQL_TYPE_TIMESTAMP;
-    MYSQL_TIME* mt = (MYSQL_TIME*)malloc(sizeof(MYSQL_TIME));
-    time_t_to_mysql_time(value, *mt);
-    m_binds[idx].buffer = mt;
-    m_binds[idx].buffer_length = sizeof(MYSQL_TIME);
-    return 0;
+    // idx -= 1;
+    // m_binds[idx].buffer_type = MYSQL_TYPE_TIMESTAMP;
+    // MYSQL_TIME* mt = (MYSQL_TIME*)malloc(sizeof(MYSQL_TIME));
+    // time_t_to_mysql_time(value, *mt);
+    // m_binds[idx].buffer = mt;
+    // m_binds[idx].buffer_length = sizeof(MYSQL_TIME);
+    return bindString(idx, sylar::Time2Str(value));
 }
 
 int MySQLStmt::execute() {
@@ -945,7 +945,10 @@ std::shared_ptr<MySQL> MySQLTransaction::getMySQL() {
 }
 
 MySQLTransaction::MySQLTransaction(MySQL::ptr mysql, bool auto_commit)
-    : m_mysql(mysql), m_autoCommit(auto_commit) {}
+    : m_mysql(mysql),
+      m_autoCommit(auto_commit),
+      m_isFinished(false),
+      m_hasError(false) {}
 
 MySQLManager::MySQLManager() : m_maxConn(10) {
     mysql_library_init(0, nullptr, nullptr);
