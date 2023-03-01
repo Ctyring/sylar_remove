@@ -81,6 +81,7 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs,
 }
 
 void TcpServer::startAccept(Socket::ptr sock) {
+    SYLAR_LOG_INFO(g_logger) << "startAccept: " << *sock;
     // 对于每个监听的socket，都循环不断等待接收请求
     while (!m_isStop) {
         Socket::ptr client = sock->accept();
@@ -140,6 +141,7 @@ std::string TcpServer::toString(const std::string& prefix) {
     std::stringstream ss;
     ss << prefix << "[type=" << m_type << " name=" << m_name << " ssl=" << m_ssl
        << " worker=" << (m_worker ? m_worker->getName() : "")
+       << " ioworker=" << (m_ioWorker ? m_ioWorker->getName() : "")
        << " accept=" << (m_acceptWorker ? m_acceptWorker->getName() : "")
        << " recv_timeout=" << m_recvTimeout << "]" << std::endl;
     std::string pfx = prefix.empty() ? "    " : prefix;

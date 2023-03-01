@@ -1,6 +1,7 @@
 #include "http_session.h"
 #include "http_parser.h"
 namespace sylar {
+static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("debug");
 namespace http {
 HttpSession::HttpSession(Socket::ptr sock, bool owner)
     : SocketStream(sock, owner) {}
@@ -14,13 +15,16 @@ HttpRequest::ptr HttpSession::recvRequest() {
     std::shared_ptr<char> buffer(new char[buff_size],
                                  [](char* ptr) { delete[] ptr; });
     char* data = buffer.get();
+    // SYLAR_LOG_INFO(g_logger) << "buff_size=" << buff_size << std::endl;
     // 偏移量
     int offset = 0;
     do {
         // 读取数据
         int len = read(data + offset, buff_size - offset);
+        SYLAR_LOG_INFO(g_logger) << "len=" << len << std::endl;
         // 如果读完了就关闭
         if (len <= 0) {
+            // SYLAR_LOG_INFO(g_logger) << "len <= 0" << std::endl;
             close();
             return nullptr;
         }
@@ -36,6 +40,7 @@ HttpRequest::ptr HttpSession::recvRequest() {
         offset = len - nparse;
         // 如果偏移量等于缓存大小，说明读完了，关闭(这里设定就是，加入特别大，默认为读完了)
         if (offset == (int)buff_size) {
+            // SYLAR_LOG_INFO(g_logger) << "offset == buff_size" << std::endl;
             close();
             return nullptr;
         }

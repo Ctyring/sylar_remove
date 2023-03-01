@@ -1,6 +1,6 @@
 /**
- * @file bytearray.h
- * @brief 二进制数组(序列化/反序列化)
+ * @file http11_parser.h
+ * @brief http11解析
  * @author sylar.yin
  * @email 564628276@qq.com
  * @date 2019-06-03

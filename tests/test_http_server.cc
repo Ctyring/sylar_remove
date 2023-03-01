@@ -43,6 +43,7 @@ void run() {
             Chrome friendly error page-- >));
         return 0;
     });
+    SYLAR_LOG_INFO(g_logger) << "server start";
     server->start();
 }
 

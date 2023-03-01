@@ -16,7 +16,6 @@
 #include "iomanager.h"
 #include "noncopyable.h"
 #include "socket.h"
-
 namespace sylar {
 
 struct TcpServerConf {

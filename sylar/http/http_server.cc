@@ -26,7 +26,7 @@ void HttpServer::setName(const std::string& v) {
 }
 
 void HttpServer::handleClient(Socket::ptr client) {
-    SYLAR_LOG_DEBUG(g_logger) << "handleClient " << *client;
+    SYLAR_LOG_INFO(g_logger) << "handleClient " << *client;
     HttpSession::ptr session(new HttpSession(client));
     do {
         auto req = session->recvRequest();

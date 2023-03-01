@@ -13,6 +13,8 @@ void test_response() {
     resp->setBody("hello world!");
     resp->setStatus(sylar::http::HttpStatus::BAD_REQUEST);
     resp->setClose(false);
+    // 设置长连接
+    resp->setHeader("Connection", "keep-alive");
     resp->dump(std::cout) << std::endl;
 }
 int main(int argc, char** argv) {

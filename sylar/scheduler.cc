@@ -169,7 +169,7 @@ void Scheduler::run() {
         }
         // 如果当前线程没有协程，且有其他线程有协程，那么就唤醒其他线程
         if (tickle_me) {
-            SYLAR_LOG_DEBUG(g_logger) << "唤醒其他线程";
+            // SYLAR_LOG_DEBUG(g_logger) << "唤醒其他线程";
             tickle();
         }
 

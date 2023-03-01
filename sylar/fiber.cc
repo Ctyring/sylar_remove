@@ -152,11 +152,14 @@ void Fiber::SetThis(Fiber* f) {
 
 // 返回当前协程
 Fiber::ptr Fiber::GetThis() {
+    // 当前协程存在，正常返回
     if (t_fiber) {
         return t_fiber->shared_from_this();
     }
+    // 当前协程不存在，创建一个主协程
     Fiber::ptr main_fiber(new Fiber);
     SYLAR_ASSERT(t_fiber == main_fiber.get());
+    // t_threadFiber保存主协程
     t_threadFiber = main_fiber;
     return t_fiber->shared_from_this();
 }

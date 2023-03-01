@@ -487,8 +487,11 @@ namespace {
 
 struct _SSLInit {
     _SSLInit() {
+        // 初始化openssl库中所有SSL/TLE相关内容
         SSL_library_init();
+        // 加载所有SSL错误信息字符串
         SSL_load_error_strings();
+        // 注册openssl库所有可用的密码算法
         OpenSSL_add_all_algorithms();
     }
 };
