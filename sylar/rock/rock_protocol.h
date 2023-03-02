@@ -84,7 +84,7 @@ struct RockMsgHeader {
     RockMsgHeader();
     uint8_t magic[2];
     uint8_t version;
-    uint8_t flag;
+    uint8_t flag;  // 0x1: zip
     int32_t length;
 };
 
@@ -92,7 +92,9 @@ class RockMessageDecoder : public MessageDecoder {
    public:
     typedef std::shared_ptr<RockMessageDecoder> ptr;
 
+    // 解析数据
     virtual Message::ptr parseFrom(Stream::ptr stream) override;
+    // 序列化数据
     virtual int32_t serializeTo(Stream::ptr stream, Message::ptr msg) override;
 };
 

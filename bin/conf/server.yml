@@ -14,4 +14,12 @@ servers:
       io_worker: io
       process_worker:  io
       type: rock
+    - address: ["0.0.0.0:8072", "localhost:8071"]
+      keepalive: 1
+      timeout: 1000
+      name: sylar/2.1
+      accept_worker: accept
+      io_worker: io
+      process_worker: worker
+      type: nameserver
       

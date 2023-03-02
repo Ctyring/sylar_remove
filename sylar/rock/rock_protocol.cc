@@ -164,22 +164,26 @@ RockMsgHeader::RockMsgHeader()
 Message::ptr RockMessageDecoder::parseFrom(Stream::ptr stream) {
     try {
         RockMsgHeader header;
+        // 读取头部
         if (stream->readFixSize(&header, sizeof(header)) <= 0) {
             SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder decode head error";
             return nullptr;
         }
 
+        // 校验头部魔数
         if (memcmp(header.magic, s_rock_magic, sizeof(s_rock_magic))) {
             SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder head.magic error";
             return nullptr;
         }
 
+        // 校验版本号
         if (header.version != 0x1) {
             SYLAR_LOG_ERROR(g_logger)
                 << "RockMessageDecoder head.version != 0x1";
             return nullptr;
         }
 
+        // 校验长度
         header.length = sylar::byteswapOnLittleEndian(header.length);
         if ((uint32_t)header.length >= g_rock_protocol_max_length->getValue()) {
             SYLAR_LOG_ERROR(g_logger)
@@ -187,6 +191,8 @@ Message::ptr RockMessageDecoder::parseFrom(Stream::ptr stream) {
                 << ") >=" << g_rock_protocol_max_length->getValue();
             return nullptr;
         }
+
+        // 读取body
         sylar::ByteArray::ptr ba(new sylar::ByteArray);
         if (stream->readFixSize(ba, header.length) <= 0) {
             SYLAR_LOG_ERROR(g_logger)
@@ -194,13 +200,17 @@ Message::ptr RockMessageDecoder::parseFrom(Stream::ptr stream) {
             return nullptr;
         }
 
+        // 解压
         ba->setPosition(0);
         if (header.flag & 0x1) {  // gizp
             auto zstream = sylar::ZlibStream::CreateGzip(false);
+            // 写入数据
             if (zstream->write(ba, -1) != Z_OK) {
                 SYLAR_LOG_ERROR(g_logger) << "RockMessageDecoder ungzip error";
                 return nullptr;
             }
+
+            // 刷新缓冲区
             if (zstream->flush() != Z_OK) {
                 SYLAR_LOG_ERROR(g_logger)
                     << "RockMessageDecoder ungzip flush error";

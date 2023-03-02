@@ -201,10 +201,11 @@ class TcpServer : public std::enable_shared_from_this<TcpServer>, Noncopyable {
    protected:
     /// 监听Socket数组
     std::vector<Socket::ptr> m_socks;
-    /// 新连接的Socket工作的调度器
+    /// 分配给socket stream的调度器
     IOManager* m_worker;
+    // 业务处理的调度器
     IOManager* m_ioWorker;
-    /// 服务器Socket接收连接的调度器
+    /// 服务器Socket连接和断开调度器
     IOManager* m_acceptWorker;
     /// 接收超时时间(毫秒)
     uint64_t m_recvTimeout;

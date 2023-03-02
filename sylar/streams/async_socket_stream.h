@@ -133,7 +133,9 @@ class AsyncSocketStream
     uint32_t m_sn;
     bool m_autoConnect;
     sylar::Timer::ptr m_timer;
+    // io读写调度
     sylar::IOManager* m_iomanager;
+    // 业务处理调度(来自server分配)
     sylar::IOManager* m_worker;
 
     connect_callback m_connectCb;

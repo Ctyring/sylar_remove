@@ -63,7 +63,7 @@ class RockStream : public sylar::AsyncSocketStream {
     struct RockSendCtx : public SendCtx {
         typedef std::shared_ptr<RockSendCtx> ptr;
         Message::ptr msg;
-
+        
         virtual bool doSend(AsyncSocketStream::ptr stream) override;
     };
 

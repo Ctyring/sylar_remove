@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     sylar::ZKClient::ptr client(new sylar::ZKClient);
     if (g_argc > 1) {
         SYLAR_LOG_INFO(g_logger)
-            << client->init("127.0.0.1:21811", 3000, on_watcher);
+            << client->init("127.0.0.1:2181", 3000, on_watcher);
         // SYLAR_LOG_INFO(g_logger) <<
         // client->init("127.0.0.1:21811,127.0.0.1:21812,127.0.0.1:21811", 3000,
         // on_watcher);

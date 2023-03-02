@@ -40,8 +40,10 @@ ZlibStream::~ZlibStream() {
     }
 
     if (m_encode) {
+        // 释放压缩资源
         deflateEnd(&m_zstream);
     } else {
+        // 释放解压资源
         inflateEnd(&m_zstream);
     }
 }
@@ -112,9 +114,11 @@ int ZlibStream::init(Type type,
     }
 
     if (m_encode) {
+        // 初始化压缩
         return deflateInit2(&m_zstream, level, Z_DEFLATED, window_bits,
                             memlevel, (int)strategy);
     } else {
+        // 初始化解压
         return inflateInit2(&m_zstream, window_bits);
     }
 }

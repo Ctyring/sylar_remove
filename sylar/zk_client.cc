@@ -1,5 +1,4 @@
 #include "zk_client.h"
-
 namespace sylar {
 
 // static const int CREATED = ZOO_CREATED_EVENT;
