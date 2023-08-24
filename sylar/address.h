@@ -1,10 +1,6 @@
 /**
  * @file address.h
  * @brief 网络地址的封装(IPv4,IPv6,Unix)
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-06-05
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_ADDRESS_H__
 #define __SYLAR_ADDRESS_H__

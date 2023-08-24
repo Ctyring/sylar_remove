@@ -1,10 +1,6 @@
 /**
  * @file crypto_util.h
  * @brief 加解密工具函数
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-07-02
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_UTIL_CRYPTO_UTIL_H__
 #define __SYLAR_UTIL_CRYPTO_UTIL_H__

@@ -1,10 +1,6 @@
 /**
  * @file http_connection.h
  * @brief HTTP客户端类
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-06-11
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_HTTP_CONNECTION_H__
 #define __SYLAR_HTTP_CONNECTION_H__

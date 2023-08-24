@@ -13,3 +13,5 @@ build/
 include/
 orm_out/
 .db
+.idea/
+cmake-build-debug/

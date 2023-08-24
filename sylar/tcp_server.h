@@ -1,10 +1,6 @@
 /**
  * @file tcp_server.h
  * @brief TCP服务器的封装
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-06-05
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_TCP_SERVER_H__
 #define __SYLAR_TCP_SERVER_H__

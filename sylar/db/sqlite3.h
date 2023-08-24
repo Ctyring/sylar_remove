@@ -1,10 +1,6 @@
 /**
  * @file sqlite3.h
  * @brief SQLite3封装
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-07-07
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_DB_SQLITE3_H__
 #define __SYLAR_DB_SQLITE3_H__

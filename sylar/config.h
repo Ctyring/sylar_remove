@@ -1,10 +1,6 @@
 /**
  * @file config.h
  * @brief 配置模块
- * @author sylar.yin
- * @email 564628276@qq.com
- * @date 2019-05-22
- * @copyright Copyright (c) 2019年 sylar.yin All rights reserved (www.sylar.top)
  */
 #ifndef __SYLAR_CONFIG_H__
 #define __SYLAR_CONFIG_H__
